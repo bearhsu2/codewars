@@ -16,36 +16,34 @@ public class Runes {
 
         String preprocessedInput = preProcessing(input);
 
-        Set<Integer> usedNumbers = findUsedNumbers(input);
+        Set<Integer> usedNumbers = findUsedNumbers(preprocessedInput);
 
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i <= 9; i++) {
             // skip used numbers
             if (usedNumbers.contains(i)) continue;
 
             // divide input into "expression=answer" format
-            String[] parts = splitExpAndAnswer(input);
+            String[] parts = splitExpAndAnswer(preprocessedInput);
             String expression = parts[0];
             String answer = parts[1];
 
             try {
-                engine.eval(expression.replaceAll("\\?", "" + i));
+                String exp = "\\?";
+                String digit = "" + i;
+                int left = (Integer) engine.eval(expression.replaceAll(exp, digit));
+                int right = Integer.parseInt(answer.replaceAll(exp, digit));
+
+                if (left == right) {
+                    missingDigit = i;
+                    break;
+                }
             } catch (ScriptException e) {
                 e.printStackTrace();
             }
 
         }
-
-
-
-
-
-
-        //Write code to determine the missing digit or unknown rune
-        //Expression will always be in the form
-        //(number)[opperator](number)=(number)
-        //Unknown digit will not be the same as any other digits used in expression
 
         return missingDigit;
     }
