@@ -6,7 +6,7 @@ import javax.script.ScriptException;
 import java.util.HashSet;
 import java.util.Set;
 
-//
+//https://www.codewars.com/kata/find-the-unknown-digit/train/java
 public class Runes {
 
     private static final String EQUAL = "=";
