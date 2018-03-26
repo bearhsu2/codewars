@@ -20,7 +20,13 @@ public class Runes {
 
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
+
+        String qRegExp = "\\?";
         for (int i = 0; i <= 9; i++) {
+
+            // "?" cannot be a leading "0"
+            if (i == 0 && missingDigitLeading(preprocessedInput)) continue;
+
             // skip used numbers
             if (usedNumbers.contains(i)) continue;
 
@@ -30,10 +36,10 @@ public class Runes {
             String answer = parts[1];
 
             try {
-                String exp = "\\?";
                 String digit = "" + i;
-                int left = (Integer) engine.eval(expression.replaceAll(exp, digit));
-                int right = Integer.parseInt(answer.replaceAll(exp, digit));
+
+                int left = (Integer) engine.eval(expression.replaceAll(qRegExp, digit));
+                int right = Integer.parseInt(answer.replaceAll(qRegExp, digit));
 
                 if (left == right) {
                     missingDigit = i;
@@ -46,6 +52,13 @@ public class Runes {
         }
 
         return missingDigit;
+    }
+
+    private static boolean missingDigitLeading(String input) {
+        return input.startsWith("?") ||
+                input.contains("*?") ||
+                input.contains("-?") ||
+                input.contains("+?");
     }
 
     public static Set<Integer> findUsedNumbers(String input) {
