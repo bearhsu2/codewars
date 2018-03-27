@@ -8,6 +8,7 @@ public class RunesTest {
 
     @Test
     public void testSample() {
+        assertEquals( "Answer for expression '1*?=0' " , 0 , Runes.solveExpression("11*?=?") );
         assertEquals( "Answer for expression '1--2=?' " , 3 , Runes.solveExpression("1--2=?") );
         assertEquals( "Answer for expression '1-2=?' " , -1 , Runes.solveExpression("1-2=?") );
         assertEquals( "Answer for expression '1+1=?' " , 2 , Runes.solveExpression("1+1=?") );

@@ -5,6 +5,8 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 //https://www.codewars.com/kata/find-the-unknown-digit/train/java
 public class Runes {
@@ -24,22 +26,25 @@ public class Runes {
         String qRegExp = "\\?";
         for (int i = 0; i <= 9; i++) {
 
-            // "?" cannot be a leading "0"
-            if (i == 0 && missingDigitLeading(preprocessedInput)) continue;
-
-            // skip used numbers
-            if (usedNumbers.contains(i)) continue;
-
             // divide input into "expression=answer" format
             String[] parts = splitExpAndAnswer(preprocessedInput);
             String expression = parts[0];
             String answer = parts[1];
 
-            try {
-                String digit = "" + i;
+            String digit = "" + i;
+            expression = expression.replaceAll(qRegExp, digit);
+            answer = answer.replaceAll(qRegExp, digit);
 
-                int left = (Integer) engine.eval(expression.replaceAll(qRegExp, digit));
-                int right = Integer.parseInt(answer.replaceAll(qRegExp, digit));
+            // expression cannot contain leading "0"s
+            // answer cannot, either
+            if (i == 0 && hasLeadingZeros(expression) || isLedByZeros(answer)) continue;
+
+            // skip used numbers
+            if (usedNumbers.contains(i)) continue;
+
+            try {
+                int left = (Integer) engine.eval(expression);
+                int right = Integer.parseInt(answer);
 
                 if (left == right) {
                     missingDigit = i;
@@ -54,11 +59,26 @@ public class Runes {
         return missingDigit;
     }
 
-    private static boolean missingDigitLeading(String input) {
-        return input.startsWith("?") ||
-                input.contains("*?") ||
-                input.contains("-?") ||
-                input.contains("+?");
+    private static boolean hasLeadingZeros(String expression){
+        // find two "numbers"
+        String[] numberStrings = expression.split("[\\D]");
+
+        return isLedByZeros(numberStrings[0]) || isLedByZeros(numberStrings[1]);
+    }
+
+    private static boolean isLedByZeros(String numberString){
+        if (numberString.length() == 1) return false;
+
+        // String to be scanned to find the pattern.
+        String pattern = "^0";
+
+        // Create a Pattern object
+        Pattern r = Pattern.compile(pattern);
+
+        // Now create matcher object.
+        Matcher m = r.matcher(numberString);
+
+        return m.find();
     }
 
     public static Set<Integer> findUsedNumbers(String input) {
