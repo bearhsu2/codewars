@@ -9,6 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class KataTest {
     @Test
     public void basicTests() {
+        assertEquals(1223, Kata.nextSmaller(1232));
         assertEquals(312, Kata.nextSmaller(321));
         assertEquals(790, Kata.nextSmaller(907));
         assertEquals(513, Kata.nextSmaller(531));
