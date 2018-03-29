@@ -15,49 +15,37 @@ public class Kata {
         if (n <= 10) return -1;
 
         List<Integer> originals = longToList(n);
-        List<Integer> candidates = longToList(n);
         List<Integer> results = new ArrayList<>();
         int numDigits = originals.size();
-        Collections.sort(candidates, new Comparator<Integer>() {
+
+        System.out.println("all digits: " + originals);
+
+        // find first digit that makes stops a "<<<" tail
+        int badDigit = -1;
+        for (int i = numDigits - 1; i > 0; i--) {
+            if (originals.get(i - 1) > originals.get(i)) {
+                Collections.swap(originals, i - 1, originals.size() - 1);
+                badDigit = i;
+                break;
+            }
+        }
+
+        originals.subList(badDigit, numDigits).sort(new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
                 return o2 - o1;
             }
         });
-        System.out.println("all digits: " + originals);
 
-        for (int i = 0; i < numDigits; i++) {
-
-            int original = originals.get(i);
-            int numCandidates = candidates.size();
-            int indexOfOriginal = candidates.indexOf(original);
-
-            boolean found = false;
-            for (int j = indexOfOriginal + 1; j < numCandidates; j++) {
-                int candidate = candidates.get(j);
-                if (candidate < original) {
-                    candidates.remove(j);
-                    results.add(candidate);
-                    found = true;
-                    break;
-                }
-            }
-            if (found) {
-                results.addAll(candidates);
-                break;
-            } else {
-                candidates.remove(indexOfOriginal);
-                results.add(original);
-            }
-        }
+        if (badDigit == -1) return -1;
 
 
-        return results.get(0) == 0 ? -1 : listToLong(results);
+        return originals.get(0) == 0 ? -1 : listToLong(originals);
     }
 
-    private static long listToLong(List<Integer> digits){
+    private static long listToLong(List<Integer> digits) {
         long result = 0L;
-        for (int digit : digits){
+        for (int digit : digits) {
             result = result * 10 + digit;
         }
         return result;
