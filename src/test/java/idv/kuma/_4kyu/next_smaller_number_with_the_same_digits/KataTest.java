@@ -9,11 +9,13 @@ import static org.junit.Assert.assertEquals;
 public class KataTest {
     @Test
     public void basicTests() {
-        assertEquals(45321, Kata.nextSmaller(54321));
+        assertEquals(312, Kata.nextSmaller(321));
         assertEquals(790, Kata.nextSmaller(907));
         assertEquals(513, Kata.nextSmaller(531));
         assertEquals(-1, Kata.nextSmaller(1027));
         assertEquals(414, Kata.nextSmaller(441));
         assertEquals(123456789, Kata.nextSmaller(123456798));
+        assertEquals(22340, Kata.nextSmaller(22403));
+        assertEquals(24038225, Kata.nextSmaller(24038252));
     }
 }
