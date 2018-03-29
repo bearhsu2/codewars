@@ -7,8 +7,6 @@ import java.util.*;
  */
 public class Kata {
 
-    private static Map<List<Integer>, List<Long>> storedPermutations = new HashMap<>();
-
     public static long nextSmaller(long n) {
 
         System.out.println("n = " + n);
