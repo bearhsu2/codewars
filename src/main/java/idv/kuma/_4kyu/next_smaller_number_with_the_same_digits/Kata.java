@@ -13,7 +13,6 @@ public class Kata {
         if (n <= 10) return -1;
 
         List<Integer> originals = longToList(n);
-        List<Integer> results = new ArrayList<>();
         int numDigits = originals.size();
 
         System.out.println("all digits: " + originals);
@@ -70,13 +69,10 @@ public class Kata {
 
 
     private static List<Integer> longToList(long n) {
-
         List<Integer> result = new ArrayList<>();
-        int i = 0;
         while (n > 0) {
             result.add(0, (int) (n % 10));
             n /= 10;
-            i++;
         }
         return result;
     }
