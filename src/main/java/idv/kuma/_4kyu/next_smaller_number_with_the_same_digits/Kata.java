@@ -24,11 +24,19 @@ public class Kata {
         int badDigit = -1;
         for (int i = numDigits - 1; i > 0; i--) {
             if (originals.get(i - 1) > originals.get(i)) {
-                Collections.swap(originals, i - 1, originals.size() - 1);
+
+                int j = findLargestButLessThan(originals.subList(i, numDigits), originals.get(i - 1));
+                if (j < 0) return -1;
+
+                j += i;
+                Collections.swap(originals, i - 1, j);
+
                 badDigit = i;
                 break;
             }
         }
+
+        if (badDigit == -1) return -1;
 
         originals.subList(badDigit, numDigits).sort(new Comparator<Integer>() {
             @Override
@@ -37,10 +45,21 @@ public class Kata {
             }
         });
 
-        if (badDigit == -1) return -1;
-
 
         return originals.get(0) == 0 ? -1 : listToLong(originals);
+    }
+
+    private static int findLargestButLessThan(List<Integer> list, int target) {
+        int largest = -1;
+        int result = -1;
+        for (int i = 0; i < list.size(); i++){
+            int element = list.get(i);
+            if (element > largest && element < target){
+                largest = element;
+                result = i;
+            }
+        }
+        return result;
     }
 
     private static long listToLong(List<Integer> digits) {
