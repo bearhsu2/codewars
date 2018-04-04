@@ -1,5 +1,6 @@
 package idv.kuma._4kyu.integer_partitions;
 
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,21 +15,26 @@ public class IntPart {
 
     private static Map<Long, List<List<Long>>> storedPartitionsMap = new HashMap<>();
 
-    {
-        System.out.println("STATIC!!!");
-        storedPartitionsMap.put(1L, Arrays.asList(Arrays.asList(1L)));
-    }
-
     public static String part(long n) {
-        // 1
+        // 1. find partitions
         List<List<Long>> partitions = findPartitions(n);
 
-        // 2
+        // 2. make sorted production list
+        List<Long> prod = makeProductions(partitions);
 
-        // 3
+        // 3. format to string return
+        return partitionToString(prod);
+    }
 
-        // format to string return
-        return partitionToString();
+    public static List<Long> makeProductions(List<List<Long>> partitions) {
+        List<Long> result = new ArrayList<>();
+        for (List<Long> list : partitions) {
+            long prod = list.stream().reduce(1L, (a, b) -> a * b);
+            if (!result.contains(prod)) result.add(prod);
+        }
+
+        Collections.sort(result);
+        return result;
     }
 
     public static List<List<Long>> findPartitions(long n) {
@@ -58,6 +64,7 @@ public class IntPart {
             }
         }
 
+        storedPartitionsMap.put(n, result);
         return result;
     }
 
@@ -72,8 +79,22 @@ public class IntPart {
         return result;
     }
 
-    private static String partitionToString() {
-        return "Range: 1 Average: 1.50 Median: 1.50";
+    private static String partitionToString(List<Long> prod) {
+
+        DecimalFormat df2 = new DecimalFormat(".00");
+
+        double median = prod.get(prod.size() / 2);
+        if (prod.size() % 2 == 0) median = (median + prod.get(prod.size() / 2 - 1)) / 2;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Range: ").append(prod.get(prod.size() - 1) - prod.get(0)).append(" ");
+        sb.append("Average: ").append(
+                df2.format(prod
+                        .stream()
+                        .mapToDouble(a -> a)
+                        .average().getAsDouble())).append(" ");
+        sb.append("Median: ").append(df2.format(median));
+        return sb.toString();
     }
 }
 
