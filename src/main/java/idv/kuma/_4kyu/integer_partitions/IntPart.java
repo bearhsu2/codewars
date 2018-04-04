@@ -1,7 +1,8 @@
 package idv.kuma._4kyu.integer_partitions;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by bearhsu2 on 4/2/2018.
@@ -11,9 +12,16 @@ import java.util.List;
 //https://introcs.cs.princeton.edu/java/23recursion/Partition.java.html
 public class IntPart {
 
+    private static Map<Long, List<List<Long>>> storedPartitionsMap = new HashMap<>();
+
+    {
+        System.out.println("STATIC!!!");
+        storedPartitionsMap.put(1L, Arrays.asList(Arrays.asList(1L)));
+    }
+
     public static String part(long n) {
         // 1
-        List<List<Long>> partitions = generatePartitions(n);
+        List<List<Long>> partitions = findPartitions(n);
 
         // 2
 
@@ -23,24 +31,38 @@ public class IntPart {
         return partitionToString();
     }
 
-    private static List<List<Long>> generatePartitions(long n) {
-        List<List<Long>> result = new ArrayList<>();
+    public static List<List<Long>> findPartitions(long n) {
+        // Return stored partitions if stored already
+        List<List<Long>> result = storedPartitionsMap.get(n);
+        if (result != null) {
+            return result;
+        }
 
-        result = findSubPartitions(n, n, result);
+        System.out.printf("Partitions of " + n + " not found. Generate partitions(" + n + ").");
+        result = new ArrayList<>();
+
+        // Find partitions for (n - 1)
+        List<List<Long>> subPartitions = findSubPartitions(n - 1, n);
+
+        if (subPartitions == null) {
+            result.add(Arrays.asList(n));
+            storedPartitionsMap.put(n, result);
+            return result;
+        }
+
+        for (List<Long> list : subPartitions){
+            result.add(Stream.concat(Arrays.asList(n).stream(), list.stream()).collect(Collectors.toList()));
+        }
 
         return result;
     }
 
-    private static List<List<Long>> findSubPartitions(long n, long max, List<List<Long>> result) {
+    private static List<List<Long>> findSubPartitions(long n, long max) {
         if (n == 0L) {
             return null;
         }
 
-        for (int i = (int) Math.min(max, n); i >= 1; i--) {
-            findSubPartitions(n - i, i, prefix + " " + i);
-        }
-
-        return result;
+        return null;
     }
 
     private static String partitionToString() {
