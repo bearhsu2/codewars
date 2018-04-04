@@ -33,6 +33,17 @@ public class IntPart {
             if (!result.contains(prod)) result.add(prod);
         }
 
+        /** Best Practice:
+         *
+         *         long[] prod = Stream.of(getPart(n))
+         .map(IntPart::multiple)
+         .mapToLong(l -> l)
+         .sorted()
+         .distinct()
+         .toArray();
+         
+         **/
+
         Collections.sort(result);
         return result;
     }
