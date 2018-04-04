@@ -52,7 +52,7 @@ public class IntPart {
 
         result.add(Arrays.asList(n));
         for (long i = n - 1; i >= 1; i--) {
-            List<List<Long>> subPartition = findSubPartitions(i, n);
+            List<List<Long>> subPartition = findSubPartitions(n - i, i);
             for (List<Long> list : subPartition) {
                 result.add(Stream.concat(Arrays.asList(i).stream(), list.stream()).collect(Collectors.toList()));
             }
@@ -67,8 +67,9 @@ public class IntPart {
         if (candidate == null) {
             candidate = findPartitions(n);
         }
-        return candidate.stream().filter(list -> list.get(0) < Math.min(n, max)).collect(Collectors.toList());
 
+        List<List<Long>> result = candidate.stream().filter(list -> list.get(0) <= Math.min(n, max)).collect(Collectors.toList());
+        return result;
     }
 
     private static String partitionToString() {
