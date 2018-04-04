@@ -19,9 +19,19 @@ public class IntPartTest {
 //        assertEquals("Range: 5 Average: 3.50 Median: 3.50", IntPart.part(5));
     }
 
+
+
     @Test
-    public void Partition_basics() {
+    public void partition_1() {
         List<List<Long>> p1 = Arrays.asList(Arrays.asList(1L));
         assertEquals(p1,IntPart.findPartitions(1) );
+    }
+
+
+    @Ignore
+    @Test
+    public void partition_2() {
+        List<List<Long>> p1 = Arrays.asList(Arrays.asList(2L), Arrays.asList(1L, 1L));
+        assertEquals(p1,IntPart.findPartitions(2) );
     }
 }

@@ -37,32 +37,38 @@ public class IntPart {
         if (result != null) {
             return result;
         }
-
-        System.out.printf("Partitions of " + n + " not found. Generate partitions(" + n + ").");
         result = new ArrayList<>();
 
-        // Find partitions for (n - 1)
-        List<List<Long>> subPartitions = findSubPartitions(n - 1, n);
-
-        if (subPartitions == null) {
+        // Return [[1]] if n is 1
+        if (n == 1) {
             result.add(Arrays.asList(n));
             storedPartitionsMap.put(n, result);
             return result;
         }
 
-        for (List<Long> list : subPartitions){
-            result.add(Stream.concat(Arrays.asList(n).stream(), list.stream()).collect(Collectors.toList()));
+        // If not found, generate partitions of n
+        System.out.printf("Partitions of " + n + " not found. Generate partitions(" + n + ").");
+        result = new ArrayList<>();
+
+        result.add(Arrays.asList(n));
+        for (long i = n - 1; i >= 1; i--) {
+            List<List<Long>> subPartition = findSubPartitions(i, n);
+            for (List<Long> list : subPartition) {
+                result.add(Stream.concat(Arrays.asList(i).stream(), list.stream()).collect(Collectors.toList()));
+            }
         }
 
         return result;
     }
 
     private static List<List<Long>> findSubPartitions(long n, long max) {
-        if (n == 0L) {
-            return null;
+        System.out.println("finding subPartitions for " + n);
+        List<List<Long>> candidate = storedPartitionsMap.get(n);
+        if (candidate == null) {
+            candidate = findPartitions(n);
         }
+        return candidate.stream().filter(list -> list.get(0) < Math.min(n, max)).collect(Collectors.toList());
 
-        return null;
     }
 
     private static String partitionToString() {
