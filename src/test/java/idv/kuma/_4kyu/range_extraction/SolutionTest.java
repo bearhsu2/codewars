@@ -15,12 +15,20 @@ public class SolutionTest {
         assertEquals("1,3,5,7,9", Solution.rangeExtraction(new int[]{1, 3, 5, 7, 9}));
     }
 
+    @Test
+    public void No_Match_Range_n4_n2_0_1_2() {
+        assertEquals("-4,-2,0,1,2", Solution.rangeExtraction(new int[]{-4, -2, 0, 1, 2}));
+    }
 
+    @Test
+    public void No_Match_Range_0_1_2_5_9() {
+        assertEquals("0-2,5,9", Solution.rangeExtraction(new int[]{0, 1, 2, 5, 9}));
+    }
 
-
-
-
-
+    @Test
+    public void No_Match_Range_1_2_3_4_6() {
+        assertEquals("1-4,6", Solution.rangeExtraction(new int[]{1, 2, 3, 4, 6}));
+    }
 
 
 //    @Test
