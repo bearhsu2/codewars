@@ -9,6 +9,11 @@ import org.junit.runners.JUnit4;
 
 public class SolutionTest {
 
+    @Test
+    public void doProcess_1_2_3_5_7() {
+        Solution.doProcess(new int[]{1, 2, 3, 5, 7});
+    }
+
 
     @Test
     public void No_Match_Range_1_3_5_7_9() {
