@@ -17,6 +17,8 @@ public class MachineLearning {
     Map<Integer, Integer> correctPairs;
 
     public MachineLearning() {
+
+        // tip: cmd can be very large number
         candidatePairs = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
