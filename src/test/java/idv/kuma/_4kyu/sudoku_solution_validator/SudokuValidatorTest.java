@@ -22,7 +22,7 @@ public class SudokuValidatorTest {
         };
         assertEquals(true, SudokuValidator.check(sudoku));
 
-        sudoku[4][4] = 0;
+        sudoku[0][1] = 0;
 
         assertEquals(false, SudokuValidator.check(sudoku));
     }
