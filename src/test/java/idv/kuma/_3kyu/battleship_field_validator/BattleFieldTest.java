@@ -30,7 +30,8 @@ public class BattleFieldTest {
     @Test
     public void Correct_Ships_True() {
 
-        int[][] battleField = {{1, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+        int[][] battleField = {
+                {1, 0, 0, 0, 0, 1, 1, 0, 0, 0},
                 {1, 0, 1, 0, 0, 0, 0, 0, 1, 0},
                 {1, 0, 1, 0, 1, 1, 1, 0, 1, 0},
                 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
