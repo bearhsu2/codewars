@@ -40,6 +40,10 @@ public class BattleField {
         return labels;
     }
 
+    private static boolean isForeground(int value){
+        return value == 1;
+    }
+
     class LabelingResult {
         int[][] labels;
 
