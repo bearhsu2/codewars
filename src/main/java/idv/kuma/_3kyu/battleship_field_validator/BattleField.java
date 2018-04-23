@@ -1,9 +1,7 @@
 package idv.kuma._3kyu.battleship_field_validator;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class BattleField {
 
@@ -13,20 +11,37 @@ public class BattleField {
 
     public static boolean fieldValidator(int[][] field) {
 
-        if (!preCheck(field)) return false;
+        if (!checkNumGrids(field)) return false;
 
 
-        doProcess(field);
+        // Connected-component labeling
+        int[][] labelArrays = labelConnecteComponents(field);
 
-
-        return false;
-    }
-
-    private  static boolean preCheck(int[][] field){
         return true;
     }
 
-    private static void doProcess(int[][] field){
+    private static boolean checkNumGrids(int[][] field) {
+        return 20 == Arrays.stream(field)
+                .mapToInt(innerArray -> IntStream.of(innerArray).sum()) // sum the inner array
+                .sum(); // sum the outer array
+    }
+
+    private static int[][] labelConnecteComponents(int[][] field) {
+        int[][] labels = new int[field.length][field[0].length];
+        int nextLebel = 1;
+
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[0].length; j++) {
+
+            }
+        }
+
+
+        return labels;
+    }
+
+    class LabelingResult {
+        int[][] labels;
 
     }
 
