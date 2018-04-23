@@ -9,12 +9,12 @@ public class BattleField {
 
 
 //    https://stackoverflow.com/questions/7501344/how-to-validate-battleship-field
+//    http://en.wikipedia.org/wiki/Connected-component_labeling
 
     public static boolean fieldValidator(int[][] field) {
 
         if (!preCheck(field)) return false;
 
-        occupied = new int[field.length][field[0].length];
 
         doProcess(field);
 
@@ -27,9 +27,7 @@ public class BattleField {
     }
 
     private static void doProcess(int[][] field){
-        for (){
 
-        }
     }
 
 }
