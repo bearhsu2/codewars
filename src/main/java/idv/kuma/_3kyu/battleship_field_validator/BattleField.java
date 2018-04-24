@@ -34,7 +34,7 @@ public class BattleField {
         if (ships.stream().filter(list -> list.size() == 3).count() != 2L) return false;
         if (ships.stream().filter(list -> list.size() == 4).count() != 1L) return false;
 
-        return true;
+        return ships.size() == 1 + 2 + 3 + 4;
     }
 
     private static boolean checkShipShapes(Map<Integer, List<Point>> labelToPointsMap) {
