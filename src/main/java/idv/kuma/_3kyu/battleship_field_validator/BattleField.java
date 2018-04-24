@@ -41,7 +41,7 @@ public class BattleField {
 
         List<List<Point>> ships = new ArrayList<>(labelToPointsMap.values());
 
-        return ships.stream().noneMatch(list -> xRange(list) > 1 && yRange(list) > 1);
+        return ships.stream().noneMatch(list -> xRange(list) > 0 && yRange(list) > 0);
 
     }
 
