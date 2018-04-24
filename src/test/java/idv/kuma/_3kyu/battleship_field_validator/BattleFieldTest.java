@@ -44,4 +44,22 @@ public class BattleFieldTest {
 
         assertTrue(BattleField.fieldValidator(battleField));
     }
+
+    @Test
+    public void Eight_Connectivity_Ships_False() {
+
+        int[][] battleField = {
+                {1, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+                {1, 0, 1, 0, 0, 0, 0, 0, 1, 0},
+                {1, 0, 1, 0, 1, 1, 1, 0, 1, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                {0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 1, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+
+        assertFalse(BattleField.fieldValidator(battleField));
+    }
 }

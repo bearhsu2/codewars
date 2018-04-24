@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class BattleField {
 
@@ -14,6 +15,10 @@ public class BattleField {
 
     public static boolean fieldValidator(int[][] field) {
 
+        printField(field);
+
+        if (!checkFieldSize(field)) return false;
+
         if (!checkNumGrids(field)) return false;
 
 
@@ -22,7 +27,20 @@ public class BattleField {
 
         Map<Integer, List<Point>> labelToPointsMap = labelingResult.getLabelToPointsMap();
 
-        return checkNumShips(labelToPointsMap) && checkShipShapes(labelToPointsMap);
+
+        boolean result = checkNumShips(labelToPointsMap) && checkShipShapes(labelToPointsMap);
+        System.out.println(result);
+        return result;
+    }
+
+    private static boolean checkFieldSize(int[][] field) {
+        System.out.println(field.length);
+        System.out.println(field[0].length);
+        return field.length == 10 && field[0].length == 10;
+    }
+
+    private static void printField(int[][] field) {
+        Stream.of(field).map(Arrays::toString).forEach(System.out::println);
     }
 
     private static boolean checkNumShips(Map<Integer, List<Point>> labelToPointsMap) {
