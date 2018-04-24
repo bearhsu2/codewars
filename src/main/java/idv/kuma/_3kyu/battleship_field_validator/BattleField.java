@@ -28,9 +28,42 @@ public class BattleField {
         Map<Integer, List<Point>> labelToPointsMap = labelingResult.getLabelToPointsMap();
 
 
-        boolean result = checkNumShips(labelToPointsMap) && checkShipShapes(labelToPointsMap);
+        boolean result = checkNumShips(labelToPointsMap) && checkShipShapes(labelToPointsMap) && checkShipConnectivity(labelToPointsMap);
+
+
         System.out.println(result);
         return result;
+    }
+
+    private static boolean checkShipConnectivity(Map<Integer, List<Point>> labelToPointsMap) {
+        List<List<Point>> ships = new ArrayList<>(labelToPointsMap.values());
+
+        int numShips = ships.size();
+
+        for (int i = 0; i < numShips - 1; i++) {
+            for (int j = i + 1; j < numShips; j++) {
+                if (checkTwoShipsAreNeighbored(ships.get(i), ships.get(j))) return false;
+            }
+        }
+
+        return true;
+
+    }
+
+    private static boolean checkTwoShipsAreNeighbored(List<Point> ship1, List<Point> ship2) {
+
+        for (Point point1 : ship1){
+            for (Point point2 : ship2){
+                if (checkTwoPointsAreNeighbored(point1, point2)) return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean checkTwoPointsAreNeighbored(Point point1, Point point2) {
+
+        return (Math.abs(point1.x - point2.x) <= 1) && (Math.abs(point1.y - point2.y) <= 1);
+
     }
 
     private static boolean checkFieldSize(int[][] field) {
