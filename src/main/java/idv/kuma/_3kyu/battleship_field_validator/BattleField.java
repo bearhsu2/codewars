@@ -18,9 +18,45 @@ public class BattleField {
 
 
         // Connected-component labeling
-        int[][] labelArrays = labelConnectedComponents(field);
+        LabelingResult labelingResult = labelConnectedComponents(field);
+
+        Map<Integer, List<Point>> labelToPointsMap = labelingResult.getLabelToPointsMap();
+
+        return checkNumShips(labelToPointsMap) && checkShipShapes(labelToPointsMap);
+    }
+
+    private static boolean checkNumShips(Map<Integer, List<Point>> labelToPointsMap) {
+
+        List<List<Point>> ships = new ArrayList<>(labelToPointsMap.values());
+
+        if (ships.stream().filter(list -> list.size() == 1).count() != 4L) return false;
+        if (ships.stream().filter(list -> list.size() == 2).count() != 3L) return false;
+        if (ships.stream().filter(list -> list.size() == 3).count() != 2L) return false;
+        if (ships.stream().filter(list -> list.size() == 4).count() != 1L) return false;
 
         return true;
+    }
+
+    private static boolean checkShipShapes(Map<Integer, List<Point>> labelToPointsMap) {
+
+        List<List<Point>> ships = new ArrayList<>(labelToPointsMap.values());
+
+        return ships.stream().noneMatch(list -> xRange(list) > 1 && yRange(list) > 1);
+
+    }
+
+    private static int xRange(List<Point> points) {
+        int min = points.stream().min(Comparator.comparing(Point::getX)).get().x;
+        int max = points.stream().max(Comparator.comparing(Point::getX)).get().x;
+
+        return max - min;
+    }
+
+    private static int yRange(List<Point> points) {
+        int min = points.stream().min(Comparator.comparing(Point::getY)).get().y;
+        int max = points.stream().max(Comparator.comparing(Point::getY)).get().y;
+
+        return max - min;
     }
 
     private static boolean checkNumGrids(int[][] field) {
@@ -29,7 +65,7 @@ public class BattleField {
                 .sum(); // sum the outer array
     }
 
-    private static int[][] labelConnectedComponents(int[][] field) {
+    private static LabelingResult labelConnectedComponents(int[][] field) {
         int[][] labels = new int[field.length][field[0].length];
         Map<Integer, List<Point>> labelToPointsMap = new HashMap<>();
 
@@ -71,7 +107,7 @@ public class BattleField {
             }
         }
 
-        return labels;
+        return new LabelingResult(labels, labelToPointsMap);
     }
 
     private static void tryNeighbor(int x, int y, int[][] field, int[][] labels, BlockingQueue<Point> queue, int nextLabel, Map<Integer, List<Point>> labelToPointsMap) {
@@ -95,9 +131,30 @@ public class BattleField {
         return value > 0;
     }
 
-    class LabelingResult {
-        int[][] labels;
+    static class LabelingResult {
+        private int[][] labels;
+        private Map<Integer, List<Point>> labelToPointsMap;
 
+        public LabelingResult(int[][] labels, Map<Integer, List<Point>> labelToPointsMap) {
+            this.labels = labels;
+            this.labelToPointsMap = labelToPointsMap;
+        }
+
+        public int[][] getLabels() {
+            return labels;
+        }
+
+        public void setLabels(int[][] labels) {
+            this.labels = labels;
+        }
+
+        public Map<Integer, List<Point>> getLabelToPointsMap() {
+            return labelToPointsMap;
+        }
+
+        public void setLabelToPointsMap(Map<Integer, List<Point>> labelToPointsMap) {
+            this.labelToPointsMap = labelToPointsMap;
+        }
     }
 
 }
