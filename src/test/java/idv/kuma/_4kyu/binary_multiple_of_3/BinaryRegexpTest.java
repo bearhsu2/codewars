@@ -27,6 +27,11 @@ public class BinaryRegexpTest {
         assertEquals(true, BinaryRegexp.multipleOf3().matcher("011").matches());
     }
 
+    @Test
+    public void Test_110_true() throws Exception {
+        assertEquals(true, BinaryRegexp.multipleOf3().matcher("110").matches());
+    }
+
     @Ignore
     @Test
     public void testSimple() {
