@@ -9,39 +9,43 @@ import java.util.*;
 
 public class SimplexerTest {
 
+    private Simplexer lexer;
+
     @Test
     public void HasNext_Empty() {
-        Simplexer lexer = new Simplexer("");
-        assertEquals(false, lexer.hasNext());
+        createLexer("");
+
+        checkHasNext(false);
     }
 
 
     @Test
     public void Single_Identifier_x() {
-        Simplexer lexer = new Simplexer("x");
+        createLexer("x");
 
-        assertEquals(true, lexer.hasNext());
+        checkHasNext(true);
         Token actualToken = lexer.next();
 
         assertEquals(new Token("x", "identifier"), actualToken);
-        assertEquals(false, lexer.hasNext());
+        checkHasNext(false);
     }
 
 
-    @Test
-    public void Single_Identifier_y() {
-        Simplexer lexer = new Simplexer("y");
+    private void checkHasNext(boolean hasNext) {
+        assertEquals(hasNext, lexer.hasNext());
+    }
 
-        assertEquals(true, lexer.hasNext());
-        Token actualToken = lexer.next();
-
-        assertEquals(new Token("y", "identifier"), actualToken);
-        assertEquals(false, lexer.hasNext());
+    private void createLexer(String buffer) {
+        lexer = new Simplexer(buffer);
     }
 
 
 
 
+////////////////////////////////
+////////////////////////////////
+////////////////////////////////
+////////////////////////////////
 
 
     @Ignore
@@ -72,6 +76,19 @@ public class SimplexerTest {
         assertEquals(true, lexer.hasNext());
         assertEquals(new Token("break", "keyword"), lexer.next());
     }
+
+    @Test
+    public void Single_Identifier_y() {
+        createLexer("y");
+
+        checkHasNext(true);
+        Token actualToken = lexer.next();
+
+        assertEquals(new Token("y", "identifier"), actualToken);
+        checkHasNext(false);
+    }
+
+
 
     @Ignore
     @Test
