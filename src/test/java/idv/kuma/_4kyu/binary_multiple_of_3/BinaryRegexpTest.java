@@ -32,7 +32,7 @@ public class BinaryRegexpTest {
         assertEquals(true, BinaryRegexp.multipleOf3().matcher("110").matches());
     }
 
-    @Ignore
+
     @Test
     public void testSimple() {
         assertEquals(false, BinaryRegexp.multipleOf3().matcher(" 0").matches());

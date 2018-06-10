@@ -8,7 +8,7 @@ public class BinaryRegexp {
 //        https://www.codewars.com/kata/54de279df565808f8b00126a
         // Regular expression that matches binary inputs that are multiple of 3
 
-        return Pattern.compile("000|011|110");
+        return Pattern.compile("^((((0+)?1)(10*1)*0)(0(10*1)*0|1)*(0(10*1)*(1(0+)?))|(((0+)?1)(10*1)*(1(0+)?)|(0(0+)?)))$");
     }
 
 }
