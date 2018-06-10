@@ -17,13 +17,18 @@ public class SimplexerTest {
 
 
     @Test
-    public void HasNext_Single() {
+    public void Single_Identifier_x() {
         Simplexer lexer = new Simplexer("x");
+
         assertEquals(true, lexer.hasNext());
-        lexer.next();
+        Token actualToken = lexer.next();
+
+        assertEquals(new Token("x", "identifier"), actualToken);
         assertEquals(false, lexer.hasNext());
-//        assertEquals(new Token("x", "identifier"), lexer.next());
     }
+
+
+
 
 
 

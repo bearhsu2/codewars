@@ -1,8 +1,6 @@
 package idv.kuma._4kyu.simplexer;
 
 
-import com.sun.xml.internal.fastinfoset.util.CharArray;
-
 import java.util.Iterator;
 
 /*
@@ -26,22 +24,22 @@ and which doesn't start with a digit. Make sure that keywords aren't matched as 
 public class Simplexer implements Iterator<Token> {
 
     char[] charArray;
-    int index;
+    int nextIndex;
 
     public Simplexer(String buffer) {
         this.charArray = buffer.toCharArray();
-        this.index = 0;
+        this.nextIndex = 0;
     }
 
     @Override
     public boolean hasNext() {
-        return index < charArray.length;
+        return nextIndex < charArray.length;
     }
 
     @Override
     public Token next() {
         Token token = new Token("x", "identifier");
-        index += 1;
+        nextIndex += 1;
 
         return token;
     }
