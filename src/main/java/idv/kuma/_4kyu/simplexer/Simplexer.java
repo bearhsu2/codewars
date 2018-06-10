@@ -38,7 +38,9 @@ public class Simplexer implements Iterator<Token> {
 
     @Override
     public Token next() {
-        Token token = new Token("x", "identifier");
+        String tokenStr = String.valueOf(charArray[nextIndex]);
+
+        Token token = new Token(tokenStr, "identifier");
         nextIndex += 1;
 
         return token;

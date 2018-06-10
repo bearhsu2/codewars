@@ -28,6 +28,18 @@ public class SimplexerTest {
     }
 
 
+    @Test
+    public void Single_Identifier_y() {
+        Simplexer lexer = new Simplexer("y");
+
+        assertEquals(true, lexer.hasNext());
+        Token actualToken = lexer.next();
+
+        assertEquals(new Token("y", "identifier"), actualToken);
+        assertEquals(false, lexer.hasNext());
+    }
+
+
 
 
 
