@@ -24,10 +24,27 @@ public class SimplexerTest {
         createLexer("x");
 
         checkHasNext(true);
-        Token actualToken = lexer.next();
 
-        assertEquals(new Token("x", "identifier"), actualToken);
+        checkNextToken("x", "identifier");
+
         checkHasNext(false);
+    }
+
+
+
+
+    @Test
+    public void Single_Identifier_y() {
+        createLexer("y");
+
+        checkHasNext(true);
+        checkNextToken("y", "identifier");
+        checkHasNext(false);
+    }
+
+    private void checkNextToken(String expectedText, String expectedType) {
+        Token actualToken = lexer.next();
+        assertEquals(new Token(expectedText, expectedType), actualToken);
     }
 
 
@@ -77,16 +94,6 @@ public class SimplexerTest {
         assertEquals(new Token("break", "keyword"), lexer.next());
     }
 
-    @Test
-    public void Single_Identifier_y() {
-        createLexer("y");
-
-        checkHasNext(true);
-        Token actualToken = lexer.next();
-
-        assertEquals(new Token("y", "identifier"), actualToken);
-        checkHasNext(false);
-    }
 
 
 
