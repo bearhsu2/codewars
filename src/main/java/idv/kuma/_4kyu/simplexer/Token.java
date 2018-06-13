@@ -36,4 +36,9 @@ public class Token {
         return (text.equals(anotherToken.getText()) && text.equals(anotherToken.getText()));
 
     }
+
+    @Override
+    public String toString(){
+        return this.text + ", " + this.type;
+    }
 }
