@@ -23,25 +23,28 @@ and which doesn't start with a digit. Make sure that keywords aren't matched as 
 * */
 public class Simplexer implements Iterator<Token> {
 
-    char[] charArray;
+    String buffer;
     int nextIndex;
 
     public Simplexer(String buffer) {
-        this.charArray = buffer.toCharArray();
+        this.buffer = buffer;
         this.nextIndex = 0;
     }
 
     @Override
     public boolean hasNext() {
-        return nextIndex < charArray.length;
+        return nextIndex < buffer.length();
     }
 
     @Override
     public Token next() {
-        String tokenStr = String.valueOf(charArray[nextIndex]);
+
+
+        String tokenStr = buffer;
+
 
         Token token = new Token(tokenStr, "identifier");
-        nextIndex += 1;
+        nextIndex += tokenStr.length();
 
         return token;
     }

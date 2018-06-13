@@ -25,12 +25,10 @@ public class SimplexerTest {
 
         checkHasNext(true);
 
-        checkNextToken("x", "identifier");
+        getNextTokenAndCheck("x", "identifier");
 
         checkHasNext(false);
     }
-
-
 
 
     @Test
@@ -38,11 +36,22 @@ public class SimplexerTest {
         createLexer("y");
 
         checkHasNext(true);
-        checkNextToken("y", "identifier");
+        getNextTokenAndCheck("y", "identifier");
         checkHasNext(false);
     }
 
-    private void checkNextToken(String expectedText, String expectedType) {
+    @Test
+    public void Single_Identifier_xy() {
+        createLexer("xy");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("xy", "identifier");
+        checkHasNext(false);
+    }
+
+
+
+    private void getNextTokenAndCheck(String expectedText, String expectedType) {
         Token actualToken = lexer.next();
         assertEquals(new Token(expectedText, expectedType), actualToken);
     }
@@ -51,6 +60,7 @@ public class SimplexerTest {
     private void checkHasNext(boolean hasNext) {
         assertEquals(hasNext, lexer.hasNext());
     }
+
 
     private void createLexer(String buffer) {
         lexer = new Simplexer(buffer);
