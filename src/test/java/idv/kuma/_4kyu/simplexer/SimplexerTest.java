@@ -50,11 +50,20 @@ public class SimplexerTest {
     }
 
     @Test
-    public void Single_Boolean_true() {
+    public void Single_Boolean_True() {
         createLexer("true");
 
         checkHasNext(true);
         getNextTokenAndCheck("true", "boolean");
+        checkHasNext(false);
+    }
+
+    @Test
+    public void Single_Boolean_False() {
+        createLexer("false");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("false", "boolean");
         checkHasNext(false);
     }
 
