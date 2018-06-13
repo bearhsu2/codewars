@@ -33,7 +33,7 @@ public class Token {
 
         Token anotherToken = (Token) another;
 
-        return (text.equals(anotherToken.getText()) && text.equals(anotherToken.getText()));
+        return (text.equals(anotherToken.getText()) && type.equals(anotherToken.getType()));
 
     }
 

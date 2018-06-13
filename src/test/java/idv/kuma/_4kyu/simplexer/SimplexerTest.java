@@ -49,6 +49,15 @@ public class SimplexerTest {
         checkHasNext(false);
     }
 
+    @Test
+    public void Single_Boolean_true() {
+        createLexer("true");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("true", "boolean");
+        checkHasNext(false);
+    }
+
 
 
     private void getNextTokenAndCheck(String expectedText, String expectedType) {

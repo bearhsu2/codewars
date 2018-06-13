@@ -40,11 +40,18 @@ public class Simplexer implements Iterator<Token> {
     public Token next() {
 
 
-        String tokenStr = buffer;
+        String tokenText = buffer;
 
+        String tokenType;
 
-        Token token = new Token(tokenStr, "identifier");
-        nextIndex += tokenStr.length();
+        if ("true".equals(tokenText) || "false".equals(tokenText)) {
+            tokenType = "boolean";
+        } else {
+            tokenType = "identifier";
+        }
+
+        Token token = new Token(tokenText, tokenType);
+        nextIndex += tokenText.length();
 
         return token;
     }
