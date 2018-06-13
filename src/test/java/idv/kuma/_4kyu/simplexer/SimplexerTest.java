@@ -67,6 +67,15 @@ public class SimplexerTest {
         checkHasNext(false);
     }
 
+    @Test
+    public void Single_Integer() {
+        createLexer("12345");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("12345", "integer");
+        checkHasNext(false);
+    }
+
 
 
     private void getNextTokenAndCheck(String expectedText, String expectedType) {

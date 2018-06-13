@@ -46,6 +46,8 @@ public class Simplexer implements Iterator<Token> {
 
         if ("true".equals(tokenText) || "false".equals(tokenText)) {
             tokenType = "boolean";
+        } else if ("12345".equals(tokenText)){
+            tokenType = "integer";
         } else {
             tokenType = "identifier";
         }
