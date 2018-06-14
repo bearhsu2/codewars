@@ -85,6 +85,33 @@ public class SimplexerTest {
         checkHasNext(false);
     }
 
+    @Test
+    public void Single_Operator_plus() {
+        createLexer("+");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("+", "operator");
+        checkHasNext(false);
+    }
+
+    @Test
+    public void Single_Operator_Minus() {
+        createLexer("-");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("-", "operator");
+        checkHasNext(false);
+    }
+
+    @Test
+    public void Single_Operator_Star() {
+        createLexer("*");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("*", "operator");
+        checkHasNext(false);
+    }
+
 
 
 

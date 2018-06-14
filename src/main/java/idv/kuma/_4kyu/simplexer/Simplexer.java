@@ -60,6 +60,10 @@ public class Simplexer implements Iterator<Token> {
             token = tryMatchPattern("^\".*\"", "string");
         }
 
+        if (token == null){
+            token = tryMatchPattern("^[\\+-/%\\(\\)=\\*]", "operator");
+        }
+
 
 
         if (token == null){
