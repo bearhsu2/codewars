@@ -2,6 +2,8 @@ package idv.kuma._4kyu.simplexer;
 
 
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
 integer : Any sequence of one or more digits.
@@ -40,20 +42,40 @@ public class Simplexer implements Iterator<Token> {
     public Token next() {
 
 
-        String tokenText = buffer;
 
-        String tokenType;
+        Token token = null;
 
-        if ("true".equals(tokenText) || "false".equals(tokenText)) {
-            tokenType = "boolean";
-        } else if ("12345".equals(tokenText)){
-            tokenType = "integer";
-        } else {
-            tokenType = "identifier";
+        if (token == null) {
+            token = tryMatchPattern("^(true|false)", "boolean");
         }
 
-        Token token = new Token(tokenText, tokenType);
-        nextIndex += tokenText.length();
+        if (token == null){
+            token = tryMatchPattern("^\\d+", "integer");
+        }
+
+        if (token == null){
+            token = new Token(buffer, "identifier");
+            nextIndex += buffer.length();
+
+        }
+
+        return token;
+    }
+
+    private Token tryMatchPattern(String regex, String tokenType) {
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(buffer);
+        Token token = null;
+
+        if (m.find()) {
+            System.out.println("start(): " + m.start());
+            System.out.println("end(): " + m.end());
+
+
+            String tokenText = buffer.substring(m.start(), m.end());
+            token = new Token(tokenText, tokenType);
+            nextIndex += tokenText.length();
+        }
 
         return token;
     }
