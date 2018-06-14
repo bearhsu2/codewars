@@ -41,6 +41,8 @@ public class Simplexer implements Iterator<Token> {
     @Override
     public Token next() {
 
+        System.out.println("=======================");
+
 
 
         Token token = null;
@@ -53,10 +55,17 @@ public class Simplexer implements Iterator<Token> {
             token = tryMatchPattern("^\\d+", "integer");
         }
 
+
+        if (token == null){
+            token = tryMatchPattern("^\".*\"", "string");
+        }
+
+
+
         if (token == null){
             token = new Token(buffer, "identifier");
             nextIndex += buffer.length();
-
+            System.out.println("token: " + token);
         }
 
         return token;
@@ -76,6 +85,8 @@ public class Simplexer implements Iterator<Token> {
             token = new Token(tokenText, tokenType);
             nextIndex += tokenText.length();
         }
+
+        System.out.println("token: " + token);
 
         return token;
     }

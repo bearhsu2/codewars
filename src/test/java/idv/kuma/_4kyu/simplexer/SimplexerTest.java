@@ -76,6 +76,16 @@ public class SimplexerTest {
         checkHasNext(false);
     }
 
+    @Test
+    public void Single_String() {
+        createLexer("\"Hello\"");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("\"Hello\"", "string");
+        checkHasNext(false);
+    }
+
+
 
 
     private void getNextTokenAndCheck(String expectedText, String expectedType) {
