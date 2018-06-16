@@ -124,14 +124,32 @@ public class SimplexerTest {
     }
 
 
-//    @Test
-//    public void Single_Whitespace_One_Space() {
-//        createLexer(" ");
-//
-//        checkHasNext(true);
-//        getNextTokenAndCheck(" ", "whitespace");
-//        checkHasNext(false);
-//    }
+    @Test
+    public void Single_Whitespace_One_Space() {
+        createLexer(" ");
+
+        checkHasNext(true);
+        getNextTokenAndCheck(" ", "whitespace");
+        checkHasNext(false);
+    }
+
+    @Test
+    public void Single_Whitespace_Two_Spaces() {
+        createLexer("  ");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("  ", "whitespace");
+        checkHasNext(false);
+    }
+
+    @Test
+    public void Single_Whitespace_Tab() {
+        createLexer("\t");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("\t", "whitespace");
+        checkHasNext(false);
+    }
 
 
 

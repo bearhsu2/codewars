@@ -74,6 +74,10 @@ public class Simplexer implements Iterator<Token> {
             token = tryMatchPattern(REGEX_KEYWORD, "keyword");
         }
 
+        if (token == null){
+            token = tryMatchPattern("^([\\s]+)", "whitespace");
+        }
+
 
         if (token == null){
             token = new Token(buffer, "identifier");
