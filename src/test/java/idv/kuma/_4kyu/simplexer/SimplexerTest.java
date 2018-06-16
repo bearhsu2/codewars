@@ -171,33 +171,6 @@ public class SimplexerTest {
     }
 
 
-
-
-
-
-    private void getNextTokenAndCheck(String expectedText, String expectedType) {
-        Token actualToken = lexer.next();
-        assertEquals(new Token(expectedText, expectedType), actualToken);
-    }
-
-
-    private void checkHasNext(boolean hasNext) {
-        assertEquals(hasNext, lexer.hasNext());
-    }
-
-
-    private void createLexer(String buffer) {
-        lexer = new Simplexer(buffer);
-    }
-
-
-
-
-////////////////////////////////
-////////////////////////////////
-////////////////////////////////
-////////////////////////////////
-
     @Test
     public void testSingle() {
         // Identifier
@@ -229,7 +202,31 @@ public class SimplexerTest {
 
 
 
-    @Ignore
+
+
+    private void getNextTokenAndCheck(String expectedText, String expectedType) {
+        Token actualToken = lexer.next();
+        assertEquals(new Token(expectedText, expectedType), actualToken);
+    }
+
+
+    private void checkHasNext(boolean hasNext) {
+        assertEquals(hasNext, lexer.hasNext());
+    }
+
+
+    private void createLexer(String buffer) {
+        lexer = new Simplexer(buffer);
+    }
+
+
+
+    //////////////////////////////////////////
+    //////////////////////////////////////////
+    //////////////////////////////////////////
+
+
+
     @Test
     public void testExperession() {
         // Simple expression
