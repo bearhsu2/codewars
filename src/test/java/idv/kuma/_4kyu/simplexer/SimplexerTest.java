@@ -32,6 +32,25 @@ public class SimplexerTest {
 
 
     @Test
+    public void Single_Identifier_Underscore() {
+        createLexer("_y");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("_y", "identifier");
+        checkHasNext(false);
+    }
+
+
+    @Test
+    public void Single_Identifier_DollarSign() {
+        createLexer("$");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("$", "identifier");
+        checkHasNext(false);
+    }
+
+    @Test
     public void Single_Identifier_y() {
         createLexer("y");
 
@@ -150,6 +169,7 @@ public class SimplexerTest {
         getNextTokenAndCheck("\t", "whitespace");
         checkHasNext(false);
     }
+
 
 
 

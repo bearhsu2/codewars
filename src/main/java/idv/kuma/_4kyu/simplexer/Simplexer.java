@@ -79,11 +79,8 @@ public class Simplexer implements Iterator<Token> {
             token = tryMatchPattern(REGEX_WHITESPACE, "whitespace");
         }
 
-
         if (token == null){
-            token = new Token(buffer, "identifier");
-            nextIndex += buffer.length();
-            System.out.println("token: " + token);
+            token = tryMatchPattern("[_$a-zA-Z][_$a-zA-Z0-9]*", "identifier");
         }
 
         return token;
