@@ -52,7 +52,6 @@ public class Simplexer implements Iterator<Token> {
 
         System.out.println("=======================");
 
-
         Token token = tryMatchPatterns();
 
         return token;

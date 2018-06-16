@@ -174,6 +174,7 @@ public class SimplexerTest {
 
 
 
+
     private void getNextTokenAndCheck(String expectedText, String expectedType) {
         Token actualToken = lexer.next();
         assertEquals(new Token(expectedText, expectedType), actualToken);
@@ -197,8 +198,6 @@ public class SimplexerTest {
 ////////////////////////////////
 ////////////////////////////////
 
-
-    @Ignore
     @Test
     public void testSingle() {
         // Identifier
