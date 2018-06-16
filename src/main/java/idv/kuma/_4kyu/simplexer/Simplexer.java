@@ -31,6 +31,7 @@ public class Simplexer implements Iterator<Token> {
     public static final String REGEX_OPERATOR = "^[\\+-/%\\(\\)=\\*]";
     public static final String REGEX_KEYWORD = "^(if|else|for|while|return|func|break)";
     public static final String REGEX_WHITESPACE = "^([\\s]+)";
+    public static final String REGEX_IDENTIFIER = "[_$a-zA-Z][_$a-zA-Z0-9]*";
 
 
     String buffer;
@@ -52,6 +53,12 @@ public class Simplexer implements Iterator<Token> {
         System.out.println("=======================");
 
 
+        Token token = tryMatchPatterns();
+
+        return token;
+    }
+
+    private Token tryMatchPatterns() {
 
         Token token = null;
 
@@ -59,30 +66,29 @@ public class Simplexer implements Iterator<Token> {
             token = tryMatchPattern(REGEX_BOOLEAN, "boolean");
         }
 
-        if (token == null){
+        if (token == null) {
             token = tryMatchPattern(REGEX_INTEGER, "integer");
         }
 
-        if (token == null){
+        if (token == null) {
             token = tryMatchPattern(REGEX_STRING, "string");
         }
 
-        if (token == null){
+        if (token == null) {
             token = tryMatchPattern(REGEX_OPERATOR, "operator");
         }
 
-        if (token == null){
+        if (token == null) {
             token = tryMatchPattern(REGEX_KEYWORD, "keyword");
         }
 
-        if (token == null){
+        if (token == null) {
             token = tryMatchPattern(REGEX_WHITESPACE, "whitespace");
         }
 
-        if (token == null){
-            token = tryMatchPattern("[_$a-zA-Z][_$a-zA-Z0-9]*", "identifier");
+        if (token == null) {
+            token = tryMatchPattern(REGEX_IDENTIFIER, "identifier");
         }
-
         return token;
     }
 
