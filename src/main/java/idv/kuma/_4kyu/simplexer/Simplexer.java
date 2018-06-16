@@ -25,6 +25,12 @@ and which doesn't start with a digit. Make sure that keywords aren't matched as 
 * */
 public class Simplexer implements Iterator<Token> {
 
+    public static final String REGEX_BOOLEAN = "^(true|false)";
+    public static final String REGEX_INTEGER = "^\\d+";
+    public static final String REGEX_STRING = "^\".*\"";
+    public static final String REGEX_OPERATOR = "^[\\+-/%\\(\\)=\\*]";
+
+
     String buffer;
     int nextIndex;
 
@@ -48,22 +54,24 @@ public class Simplexer implements Iterator<Token> {
         Token token = null;
 
         if (token == null) {
-            token = tryMatchPattern("^(true|false)", "boolean");
+            token = tryMatchPattern(REGEX_BOOLEAN, "boolean");
         }
 
         if (token == null){
-            token = tryMatchPattern("^\\d+", "integer");
-        }
-
-
-        if (token == null){
-            token = tryMatchPattern("^\".*\"", "string");
+            token = tryMatchPattern(REGEX_INTEGER, "integer");
         }
 
         if (token == null){
-            token = tryMatchPattern("^[\\+-/%\\(\\)=\\*]", "operator");
+            token = tryMatchPattern(REGEX_STRING, "string");
         }
 
+        if (token == null){
+            token = tryMatchPattern(REGEX_OPERATOR, "operator");
+        }
+
+        if (token == null){
+            token = tryMatchPattern("^(if|else|for|while|return|func|break)", "keyword");
+        }
 
 
         if (token == null){

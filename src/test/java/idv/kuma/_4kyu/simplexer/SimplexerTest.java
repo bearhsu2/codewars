@@ -114,6 +114,17 @@ public class SimplexerTest {
 
 
 
+    @Test
+    public void Single_Keyword_if() {
+        createLexer("if");
+
+        checkHasNext(true);
+        getNextTokenAndCheck("if", "keyword");
+        checkHasNext(false);
+    }
+
+
+
 
     private void getNextTokenAndCheck(String expectedText, String expectedType) {
         Token actualToken = lexer.next();
