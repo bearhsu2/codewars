@@ -124,6 +124,16 @@ public class SimplexerTest {
     }
 
 
+//    @Test
+//    public void Single_Whitespace_One_Space() {
+//        createLexer(" ");
+//
+//        checkHasNext(true);
+//        getNextTokenAndCheck(" ", "whitespace");
+//        checkHasNext(false);
+//    }
+
+
 
 
     private void getNextTokenAndCheck(String expectedText, String expectedType) {

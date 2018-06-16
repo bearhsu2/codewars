@@ -29,6 +29,7 @@ public class Simplexer implements Iterator<Token> {
     public static final String REGEX_INTEGER = "^\\d+";
     public static final String REGEX_STRING = "^\".*\"";
     public static final String REGEX_OPERATOR = "^[\\+-/%\\(\\)=\\*]";
+    public static final String REGEX_KEYWORD = "^(if|else|for|while|return|func|break)";
 
 
     String buffer;
@@ -70,7 +71,7 @@ public class Simplexer implements Iterator<Token> {
         }
 
         if (token == null){
-            token = tryMatchPattern("^(if|else|for|while|return|func|break)", "keyword");
+            token = tryMatchPattern(REGEX_KEYWORD, "keyword");
         }
 
 
