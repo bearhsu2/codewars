@@ -30,6 +30,7 @@ public class Simplexer implements Iterator<Token> {
     public static final String REGEX_STRING = "^\".*\"";
     public static final String REGEX_OPERATOR = "^[\\+-/%\\(\\)=\\*]";
     public static final String REGEX_KEYWORD = "^(if|else|for|while|return|func|break)";
+    public static final String REGEX_WHITESPACE = "^([\\s]+)";
 
 
     String buffer;
@@ -75,7 +76,7 @@ public class Simplexer implements Iterator<Token> {
         }
 
         if (token == null){
-            token = tryMatchPattern("^([\\s]+)", "whitespace");
+            token = tryMatchPattern(REGEX_WHITESPACE, "whitespace");
         }
 
 
