@@ -59,38 +59,21 @@ public class Simplexer implements Iterator<Token> {
 
         Token token = null;
 
-        if (token == null) {
-            token = tryMatchPattern(REGEX_BOOLEAN, "boolean");
-        }
+        if (token == null) token = tryMatchPattern(REGEX_BOOLEAN, "boolean");
 
-        if (token == null) {
-            token = tryMatchPattern(REGEX_INTEGER, "integer");
-        }
+        if (token == null) token = tryMatchPattern(REGEX_INTEGER, "integer");
 
-        if (token == null) {
-            token = tryMatchPattern(REGEX_STRING, "string");
-        }
+        if (token == null) token = tryMatchPattern(REGEX_STRING, "string");
 
-        if (token == null) {
-            token = tryMatchPattern(REGEX_OPERATOR, "operator");
-        }
+        if (token == null) token = tryMatchPattern(REGEX_OPERATOR, "operator");
 
-        if (token == null) {
-            token = tryMatchPattern(REGEX_KEYWORD, "keyword");
-        }
+        if (token == null) token = tryMatchPattern(REGEX_KEYWORD, "keyword");
 
-        if (token == null) {
-            token = tryMatchPattern(REGEX_WHITESPACE, "whitespace");
-        }
+        if (token == null) token = tryMatchPattern(REGEX_WHITESPACE, "whitespace");
 
-        if (token == null) {
-            token = tryMatchPattern(REGEX_IDENTIFIER, "identifier");
-        }
-
-
-        if (token == null){
-            throw new NoSuchElementException();
-        }
+        if (token == null) token = tryMatchPattern(REGEX_IDENTIFIER, "identifier");
+        
+        if (token == null) throw new NoSuchElementException();
 
         buffer = buffer.substring(token.text.length());
 
