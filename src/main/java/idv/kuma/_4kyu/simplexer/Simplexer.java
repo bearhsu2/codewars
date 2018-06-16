@@ -2,6 +2,7 @@ package idv.kuma._4kyu.simplexer;
 
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,7 +38,7 @@ public class Simplexer implements Iterator<Token> {
     String buffer;
 
     public Simplexer(String buffer) {
-        this.buffer = buffer;
+        this.buffer = (buffer == null) ? "" : buffer;
     }
 
     @Override
@@ -47,7 +48,6 @@ public class Simplexer implements Iterator<Token> {
 
     @Override
     public Token next() {
-
         System.out.println("=======================");
 
         Token token = tryMatchPatterns();
@@ -85,6 +85,11 @@ public class Simplexer implements Iterator<Token> {
 
         if (token == null) {
             token = tryMatchPattern(REGEX_IDENTIFIER, "identifier");
+        }
+
+
+        if (token == null){
+            throw new NoSuchElementException();
         }
 
         buffer = buffer.substring(token.text.length());
