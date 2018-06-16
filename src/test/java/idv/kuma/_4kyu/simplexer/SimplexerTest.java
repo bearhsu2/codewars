@@ -246,7 +246,6 @@ public class SimplexerTest {
         }), toList(lexer));
     }
 
-    @Ignore
     @Test
     public void testStatement() {
         // Simple statement.
