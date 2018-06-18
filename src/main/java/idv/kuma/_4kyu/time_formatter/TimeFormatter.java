@@ -4,41 +4,39 @@ public class TimeFormatter {
 
     private static StringBuilder sb;
 
-    public static String formatDuration(int seconds) {
+    public static String formatDuration(int leftover) {
         // your code goes here
 
-        if (0 == seconds) return "now";
+        if (0 == leftover) return "now";
 
 
         sb = new StringBuilder();
 
-        if (60 <= seconds) {
+        if (60 <= leftover) {
 
             int minutes = 1;
 
-            sb.append(minutes);
-            sb.append(" ");
-            sb.append("minute");
-            sb.append(((minutes == 1) ? "" : "s"));
+            appendSubStrings(minutes, "minute");
 
-            if (61 <= seconds){
-                seconds -= 60;
+            if (61 <= leftover){
+
+                leftover -= 60;
                 sb.append(" and ");
 
-                sb.append(seconds);
-                sb.append(" ");
-                sb.append("second");
-                sb.append(((seconds == 1) ? "" : "s"));
+                appendSubStrings(leftover, "second");
             }
         } else {
-
-            sb.append(seconds);
-            sb.append(" ");
-            sb.append("second");
-            sb.append(((seconds == 1) ? "" : "s"));
+            appendSubStrings(leftover, "second");
         }
 
         return sb.toString();
+    }
+
+    static void appendSubStrings(int number, String unit) {
+        sb.append(number);
+        sb.append(" ");
+        sb.append(unit);
+        sb.append(((number == 1) ? "" : "s"));
     }
 
 }
