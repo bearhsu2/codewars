@@ -69,10 +69,9 @@ public class TimeFormatterTest {
         assertEquals("1 hour and 1 second", TimeFormatter.formatDuration(3601));
     }
 
-    @Ignore
     @Test
     public void One_Hour_One_Min_One_Second() throws Exception {
-        assertEquals("1 hour, 1 minute and 1 second", TimeFormatter.formatDuration(3660));
+        assertEquals("1 hour, 1 minute and 1 second", TimeFormatter.formatDuration(3661));
     }
 
     @Ignore
