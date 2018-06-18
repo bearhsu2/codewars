@@ -13,30 +13,20 @@ public class TimeFormatter {
         sb = new StringBuilder();
         leftover = input;
 
-        handleWithUnit(60);
+        handleWithUnit(60, "minute");
 
-
-        if (1 <= leftover) {
-            int seconds = leftover / 1;
-            leftover -= seconds * 1;
-
-            appendSubStrings(seconds, "second");
-
-            if (1 <= leftover) {
-                sb.append(" and ");
-            }
-        }
+        handleWithUnit(1, "second");
 
         return sb.toString();
     }
 
-    static void handleWithUnit(int unitSizeInSec) {
+    static void handleWithUnit(int unitSizeInSec, String unitName) {
         if (unitSizeInSec <= leftover) {
 
             int units = leftover / unitSizeInSec;
             leftover -= units * unitSizeInSec;
 
-            appendSubStrings(units, "minute");
+            appendSubStrings(units, unitName);
 
             if (1 <= leftover) {
                 sb.append(" and ");
