@@ -10,8 +10,10 @@ public class TimeFormatter {
 
         if (1 == seconds){
             return "1 second";
-        } else  {
+        } else if (2 == seconds) {
             return "2 seconds";
+        } else {
+            return "3 seconds";
         }
 
     }

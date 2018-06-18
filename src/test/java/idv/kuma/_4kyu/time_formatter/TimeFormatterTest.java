@@ -10,18 +10,24 @@ public class TimeFormatterTest {
 
 
     @Test
-    public void Only_Second_Zero() throws Exception {
+    public void Zero() throws Exception {
         assertEquals("now", TimeFormatter.formatDuration(0));
     }
 
     @Test
-    public void Only_Second_One() throws Exception {
+    public void One_Second() throws Exception {
         assertEquals("1 second", TimeFormatter.formatDuration(1));
     }
 
     @Test
-    public void Only_Second_Two() throws Exception {
+    public void Two_Seconds() throws Exception {
         assertEquals("2 seconds", TimeFormatter.formatDuration(2));
+
+    }
+
+    @Test
+    public void Three_Seconds() throws Exception {
+        assertEquals("3 seconds", TimeFormatter.formatDuration(3));
 
     }
 
