@@ -26,7 +26,14 @@ public class TimeFormatter {
 
 
         if (1 <= leftover) {
-            appendSubStrings(leftover, "second");
+            int seconds = leftover / 1;
+            leftover -= seconds * 1;
+
+            appendSubStrings(seconds, "second");
+
+            if (1 <= leftover) {
+                sb.append(" and ");
+            }
         }
 
         return sb.toString();
