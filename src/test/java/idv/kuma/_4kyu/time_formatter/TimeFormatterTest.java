@@ -43,6 +43,12 @@ public class TimeFormatterTest {
 
     }
 
+    @Test
+    public void Two_Minutes() throws Exception {
+        assertEquals("2 minutes", TimeFormatter.formatDuration(120));
+
+    }
+
     @Ignore
     @Test
     public void testFormatDurationExamples() {
