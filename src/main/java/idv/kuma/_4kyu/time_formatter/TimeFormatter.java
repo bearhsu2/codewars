@@ -6,32 +6,33 @@ public class TimeFormatter {
     private static int leftover;
 
     public static String formatDuration(int input) {
-        // your code goes here
-
-        if (0 == input) return "now";
 
         sb = new StringBuilder();
         leftover = input;
 
         handleWithUnit(60, "minute");
-
         handleWithUnit(1, "second");
 
-        return sb.toString();
+        return sb.length() == 0 ? "now" : sb.toString();
     }
 
     static void handleWithUnit(int unitSizeInSec, String unitName) {
         if (unitSizeInSec <= leftover) {
 
             int units = leftover / unitSizeInSec;
+
             leftover -= units * unitSizeInSec;
 
             appendSubStrings(units, unitName);
 
-            if (1 <= leftover) {
+            if (stillHaveTime()) {
                 sb.append(" and ");
             }
         }
+    }
+
+    private static boolean stillHaveTime() {
+        return 1 <= leftover;
     }
 
     static void appendSubStrings(int number, String unit) {
