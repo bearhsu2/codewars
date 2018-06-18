@@ -27,9 +27,8 @@ public class TimeFormatter {
         handleWithUnit(SECS_IN_MINUTE, "minute");
         handleWithUnit(SECS_IN_SECOND, "second");
 
-        fillSb();
+        return getResultFromList();
 
-        return sb.toString();
     }
 
 
@@ -68,14 +67,12 @@ public class TimeFormatter {
         resultElements.add(resultElement);
     }
 
-    private static void fillSb() {
+    private static String getResultFromList() {
 
         int size = resultElements.size();
 
         for (int i = 0; i < size; i++) {
-
             ResultElement resultElement = resultElements.get(i);
-
             int number = resultElement.getNumber();
             sb.append(number)
                     .append(" ")
@@ -84,6 +81,8 @@ public class TimeFormatter {
                     .append((i < size - 2) ? ", " : "")
                     .append((i == size - 2) ? " and " : "");
         }
+
+        return sb.toString();
 
     }
 
