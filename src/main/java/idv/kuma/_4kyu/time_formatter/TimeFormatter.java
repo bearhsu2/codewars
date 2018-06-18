@@ -17,6 +17,7 @@ public class TimeFormatter {
 
         leftover = input;
 
+        handleWithUnit(1 * 60 * 60 * 24 * 365, "year");
         handleWithUnit(1 * 60 * 60 * 24, "day");
         handleWithUnit(1 * 60 * 60, "hour");
         handleWithUnit(1 * 60, "minute");

@@ -84,6 +84,11 @@ public class TimeFormatterTest {
         assertEquals("2 days, 1 hour, 1 minute and 1 second", TimeFormatter.formatDuration(1 + 60 + 3600 + 2 * 86400));
     }
 
+    @Test
+    public void One_Year_Two_Day_One_Hour_One_Min_One_Second() throws Exception {
+        assertEquals("1 year, 2 days, 1 hour, 1 minute and 1 second", TimeFormatter.formatDuration(1 + 60 + 3600 + 2 * 86400 + 31536000));
+    }
+
     @Ignore
     @Test
     public void testFormatDurationExamples() {
