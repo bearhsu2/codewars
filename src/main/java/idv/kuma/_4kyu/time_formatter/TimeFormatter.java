@@ -5,48 +5,67 @@ import java.util.List;
 
 public class TimeFormatter {
 
+    public static final int SECS_IN_SECOND = 1;
+    public static final int SECS_IN_MINUTE = SECS_IN_SECOND * 60;
+    public static final int SECS_IN_HOUR = SECS_IN_MINUTE * 60;
+    public static final int SECS_IN_DAY = SECS_IN_HOUR * 24;
+    public static final int SECS_IN_YEAR = SECS_IN_DAY * 365;
+
     private static StringBuilder sb;
     private static int leftover;
-
     private static List<ResultElement> resultElements;
 
     public static String formatDuration(int input) {
 
-        sb = new StringBuilder();
-        resultElements = new ArrayList();
+        if (0 == input) return "now";
 
-        leftover = input;
+        initializeVars(input);
 
-        handleWithUnit(1 * 60 * 60 * 24 * 365, "year");
-        handleWithUnit(1 * 60 * 60 * 24, "day");
-        handleWithUnit(1 * 60 * 60, "hour");
-        handleWithUnit(1 * 60, "minute");
-        handleWithUnit(1, "second");
+        handleWithUnit(SECS_IN_YEAR, "year");
+        handleWithUnit(SECS_IN_DAY, "day");
+        handleWithUnit(SECS_IN_HOUR, "hour");
+        handleWithUnit(SECS_IN_MINUTE, "minute");
+        handleWithUnit(SECS_IN_SECOND, "second");
 
         fillSb();
 
-        return sb.length() == 0 ? "now" : sb.toString();
+        return sb.toString();
+    }
+
+
+    static void initializeVars(int input) {
+        sb = new StringBuilder();
+        resultElements = new ArrayList();
+        leftover = input;
     }
 
 
     static void handleWithUnit(int unitSizeInSec, String unitName) {
-        if (unitSizeInSec <= leftover) {
+        if (shouldHandleWithThisUnit(unitSizeInSec)) {
 
-            int units = leftover / unitSizeInSec;
+            int units = calculateUnits(unitSizeInSec);
 
-            leftover -= units * unitSizeInSec;
+            admustLeftover(unitSizeInSec, units);
 
-            appendSubStrings(new ResultElement(units, unitName));
-
+            putToResultElements(new ResultElement(units, unitName));
         }
     }
 
+    private static void admustLeftover(int unitSizeInSec, int units) {
+        leftover -= units * unitSizeInSec;
+    }
 
-    static void appendSubStrings(ResultElement resultElement) {
+    private static int calculateUnits(int unitSizeInSec) {
+        return leftover / unitSizeInSec;
+    }
+
+    private static boolean shouldHandleWithThisUnit(int unitSizeInSec) {
+        return unitSizeInSec <= leftover;
+    }
 
 
+    static void putToResultElements(ResultElement resultElement) {
         resultElements.add(resultElement);
-
     }
 
     private static void fillSb() {
