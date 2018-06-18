@@ -5,6 +5,8 @@ public class TimeFormatter {
     public static String formatDuration(int seconds) {
         // your code goes here
 
+        if (0 == seconds) return "now";
+
 
         if (1 == seconds){
             return "1 second";
