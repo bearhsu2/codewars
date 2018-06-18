@@ -9,8 +9,13 @@ import static org.junit.Assert.assertEquals;
 public class TimeFormatterTest {
 
     @Test
-    public void Second_One() throws Exception {
+    public void Only_Second_One() throws Exception {
         assertEquals("1 second", TimeFormatter.formatDuration(1));
+    }
+
+    @Test
+    public void Only_Second_Two() throws Exception {
+        assertEquals("2 seconds", TimeFormatter.formatDuration(2));
     }
 
 

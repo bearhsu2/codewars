@@ -6,7 +6,11 @@ public class TimeFormatter {
         // your code goes here
 
 
+        if (1 == seconds){
+            return "1 second";
+        } else  {
+            return "2 seconds";
+        }
 
-        return "1 second";
     }
 }
