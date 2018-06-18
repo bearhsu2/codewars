@@ -19,17 +19,15 @@ public class TimeFormatter {
                 sb.append("1 minute and 1 second");
             }
 
-            return sb.toString();
-
         } else {
 
-            String result = makeSecondString(seconds);
-            return result;
+            sb.append(seconds);
+            sb.append(" ");
+            sb.append("second");
+            sb.append(((seconds == 1) ? "" : "s"));
         }
 
+        return sb.toString();
     }
 
-    private static String makeSecondString(int seconds) {
-        return seconds + " " + "second" + ((seconds ==  1) ? "" : "s");
-    }
 }
