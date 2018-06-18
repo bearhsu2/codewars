@@ -10,6 +10,7 @@ public class TimeFormatter {
         sb = new StringBuilder();
         leftover = input;
 
+        handleWithUnit(3600, "hour");
         handleWithUnit(60, "minute");
         handleWithUnit(1, "second");
 
