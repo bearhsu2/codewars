@@ -74,6 +74,16 @@ public class TimeFormatterTest {
         assertEquals("1 hour, 1 minute and 1 second", TimeFormatter.formatDuration(3661));
     }
 
+    @Test
+    public void One_Day_One_Hour_One_Min_One_Second() throws Exception {
+        assertEquals("1 day, 1 hour, 1 minute and 1 second", TimeFormatter.formatDuration(1 + 60 + 3600 + 86400));
+    }
+
+    @Test
+    public void Two_Day_One_Hour_One_Min_One_Second() throws Exception {
+        assertEquals("2 days, 1 hour, 1 minute and 1 second", TimeFormatter.formatDuration(1 + 60 + 3600 + 2 * 86400));
+    }
+
     @Ignore
     @Test
     public void testFormatDurationExamples() {
