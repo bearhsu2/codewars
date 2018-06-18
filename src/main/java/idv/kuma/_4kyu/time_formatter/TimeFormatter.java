@@ -14,28 +14,23 @@ public class TimeFormatter {
 
         if (120 <= leftover){
             int minutes = 2;
+            leftover -= 120;
 
             appendSubStrings(minutes, "minute");
 
-            if (121 <= leftover){
-
-                leftover -= 120;
+            if (1 <= leftover){
                 sb.append(" and ");
-
                 appendSubStrings(leftover, "second");
             }
 
         } else if (60 <= leftover) {
-
             int minutes = 1;
+            leftover -= 60;
 
             appendSubStrings(minutes, "minute");
 
-            if (61 <= leftover){
-
-                leftover -= 60;
+            if (1 <= leftover){
                 sb.append(" and ");
-
                 appendSubStrings(leftover, "second");
             }
 
