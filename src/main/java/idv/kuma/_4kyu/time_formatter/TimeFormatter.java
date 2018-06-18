@@ -8,9 +8,12 @@ public class TimeFormatter {
         if (0 == seconds) return "now";
 
 
+        if (60 == seconds){
+            return "1 minute";
+        }
+
+
         String result = makeSecondString(seconds);
-
-
         return result;
 
     }
