@@ -3,26 +3,17 @@ package idv.kuma._4kyu.time_formatter;
 public class TimeFormatter {
 
     private static StringBuilder sb;
+    private static int leftover;
 
-    public static String formatDuration(int leftover) {
+    public static String formatDuration(int input) {
         // your code goes here
 
-        if (0 == leftover) return "now";
-
+        if (0 == input) return "now";
 
         sb = new StringBuilder();
+        leftover = input;
 
-        if (60 <= leftover) {
-
-            int minutes = leftover / 60;
-            leftover -= minutes * 60;
-
-            appendSubStrings(minutes, "minute");
-
-            if (1 <= leftover) {
-                sb.append(" and ");
-            }
-        }
+        handleWithUnit(60);
 
 
         if (1 <= leftover) {
@@ -37,6 +28,20 @@ public class TimeFormatter {
         }
 
         return sb.toString();
+    }
+
+    static void handleWithUnit(int unitSizeInSec) {
+        if (unitSizeInSec <= leftover) {
+
+            int units = leftover / unitSizeInSec;
+            leftover -= units * unitSizeInSec;
+
+            appendSubStrings(units, "minute");
+
+            if (1 <= leftover) {
+                sb.append(" and ");
+            }
+        }
     }
 
     static void appendSubStrings(int number, String unit) {
