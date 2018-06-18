@@ -8,13 +8,14 @@ public class TimeFormatter {
         if (0 == seconds) return "now";
 
 
-        if (1 == seconds){
-            return "1 second";
-        } else if (2 == seconds) {
-            return "2 seconds";
-        } else {
-            return "3 seconds";
-        }
+        String result = makeSecondString(seconds);
 
+
+        return result;
+
+    }
+
+    private static String makeSecondString(int seconds) {
+        return seconds + " " + "second" + ((seconds ==  1) ? "" : "s");
     }
 }
