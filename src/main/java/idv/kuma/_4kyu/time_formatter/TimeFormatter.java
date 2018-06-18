@@ -58,21 +58,16 @@ public class TimeFormatter {
             ResultElement resultElement = resultElements.get(i);
 
             int number = resultElement.getNumber();
-            sb.append(number);
-            sb.append(" ");
-            sb.append(resultElement.getUnit());
-            sb.append(((number == 1) ? "" : "s"));
-
-
-            if (i < size - 2){
-                sb.append(", ");
-            } else if (i == size - 2) {
-                sb.append(" and ");
-            }
-
+            sb.append(number)
+                    .append(" ")
+                    .append(resultElement.getUnit())
+                    .append(((number == 1) ? "" : "s"))
+                    .append((i < size - 2) ? ", " : "")
+                    .append((i == size - 2) ? " and " : "");
         }
 
     }
+
 
 }
 
