@@ -12,29 +12,20 @@ public class TimeFormatter {
 
         sb = new StringBuilder();
 
-        if (120 <= leftover){
-            int minutes = 2;
-            leftover -= 120;
+        if (60 <= leftover) {
+
+            int minutes = leftover / 60;
+            leftover -= minutes * 60;
 
             appendSubStrings(minutes, "minute");
 
-            if (1 <= leftover){
+            if (1 <= leftover) {
                 sb.append(" and ");
-                appendSubStrings(leftover, "second");
             }
+        }
 
-        } else if (60 <= leftover) {
-            int minutes = 1;
-            leftover -= 60;
 
-            appendSubStrings(minutes, "minute");
-
-            if (1 <= leftover){
-                sb.append(" and ");
-                appendSubStrings(leftover, "second");
-            }
-
-        } else {
+        if (1 <= leftover) {
             appendSubStrings(leftover, "second");
         }
 
