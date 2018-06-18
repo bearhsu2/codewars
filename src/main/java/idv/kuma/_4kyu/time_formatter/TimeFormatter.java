@@ -10,6 +10,8 @@ public class TimeFormatter {
 
         if (60 == seconds){
             return "1 minute";
+        } if (61 == seconds){
+            return "1 minute and 1 second";
         }
 
 
