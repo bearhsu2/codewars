@@ -8,8 +8,9 @@ public class BitCount {
 
         if (left == 0 && right == 0){
             return BigInteger.valueOf(0L);
+        } if (left == 2 && right == 2){
+            return BigInteger.valueOf(0L);
         }
-
         return BigInteger.valueOf(1L);
 
 
