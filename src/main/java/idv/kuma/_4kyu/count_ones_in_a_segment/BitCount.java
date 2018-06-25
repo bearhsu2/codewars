@@ -11,6 +11,14 @@ public class BitCount {
         }
 
 
+
+        if (left == right){
+            String binaryString = Long.toBinaryString(left);
+            int numOnes = binaryString.replaceAll("0", "").length();
+            return BigInteger.valueOf(numOnes);
+        }
+        ///
+
         if (left == right && left == 1) {
             return BigInteger.valueOf(1L);
         }
