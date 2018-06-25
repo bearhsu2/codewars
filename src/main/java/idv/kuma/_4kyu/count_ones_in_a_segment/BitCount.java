@@ -5,7 +5,8 @@ import java.math.BigInteger;
 public class BitCount {
 
     public static BigInteger countOnes(long left, long right) {
-        // Your code here
-        return null;
+
+        return BigInteger.valueOf(0L);
+
     }
 }
