@@ -10,11 +10,6 @@ public class BitCountTest {
 
 
     @Test
-    public void Input_0_0_Should_Return_0() {
-        runAndCheck(0, 0, 0);
-    }
-
-    @Test
     public void Input_1_1_Should_Return_1() {
         runAndCheck(1, 1, 1);
     }
