@@ -17,19 +17,7 @@ public class BitCount {
             int numOnes = binaryString.replaceAll("0", "").length();
             return BigInteger.valueOf(numOnes);
         }
-        ///
-
-        if (left == right && left == 1) {
-            return BigInteger.valueOf(1L);
-        }
-
-        if (left == right && left == 3) {
-            return BigInteger.valueOf(2L);
-        }
-
-        if (left == right && left == 5) {
-            return BigInteger.valueOf(3L);
-        }
+   
 
         return null;
 
