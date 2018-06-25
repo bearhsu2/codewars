@@ -6,11 +6,10 @@ public class BitCount {
 
     public static BigInteger countOnes(long left, long right) {
 
-        if (left == 0 && right == 0){
-            return BigInteger.valueOf(0L);
-        } if (left == 2 && right == 2){
+        if (left == right && left % 2 == 0){
             return BigInteger.valueOf(0L);
         }
+
         return BigInteger.valueOf(1L);
 
 
