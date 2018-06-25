@@ -24,6 +24,11 @@ public class BitCountTest {
         runAndCheck(3, 3, 2);
     }
 
+    @Test
+    public void Input_5_5_Should_Return_3() {
+        runAndCheck(5, 5, 3);
+    }
+
     @Ignore
     @Test
     public void Input_5_7_Should_Return_7() {
