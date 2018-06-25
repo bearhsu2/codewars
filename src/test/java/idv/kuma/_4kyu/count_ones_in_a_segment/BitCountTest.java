@@ -14,6 +14,11 @@ public class BitCountTest {
         assertEquals(new BigInteger("0"), BitCount.countOnes(0,0));
     }
 
+    @Test
+    public void Input_1_1_Should_Return_1() {
+        assertEquals(new BigInteger("1"), BitCount.countOnes(1,1));
+    }
+
     @Ignore
     @Test
     public void Input_5_7_Should_Return_7() {
