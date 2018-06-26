@@ -1,9 +1,10 @@
 package idv.kuma._4kyu.count_ones_in_a_segment;
 
 
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.math.BigInteger;
 
 public class BitCountTest {
@@ -52,5 +53,18 @@ public class BitCountTest {
 
     void runAndCheck(int left, int right, int expectedResult) {
         assertEquals(new BigInteger("" + expectedResult), BitCount.countOnes(left, right));
+    }
+
+    @Test
+    public void test_count_ones_on_one_digit(){
+        assertEquals(new BigInteger("" + 8), BitCount.countSumOfOnesOnOneDigitForSingle(15, 1));
+        assertEquals(new BigInteger("" + 8), BitCount.countSumOfOnesOnOneDigitForSingle(15, 1));
+        assertEquals(new BigInteger("" + 8), BitCount.countSumOfOnesOnOneDigitForSingle(15, 1));
+        assertEquals(new BigInteger("" + 8), BitCount.countSumOfOnesOnOneDigitForSingle(15, 1));
+    }
+
+    @Test
+    public void aaa(){
+        System.out.println(Long.toBinaryString(200000000000000L).length());
     }
 }
