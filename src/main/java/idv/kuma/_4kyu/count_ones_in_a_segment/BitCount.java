@@ -22,7 +22,7 @@ public class BitCount {
     static BigInteger countSumOfOnesForSingle(long number){
         BigInteger result = BigInteger.ZERO;
 
-        for (int column = 1; column <= 48; column++){
+        for (int column = 1; column <= 50; column++){
             result = result.add(countSumOfOnesOnOneDigitForSingle(number, column));
         }
 
