@@ -8,13 +8,14 @@ public class BitCount {
         
 
         if (left == right){
-            String binaryString = Long.toBinaryString(left);
-            int numOnes = binaryString.replaceAll("0", "").length();
-            return BigInteger.valueOf(numOnes);
+            return countOnesForSingle(left);
         }
-
 
         return null;
 
+    }
+
+    static BigInteger countOnesForSingle(long number) {
+        return BigInteger.valueOf(Long.toBinaryString(number).replaceAll("0", "").length());
     }
 }
