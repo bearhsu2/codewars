@@ -14,13 +14,24 @@ public class BitCount {
 
         BigInteger result = BigInteger.valueOf(0L);
         for (long i = left; i <= right; i++) {
-            result = result.add(countOnesForSingle(i));
+            result = result.add(findOnesForSingle(i));
         }
 
         return result;
 
-
     }
+
+    private static BigInteger findOnesForSingle(long number) {
+        BigInteger result = onesForSingle.get(number);
+
+        if (result == null){
+            result = countOnesForSingle(number);
+            onesForSingle.put(number, result);
+        }
+        return  result;
+        
+    }
+
 
     static BigInteger countOnesForSingle(long number) {
         return BigInteger.valueOf(Long.toBinaryString(number).replaceAll("0", "").length());
