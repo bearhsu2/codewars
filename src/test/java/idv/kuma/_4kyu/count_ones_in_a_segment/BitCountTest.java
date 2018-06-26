@@ -64,7 +64,7 @@ public class BitCountTest {
     }
 
     @Test
-    public void aaa(){
+    public void showDigits(){
         System.out.println(Long.toBinaryString(200000000000000L).length());
     }
 }

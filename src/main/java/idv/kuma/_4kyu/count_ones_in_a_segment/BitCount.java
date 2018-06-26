@@ -25,7 +25,7 @@ public class BitCount {
         for (int column = 1; column <= 48; column++){
             result = result.add(countSumOfOnesOnOneDigitForSingle(number, column));
         }
-        
+
         return result;
     }
 }
