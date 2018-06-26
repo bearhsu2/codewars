@@ -28,8 +28,9 @@ public class BitCount {
             result = countOnesForSingle(number);
             onesForSingle.put(number, result);
         }
+
         return  result;
-        
+
     }
 
 
