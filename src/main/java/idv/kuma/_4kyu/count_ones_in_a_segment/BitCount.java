@@ -20,6 +20,7 @@ public class BitCount {
             for (long i = left; i <= right; i++){
                 result = result.add(countOnesForSingle(i));
             }
+
             return result;
         }
 
