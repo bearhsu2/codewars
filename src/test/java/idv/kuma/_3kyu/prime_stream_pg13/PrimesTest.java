@@ -29,6 +29,7 @@ public class PrimesTest {
 
     private void test(int skip, int limit, int... expect) {
         int[] found = Primes.stream().skip(skip).limit(limit).toArray();
+
         assertArrayEquals(expect, found);
     }
 
