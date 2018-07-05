@@ -10,13 +10,13 @@ public class Kata {
         }
 
 
-        if (row.equals("RR")){
-            return 'R';
-        } else if (row.equals("GG")){
-            return 'G';
+        char[] charArray = row.toCharArray();
+        if (charArray[0] == charArray[1]){
+            return charArray[0];
         } else {
-            return 'B';
+            return 'G';
         }
+
 
 
     }
