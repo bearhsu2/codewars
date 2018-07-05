@@ -9,7 +9,12 @@ public class Kata {
             return row.charAt(0);
         }
 
-        return 'R';
+
+        if (row.equals("RR")){
+            return 'R';
+        }
+        
+        return 'B';
 
     }
 
