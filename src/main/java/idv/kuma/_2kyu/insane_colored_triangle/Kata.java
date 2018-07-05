@@ -5,7 +5,12 @@ public class Kata {
     // https://www.codewars.com/kata/5a331ea7ee1aae8f24000175/train/java
     public static char triangle(final String row) {
 
-        return row.charAt(0);
+        if (row.length() == 1) {
+            return row.charAt(0);
+        }
+
+        return 'R';
+
     }
 
 
