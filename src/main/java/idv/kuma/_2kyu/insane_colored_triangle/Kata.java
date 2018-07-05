@@ -12,9 +12,12 @@ public class Kata {
 
         if (row.equals("RR")){
             return 'R';
+        } else if (row.equals("GG")){
+            return 'G';
+        } else {
+            return 'B';
         }
-        
-        return 'B';
+
 
     }
 
