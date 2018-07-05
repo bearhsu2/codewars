@@ -5,8 +5,10 @@ public class Kata {
     // https://www.codewars.com/kata/5a331ea7ee1aae8f24000175/train/java
     public static char triangle(final String row) {
 
-        if (row.equals("B")){
+        if (row.equals("B")) {
             return 'B';
+        } else if (row.equals("G")) {
+            return 'G';
         }
 
         return 'R';
