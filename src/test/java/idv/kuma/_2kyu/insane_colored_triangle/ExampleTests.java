@@ -17,6 +17,11 @@ public class ExampleTests {
         assertEquals('R', Kata.triangle("R"));
     }
 
+    @Test
+    public void One_Line_G_G() throws Exception {
+        assertEquals('G', Kata.triangle("G"));
+    }
+
     @Ignore
     @Test
     public void examples() {
