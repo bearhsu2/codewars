@@ -14,7 +14,29 @@ public class Kata {
         if (charArray[0] == charArray[1]){
             return charArray[0];
         } else {
-            return 'G';
+
+            if (charArray[0] == 'R' && charArray[1] == 'G'){
+                return 'B';
+            }
+            if (charArray[0] == 'G' && charArray[1] == 'R'){
+                return 'B';
+            }
+            if (charArray[0] == 'G' && charArray[1] == 'B'){
+                return 'R';
+            }
+            if (charArray[0] == 'B' && charArray[1] == 'G'){
+                return 'R';
+            }
+            if (charArray[0] == 'R' && charArray[1] == 'B'){
+                return 'G';
+            }
+            if (charArray[0] == 'B' && charArray[1] == 'R'){
+                return 'G';
+            }
+
+
+
+            return 'B';
         }
 
 

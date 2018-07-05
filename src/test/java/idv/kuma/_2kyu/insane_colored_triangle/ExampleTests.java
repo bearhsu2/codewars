@@ -42,6 +42,11 @@ public class ExampleTests {
         assertEquals('G', Kata.triangle("RB"));
     }
 
+    @Test
+    public void Two_Lines_BG_R() throws Exception {
+        assertEquals('R', Kata.triangle("BG"));
+    }
+
     @Ignore
     @Test
     public void examples() {
