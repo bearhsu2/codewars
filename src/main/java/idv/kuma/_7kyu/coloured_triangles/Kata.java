@@ -27,14 +27,28 @@ public class Kata {
     // https://www.codewars.com/kata/5a331ea7ee1aae8f24000175/train/java
     public static char triangle(final String row) {
 
-       
+        Character known = knownAnswers.get(row);
 
-        return findNextForTwoCharsString(row);
+        if (null != known) {
+            return known;
+        }
+
+        String nextLevelString = findNextLevelString(row);
+        return triangle(nextLevelString);
 
     }
 
-    static char findNextForTwoCharsString(String string) {
-        return knownAnswers.get(string);
+    private static String findNextLevelString(String row) {
+
+        char[] chars = row.toCharArray();
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < chars.length - 1; i++) {
+            sb.append(knownAnswers.get(row.substring(i, i + 2)));
+        }
+
+        return sb.toString();
+
     }
 
 

@@ -44,14 +44,21 @@ public class ExampleTests {
 
     @Test
     public void Two_Lines_BG_R() throws Exception {
+        assertEquals('R',  Kata.triangle("GB"));
         assertEquals('R',  Kata.triangle("BG"));
     }
+
+
+    @Test
+    public void Three_Lines_RRR_R() throws Exception {
+        assertEquals('R',  Kata.triangle("RRR"));
+    }
+
+
 
     @Ignore
     @Test
     public void examples() {
-        assertEquals('R',  Kata.triangle("GB"));
-        assertEquals('R',  Kata.triangle("RRR"));
         assertEquals('B',  Kata.triangle("RGBG"));
         assertEquals('G',  Kata.triangle("RBRGBRB"));
         assertEquals('G', Kata.triangle("RBRGBRBGGRRRBGBBBGG"));
