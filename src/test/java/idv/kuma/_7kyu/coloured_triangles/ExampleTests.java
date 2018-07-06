@@ -56,7 +56,7 @@ public class ExampleTests {
 
 
 
-    
+
     @Test
     public void examples() {
         assertEquals('B',  Kata.triangle("RGBG"));

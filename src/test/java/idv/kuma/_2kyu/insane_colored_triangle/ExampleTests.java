@@ -1,9 +1,9 @@
 package idv.kuma._2kyu.insane_colored_triangle;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+
 
 public class ExampleTests {
 
@@ -29,31 +29,38 @@ public class ExampleTests {
 
     @Test
     public void Two_Lines_BB_B() throws Exception {
-        assertEquals('B', Kata.triangle("BB"));
+        assertEquals('B',  Kata.triangle("BB"));
     }
 
     @Test
     public void Two_Lines_GG_G() throws Exception {
-        assertEquals('G', Kata.triangle("GG"));
+        assertEquals('G',  Kata.triangle("GG"));
     }
 
     @Test
     public void Two_Lines_RB_G() throws Exception {
-        assertEquals('G', Kata.triangle("RB"));
+        assertEquals('G',  Kata.triangle("RB"));
     }
 
     @Test
     public void Two_Lines_BG_R() throws Exception {
-        assertEquals('R', Kata.triangle("BG"));
+        assertEquals('R',  Kata.triangle("GB"));
+        assertEquals('R',  Kata.triangle("BG"));
     }
 
-    @Ignore
+
+    @Test
+    public void Three_Lines_RRR_R() throws Exception {
+        assertEquals('R',  Kata.triangle("RRR"));
+    }
+
+
+
+
     @Test
     public void examples() {
-        assertEquals('R', Kata.triangle("GB"));
-        assertEquals('R', Kata.triangle("RRR"));
-        assertEquals('B', Kata.triangle("RGBG"));
-        assertEquals('G', Kata.triangle("RBRGBRB"));
+        assertEquals('B',  Kata.triangle("RGBG"));
+        assertEquals('G',  Kata.triangle("RBRGBRB"));
         assertEquals('G', Kata.triangle("RBRGBRBGGRRRBGBBBGG"));
 
     }

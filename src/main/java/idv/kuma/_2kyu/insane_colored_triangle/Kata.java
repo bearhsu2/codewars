@@ -1,47 +1,56 @@
 package idv.kuma._2kyu.insane_colored_triangle;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Kata {
+
+    private static Map<String, Character> knownAnswers = new HashMap<>();
+
+    static {
+
+        knownAnswers.put("R", 'R');
+        knownAnswers.put("G", 'G');
+        knownAnswers.put("B", 'B');
+        knownAnswers.put("RR", 'R');
+        knownAnswers.put("GG", 'G');
+        knownAnswers.put("BB", 'B');
+        knownAnswers.put("RG", 'B');
+        knownAnswers.put("GR", 'B');
+        knownAnswers.put("RB", 'G');
+        knownAnswers.put("BR", 'G');
+        knownAnswers.put("BG", 'R');
+        knownAnswers.put("GB", 'R');
+
+    }
 
     // https://www.codewars.com/kata/5a331ea7ee1aae8f24000175/train/java
     public static char triangle(final String row) {
 
-        if (row.length() == 1) {
-            return row.charAt(0);
+        Character known = knownAnswers.get(row);
+
+        if (null != known) {
+            return known;
         }
 
-        
-        char[] charArray = row.toCharArray();
-        return findNextForTwoChars(charArray);
+        String nextLevelString = findNextLevelString(row);
+        char answer = triangle(nextLevelString);
 
+        knownAnswers.put(row, answer);
+        return answer;
 
     }
 
-    static char findNextForTwoChars(char[] charArray) {
+    private static String findNextLevelString(String row) {
 
-        if (charArray[0] == charArray[1]) {
-            return charArray[0];
-        }
+        char[] chars = row.toCharArray();
 
-
-        if (charArray[0] == 'R' && charArray[1] == 'G') {
-            return 'B';
-        }
-        if (charArray[0] == 'G' && charArray[1] == 'R') {
-            return 'B';
-        }
-        if (charArray[0] == 'G' && charArray[1] == 'B') {
-            return 'R';
-        }
-        if (charArray[0] == 'B' && charArray[1] == 'G') {
-            return 'R';
-        }
-        if (charArray[0] == 'R' && charArray[1] == 'B') {
-            return 'G';
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < chars.length - 1; i++) {
+            sb.append(knownAnswers.get(row.substring(i, i + 2)));
         }
 
-        // (charArray[0] == 'B' && charArray[1] == 'R') {
-        return 'G';
-
+        return sb.toString();
 
     }
 
