@@ -1,6 +1,28 @@
 package idv.kuma._7kyu.coloured_triangles;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Kata {
+
+    private static Map<String, Character> knownAnswers = new HashMap<>();
+
+    static {
+
+        knownAnswers.put("R", 'R');
+        knownAnswers.put("G", 'G');
+        knownAnswers.put("B", 'B');
+        knownAnswers.put("RR", 'R');
+        knownAnswers.put("GG", 'G');
+        knownAnswers.put("BB", 'B');
+        knownAnswers.put("RG", 'B');
+        knownAnswers.put("GR", 'B');
+        knownAnswers.put("RB", 'G');
+        knownAnswers.put("BR", 'G');
+        knownAnswers.put("BG", 'R');
+        knownAnswers.put("GB", 'R');
+
+    }
 
     // https://www.codewars.com/kata/5a331ea7ee1aae8f24000175/train/java
     public static char triangle(final String row) {
@@ -10,39 +32,12 @@ public class Kata {
         }
 
 
-        char[] charArray = row.toCharArray();
-        return findNextForTwoChars(charArray);
-
+        return findNextForTwoCharsString(row);
 
     }
 
-    static char findNextForTwoChars(char[] charArray) {
-
-        if (charArray[0] == charArray[1]) {
-            return charArray[0];
-        }
-
-
-        if (charArray[0] == 'R' && charArray[1] == 'G') {
-            return 'B';
-        }
-        if (charArray[0] == 'G' && charArray[1] == 'R') {
-            return 'B';
-        }
-        if (charArray[0] == 'G' && charArray[1] == 'B') {
-            return 'R';
-        }
-        if (charArray[0] == 'B' && charArray[1] == 'G') {
-            return 'R';
-        }
-        if (charArray[0] == 'R' && charArray[1] == 'B') {
-            return 'G';
-        }
-
-        // (charArray[0] == 'B' && charArray[1] == 'R') {
-        return 'G';
-
-
+    static char findNextForTwoCharsString(String string) {
+        return knownAnswers.get(string);
     }
 
 
