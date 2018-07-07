@@ -1,5 +1,6 @@
 package idv.kuma._2kyu.insane_colored_triangle;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +40,18 @@ public class Kata {
         knownAnswers.put(row, answer);
         return answer;
 
+    }
+
+    public static BigInteger combination(BigInteger n, BigInteger m) {
+        return level(n).divide(level(m)).divide(n.subtract(m));
+    }
+
+    public static BigInteger level(BigInteger n) {
+        BigInteger result = BigInteger.ONE;
+        for (BigInteger i = BigInteger.ONE; i.compareTo(n) <= 0; i = i.add(BigInteger.ONE)){
+            result = result.multiply(i);
+        }
+        return result;
     }
 
     private static String findNextLevelString(String row) {
