@@ -1,28 +1,31 @@
 package idv.kuma._2kyu.insane_colored_triangle;
 
 
-
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
 
 public class Kata {
 
-    private static Map<Character, BigInteger> colorToNumber = new HashMap<>();
-    private static Map<BigInteger, Character> numberToColor = new HashMap<>();
+    private static Map<Character, Integer> colorToNumber = new HashMap<>();
+    private static Map<Integer, Character> numberToColor = new HashMap<>();
 
     private static Map<BigInteger, BigInteger> knownLevels = new HashMap<>();
     private static Map<Set<BigInteger>, BigInteger> knownCombinations = new HashMap<>();
 
 
-    static {
-        colorToNumber.put('R', BigInteger.valueOf(0L));
-        colorToNumber.put('G', BigInteger.valueOf(1L));
-        colorToNumber.put('B', BigInteger.valueOf(2L));
+    private static final BigDecimal EXP = BigDecimal.valueOf(Math.exp(1));
 
-        numberToColor.put(BigInteger.valueOf(0L), 'R');
-        numberToColor.put(BigInteger.valueOf(1L), 'G');
-        numberToColor.put(BigInteger.valueOf(2L), 'B');
+
+    static {
+        colorToNumber.put('R', 0);
+        colorToNumber.put('G', 1);
+        colorToNumber.put('B', 2);
+
+        numberToColor.put(0, 'R');
+        numberToColor.put(1, 'G');
+        numberToColor.put(2, 'B');
     }
 
     // https://www.codewars.com/kata/5a331ea7ee1aae8f24000175/train/java
@@ -34,7 +37,7 @@ public class Kata {
 
         int n = row.length();
 
-        List<BigInteger> numberList = new ArrayList<>();
+        List<Integer> numberList = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             numberList.add(colorToNumber.get(Character.valueOf(row.charAt(i))));
         }
@@ -45,7 +48,7 @@ public class Kata {
 
         BigInteger answer = BigInteger.valueOf(0L);
         for (int k = 1; k <= n; k++) {
-            answer = answer.add(combination(BigInteger.valueOf(n - 1), BigInteger.valueOf(k - 1)).multiply(numberList.get(k - 1)));
+            answer = answer.add(combination(n - 1, k - 1).multiply(BigInteger.valueOf(numberList.get(k - 1))));
         }
 
         answer = answer.multiply(BigInteger.valueOf(sign));
@@ -53,34 +56,60 @@ public class Kata {
         answer = answer.mod(BigInteger.valueOf(3));
 
 
-        return numberToColor.get(answer);
+        return numberToColor.get(answer.intValue());
 
     }
 
-    public static BigInteger combination(BigInteger n, BigInteger m) {
+    public static BigInteger combination(int n, int m) {
 
         Set key = new HashSet<>(Arrays.asList(n, m));
         BigInteger knownCombination = knownCombinations.get(key);
-        if (knownCombination != null){
+        if (knownCombination != null) {
             return knownCombination;
         }
 
-
-        if (m.equals(BigInteger.ZERO) || m.equals(n)){
+        if (m == 0 || m == n) {
             knownCombinations.put(key, BigInteger.ONE);
             return BigInteger.ONE;
         }
+        ////////////////
 
-        BigInteger combination = level(n).divide(level(m)).divide(level(n.subtract(m)));
+        double logSum = sumLog(m + 1, n) - sumLog(2, n - m);
+        System.out.printf("log C(%d,%d) = %f\n", n, m, logSum);
+
+        BigInteger combination = BigInteger.valueOf((long) Math.exp(logSum));
+        System.out.println("combination = " + combination);
+
         knownCombinations.put(key, combination);
 
         return combination;
+
+
+        ////////////////
+//
+//        BigInteger combination = level(n).divide(level(m)).divide(level(n.subtract(m)));
+////        knownCombinations.put(key, combination);
+//        System.out.println("");
+
     }
+
+    private static double sumLog(int k, int n) {
+
+        double result = 0D;
+
+        for (int i = k; i <= n; i++) {
+            result += Math.log(i);
+        }
+
+        return result;
+
+    }
+
 
     public static BigInteger level(BigInteger n) {
 
         BigInteger knownLevel = knownLevels.get(n);
-        if (knownLevel != null){
+        if (knownLevel != null) {
             return knownLevel;
         }
 
