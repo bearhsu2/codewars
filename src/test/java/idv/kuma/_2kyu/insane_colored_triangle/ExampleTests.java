@@ -68,7 +68,7 @@ public class ExampleTests {
 
     @Test
     public void examples() {
-//        assertEquals('B',  Kata.triangle("RGBG"));
+        assertEquals('B',  Kata.triangle("RGBG"));
         assertEquals('G',  Kata.triangle("RBRGBRB"));
         assertEquals('G', Kata.triangle("RBRGBRBGGRRRBGBBBGG"));
 

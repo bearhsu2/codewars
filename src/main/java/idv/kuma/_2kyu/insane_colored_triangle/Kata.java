@@ -77,7 +77,7 @@ public class Kata {
         double logSum = sumLog(m + 1, n) - sumLog(2, n - m);
         System.out.printf("log C(%d,%d) = %f\n", n, m, logSum);
 
-        BigInteger combination = BigInteger.valueOf((long) Math.exp(logSum));
+        BigInteger combination = BigInteger.valueOf(Math.round(Math.exp(logSum) % 3) % 3);
         System.out.println("combination = " + combination);
 
         knownCombinations.put(key, combination);
