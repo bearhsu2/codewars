@@ -2,30 +2,25 @@ package idv.kuma._2kyu.insane_colored_triangle;
 
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.*;
 
+//https://stackoverflow.com/questions/10118137/fast-n-choose-k-mod-p-for-large-n
 
 public class Kata {
 
-    private static Map<Character, Integer> colorToNumber = new HashMap<>();
-    private static Map<Integer, Character> numberToColor = new HashMap<>();
+    private static Map<Character, Long> colorToNumber = new HashMap<>();
+    private static Map<Long, Character> numberToColor = new HashMap<>();
 
-    private static Map<BigInteger, BigInteger> knownLevels = new HashMap<>();
-    private static Map<Set<BigInteger>, BigInteger> knownCombinations = new HashMap<>();
-
-
-    private static final BigDecimal EXP = BigDecimal.valueOf(Math.exp(1));
-
+    private static Map<Set<Long>, Long> knownCombinations = new HashMap<>();
 
     static {
-        colorToNumber.put('R', 0);
-        colorToNumber.put('G', 1);
-        colorToNumber.put('B', 2);
+        colorToNumber.put('R', 0L);
+        colorToNumber.put('G', 1L);
+        colorToNumber.put('B', 2L);
 
-        numberToColor.put(0, 'R');
-        numberToColor.put(1, 'G');
-        numberToColor.put(2, 'B');
+        numberToColor.put(0L, 'R');
+        numberToColor.put(1L, 'G');
+        numberToColor.put(2L, 'B');
     }
 
     // https://www.codewars.com/kata/5a331ea7ee1aae8f24000175/train/java
@@ -37,7 +32,7 @@ public class Kata {
 
         int n = row.length();
 
-        List<Integer> numberList = new ArrayList<>();
+        List<Long> numberList = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             numberList.add(colorToNumber.get(Character.valueOf(row.charAt(i))));
         }
@@ -46,81 +41,97 @@ public class Kata {
         // (-1)^(n-1) * sum(k = 1 to n) C(n-1, k-1) * ak
         int sign = (n % 2 == 0) ? -1 : 1;
 
-        BigInteger answer = BigInteger.valueOf(0L);
+        long answer = 0L;
         for (int k = 1; k <= n; k++) {
-            answer = answer.add(combination(n - 1, k - 1).multiply(BigInteger.valueOf(numberList.get(k - 1))));
+            long a = numberList.get(k - 1);
+            if (a != 0) {
+                answer += combination(n - 1, k - 1, 3L) * a;
+            }
         }
 
-        answer = answer.multiply(BigInteger.valueOf(sign));
+        answer *= sign;
+        answer = answer % 3L;
 
-        answer = answer.mod(BigInteger.valueOf(3));
+        if (answer < 0){
+            answer += 3L;
+        }
 
 
-        return numberToColor.get(answer.intValue());
+        return numberToColor.get(answer);
 
     }
 
-    public static BigInteger combination(int n, int m) {
+    public static long combination(long n, long k, long p) {
 
-        Set key = new HashSet<>(Arrays.asList(n, m));
-        BigInteger knownCombination = knownCombinations.get(key);
+        Set key = new HashSet<>(Arrays.asList(n, k));
+        Long knownCombination = knownCombinations.get(key);
         if (knownCombination != null) {
             return knownCombination;
         }
 
-        if (m == 0 || m == n) {
-            knownCombinations.put(key, BigInteger.ONE);
-            return BigInteger.ONE;
+        if (k == 0 || k == n) {
+            knownCombinations.put(key, 1L);
+            return 1L;
         }
         ////////////////
 
-        double logSum = sumLog(m + 1, n) - sumLog(2, n - m);
-        System.out.printf("log C(%d,%d) = %f\n", n, m, logSum);
+        int num_degree = get_degree(n, p) - get_degree(n - k, p);
+        int den_degree = get_degree(k, p);
 
-        BigInteger combination = BigInteger.valueOf(Math.round(Math.exp(logSum) % 3) % 3);
-        System.out.println("combination = " + combination);
+        if (num_degree > den_degree) {
+            return 0L;
+        }
 
-        knownCombinations.put(key, combination);
+        long res = 1;
+        for (long i = n; i > n - k; --i) {
+            long ti = i;
+            while (ti % p == 0) {
+                ti /= p;
+            }
+            res = (res * ti) % p;
+        }
 
-        return combination;
+        long denom = 1L;
+        for (long i = 1; i <= k; ++i) {
+            long ti = i;
+            while (ti % p == 0) {
+                ti /= p;
+            }
+            denom = (denom * ti) % p;
+        }
+        res = (res * degree(denom, p - 2, p)) % p;
 
 
-        ////////////////
-//
-//        BigInteger combination = level(n).divide(level(m)).divide(level(n.subtract(m)));
-////        knownCombinations.put(key, combination);
-//        System.out.println("");
+        knownCombinations.put(key, res);
+        return res;
+
 
     }
 
-    private static double sumLog(int k, int n) {
+    static int get_degree(long n, long p) { // returns the degree with which p is in n!
+        int degree_num = 0;
+        long u = p;
+        long temp = n;
 
-        double result = 0D;
-
-        for (int i = k; i <= n; i++) {
-            result += Math.log(i);
+        while (u <= temp) {
+            degree_num += temp / u;
+            u *= p;
         }
-
-        return result;
-
+        return degree_num;
     }
 
+    static long degree( long a,  long k,  long p) {
+        long res = 1;
+        long cur = a;
 
-    public static BigInteger level(BigInteger n) {
-
-        BigInteger knownLevel = knownLevels.get(n);
-        if (knownLevel != null) {
-            return knownLevel;
+        while (k > 0) {
+            if (k % 2 > 0) {
+                res = (res * cur) % p;
+            }
+            k /= 2;
+            cur = (cur * cur) % p;
         }
-
-        BigInteger result = BigInteger.ONE;
-        for (BigInteger i = BigInteger.ONE; i.compareTo(n) <= 0; i = i.add(BigInteger.ONE)) {
-            result = result.multiply(i);
-        }
-
-        knownLevels.put(n, result);
-
-        return result;
+        return res;
     }
 
 
