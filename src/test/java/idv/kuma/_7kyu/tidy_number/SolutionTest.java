@@ -13,6 +13,12 @@ public class SolutionTest {
     }
 
 
+    @Test
+    public void Check_10_false() throws Exception {
+        assertEquals(false, Solution.tidyNumber(10));
+    }
+
+
     @Ignore
     @Test
     public void Check_Small_Values() {
