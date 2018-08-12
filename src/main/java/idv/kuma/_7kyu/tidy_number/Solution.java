@@ -6,7 +6,7 @@ public class Solution {
 
         int remainder = Integer.MAX_VALUE;
 
-        while (number >= 0){
+        while (number > 0){
 
             int newRemainder = number % 10;
 

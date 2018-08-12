@@ -12,14 +12,18 @@ public class SolutionTest {
         runAndCheck(true, Solution.tidyNumber(1));
     }
 
-    
+
     @Test
     public void Check_10_false() throws Exception {
         runAndCheck(false, Solution.tidyNumber(10));
     }
 
+    @Test
+    public void Check_11_true() throws Exception {
+        runAndCheck(true, Solution.tidyNumber(11));
+    }
 
-    @Ignore
+
     @Test
     public void Check_Small_Values() {
         runAndCheck(true, Solution.tidyNumber(12));
@@ -27,7 +31,6 @@ public class SolutionTest {
         runAndCheck(true, Solution.tidyNumber(39));
     }
 
-    @Ignore
     @Test
     public void Check_Larger_Values() {
         runAndCheck(false, Solution.tidyNumber(1024));
