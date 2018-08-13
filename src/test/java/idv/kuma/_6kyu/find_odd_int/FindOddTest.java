@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class FindOddTest {
 
     @Test
-    public void only_1_number_10() throws Exception {
+    public void When_10_Then_10() throws Exception {
         assertEquals(10, FindOdd.findIt(new int[]{10}));
     }
 
