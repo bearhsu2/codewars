@@ -14,11 +14,7 @@ public class FindOdd {
 
             Integer times = timesRecord.get(key);
 
-            if (null == times) {
-                timesRecord.put(key, 1);
-            } else {
-                timesRecord.put(key, times + 1);
-            }
+            timesRecord.put(key, null == times ? 1 : times + 1);
         }
 
         return timesRecord.entrySet().stream().filter(entry -> entry.getValue().intValue() % 2 == 1).findFirst().get().getKey();
