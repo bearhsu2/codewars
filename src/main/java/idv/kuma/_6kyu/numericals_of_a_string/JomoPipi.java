@@ -7,28 +7,23 @@ public class JomoPipi {
 
     public static String numericals(String s) {
 
+
+        return countChars(s.toCharArray()).toString();
+
+    }
+
+    private static StringBuilder countChars(char[] charArray) {
+
         Map<Character, Integer> countMap = new HashMap<>();
-
         StringBuilder sb = new StringBuilder();
-
-        char[] charArray = s.toCharArray();
-
         for (char c : charArray) {
 
-            Integer count = countMap.get(c);
+            Integer count = countMap.getOrDefault(c, 0);
 
-            if (count == null) {
-                count = 0;
-            }
-
-            count++;
-            countMap.put(c, count);
+            countMap.put(c, ++count);
 
             sb.append(count);
         }
-
-        return sb.toString();
-
-
+        return sb;
     }
 }
