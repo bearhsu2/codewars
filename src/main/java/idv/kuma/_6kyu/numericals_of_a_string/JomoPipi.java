@@ -19,24 +19,17 @@ public class JomoPipi {
             Integer count = countMap.get(c);
 
             if (count == null) {
-                count = 1;
-                countMap.put(c, count);
-            } else {
+                count = 0;
+            } 
 
-                count++;
-                countMap.put(c, count);
-            }
+            count++;
+            countMap.put(c, count);
 
             sb.append(count);
         }
 
         return sb.toString();
 
-//
-//        if (s.equals("abc")) {
-//            return "111";
-//        }
-//
-//        return "1112";
+
     }
 }
