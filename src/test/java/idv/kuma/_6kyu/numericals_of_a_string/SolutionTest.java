@@ -15,6 +15,11 @@ public class SolutionTest {
         assertEquals("111", JomoPipi.numericals("abc"));
     }
 
+    @Test
+    public void abcc_1112() throws Exception {
+        assertEquals("1112", JomoPipi.numericals("abcc"));
+    }
+
 
     @Ignore
     @Test
