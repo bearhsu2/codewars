@@ -13,14 +13,13 @@ public class JomoPipi {
 
         char[] charArray = s.toCharArray();
 
-
         for (char c : charArray) {
 
             Integer count = countMap.get(c);
 
             if (count == null) {
                 count = 0;
-            } 
+            }
 
             count++;
             countMap.put(c, count);
