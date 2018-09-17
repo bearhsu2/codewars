@@ -2,7 +2,6 @@ package idv.kuma._4kyu.path_finder_2_shortest_path;
 
 import java.awt.*;
 import java.util.Queue;
-import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Finder {
@@ -13,9 +12,11 @@ public class Finder {
     static Queue<Point> reachablePoints;
 
     public static int pathFinder(String maze) {
+        System.out.println("===============================================");
 
         String[] lines = maze.split("\\r?\\n");
         n = lines.length;
+        System.out.println("maze: \n" + maze);
         System.out.println("n = " + n);
 
 
@@ -39,14 +40,19 @@ public class Finder {
             tryNeighbor(currentPoint.x, currentPoint.y - 1, currentPointDistance);
             tryNeighbor(currentPoint.x, currentPoint.y + 1, currentPointDistance);
 
-
         }
+
 
         // if n,n is less than MAX, then return that number
         // otherwise, return -1;
+        int destinationDistance = distances[n - 1][n - 1];
+        if (destinationDistance < Integer.MAX_VALUE) {
+            return destinationDistance;
+        } else {
+            return -1;
+        }
 
 
-        return 0;
     }
 
     static LinkedBlockingQueue<Point> initializeReachablePoints() {
@@ -119,11 +125,6 @@ public class Finder {
 
     private static boolean isRoad(int j) {
         return j == '.';
-    }
-
-
-    private static String makeKey(int i, int j) {
-        return i + "_" + j;
     }
 
 
