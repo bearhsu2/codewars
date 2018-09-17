@@ -1,16 +1,21 @@
 package idv.kuma._4kyu.path_finder_2_shortest_path;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.awt.*;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Finder {
+
+    static int[][] distances;
+    static boolean[][] calculated;
+    static int n;
+    static Queue<Point> reachablePoints;
 
     public static int pathFinder(String maze) {
 
         String[] lines = maze.split("\\r?\\n");
-        int n = lines.length;
+        n = lines.length;
         System.out.println("n = " + n);
 
 
@@ -18,80 +23,96 @@ public class Finder {
             return -1;
         }
 
-        Map<String, Integer> distances = makeDistanceMap(lines);
-        Map<String, Boolean> calculated = makeCalculatedMap(distances);
-        List<String> waitingForCalculation = makeWaitingList(distances);
-        String currentKey = "0_0";
+        distances = initializeDistances(lines);
+        calculated = initializeCalculateds(distances);
 
-        while (!isFinished(calculated, n)) {
+        reachablePoints = initializeReachablePoints();
+        reachablePoints.offer(new Point(0, 0));
 
-            // add waitingList candidates
-            for (findUncalculatedNeighbors(currentKey, calculated)) {
+        while (!reachablePoints.isEmpty()) {
 
-            }
+            Point currentPoint = reachablePoints.poll();
+            int currentPointDistance = distances[currentPoint.x][currentPoint.y];
+
+            tryNeighbor(currentPoint.x - 1, currentPoint.y, currentPointDistance);
+            tryNeighbor(currentPoint.x + 1, currentPoint.y, currentPointDistance);
+            tryNeighbor(currentPoint.x, currentPoint.y - 1, currentPointDistance);
+            tryNeighbor(currentPoint.x, currentPoint.y + 1, currentPointDistance);
+
 
         }
+
+        // if n,n is less than MAX, then return that number
+        // otherwise, return -1;
 
 
         return 0;
     }
 
-    private static void findUncalculatedNeighbors(String currentKey, Map<String, Boolean> calculated) {
-        int i = findI(currentKey);
-        int j = findJ(currentKey);
+    static LinkedBlockingQueue<Point> initializeReachablePoints() {
+        return new LinkedBlockingQueue<>();
+    }
 
-        for (){
+    private static void tryNeighbor(int i, int j, int currentPointDistance) {
+        // Check point exists
+        if (i < 0 || i >= n || j < 0 || j >= n) return;
+
+        // Check point not calculated (all walls were calculated at beginning)
+        if (calculated[i][j]) return;
+
+        // Check point distance can be reduced
+        int newDistance = currentPointDistance + 1;
+        if (newDistance < distances[i][j]) {
+            // reduce point distance
+            distances[i][j] = newDistance;
+
+            // put to reachable points if necessary
+            Point neighbor = new Point(i, j);
+            if (reachablePoints.contains(neighbor)) {
+                reachablePoints.offer(neighbor);
+            }
 
         }
-        
 
     }
 
-    private static int findI(String currentKey) {
-        return Integer.valueOf(currentKey.split("_")[0]);
-    }
+    private static int[][] initializeDistances(String[] lines) {
 
-    private static int findJ(String currentKey) {
-        return Integer.valueOf(currentKey.split("_")[1]);
-    }
+        int[][] result = new int[n][n];
 
-    private static List<String> makeWaitingList(Map<String, Integer> distances) {
-        List<String> result = new ArrayList<>();
-
-        result.add("0_0");
-
-        return result;
-    }
-
-    private static boolean isFinished(Map<String, Boolean> calculated, int n) {
-        return calculated.get(makeKey(n - 1, n - 1));
-    }
-
-
-    private static Map<String, Integer> makeDistanceMap(String[] lines) {
-
-        Map<String, Integer> result = new HashMap<>();
         for (int i = 0; i < lines.length; i++) {
             char[] chars = lines[i].toCharArray();
 
             for (int j = 0; j < chars.length; j++) {
                 if (isRoad(chars[j])) {
-                    result.put(makeKey(i, j), Integer.MAX_VALUE);
+                    result[i][j] = Integer.MAX_VALUE;
+                } else {
+                    result[i][j] = -1;
                 }
             }
 
         }
 
+        result[0][0] = 0;
 
         return result;
     }
 
-    private static Map<String, Boolean> makeCalculatedMap(Map<String, Integer> distances) {
-        Map<String, Boolean> calculated = new HashMap<>();
+    private static boolean[][] initializeCalculateds(int[][] distances) {
 
-        distances.keySet().forEach(name -> {
-            calculated.put(name, Boolean.FALSE);
-        });
+        boolean[][] calculated = new boolean[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+
+                if (distances[i][j] > 0) {
+                    calculated[i][j] = false;
+                } else {
+                    calculated[i][j] = true;
+                }
+            }
+
+        }
 
         return calculated;
     }
