@@ -48,12 +48,8 @@ public class Finder {
         // if n,n is less than MAX, then return that number
         // otherwise, return -1;
         int destinationDistance = distances[n - 1][n - 1];
-        if (destinationDistance < Integer.MAX_VALUE) {
-            return destinationDistance;
-        } else {
-            return -1;
-        }
 
+        return destinationDistance < Integer.MAX_VALUE ? destinationDistance : -1;
 
     }
 
@@ -92,11 +88,7 @@ public class Finder {
             char[] chars = lines[i].toCharArray();
 
             for (int j = 0; j < chars.length; j++) {
-                if (isRoad(chars[j])) {
-                    distances[i][j] = Integer.MAX_VALUE;
-                } else {
-                    distances[i][j] = -1;
-                }
+                distances[i][j] = isRoad(chars[j]) ? Integer.MAX_VALUE : -1;
             }
 
         }
@@ -110,14 +102,8 @@ public class Finder {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-
-                if (distances[i][j] > 0) {
-                    calculated[i][j] = false;
-                } else {
-                    calculated[i][j] = true;
-                }
+                calculated[i][j] = distances[i][j] > 0 ? false : true;
             }
-
         }
 
         return calculated;
