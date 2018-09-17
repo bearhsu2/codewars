@@ -29,7 +29,23 @@ public class FinderTest {
         assertEquals(a, 4, Finder.pathFinder(a));
     }
 
-    @Ignore
+
+    @Test
+    public void _3_x_3_A_Wall_In_Middle_Then_Distance_Is_4() throws Exception {
+        String a = "...\n" +
+                ".W.\n" +
+                "...";
+        assertEquals(a, 4, Finder.pathFinder(a));
+    }
+
+    @Test
+    public void _3_x_3_Destination_Unreachable_Then_Distance_Is_Negative_1() throws Exception {
+        String a = "..W\n" +
+                ".W.\n" +
+                "W..";
+        assertEquals(a, -1, Finder.pathFinder(a));
+    }
+
     @Test
     public void sampleTests() {
 
