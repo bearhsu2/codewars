@@ -20,7 +20,7 @@ public class FinderTest {
         assertEquals(a, -1, Finder.pathFinder(a));
     }
 
-    @Ignore
+
     @Test
     public void _3_x_3_No_Wall_Then_Distance_Is_4() throws Exception {
         String a = "...\n" +

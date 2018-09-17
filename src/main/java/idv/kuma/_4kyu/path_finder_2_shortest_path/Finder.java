@@ -26,6 +26,7 @@ public class Finder {
 
         distances = initializeDistances(lines);
         calculated = initializeCalculateds(distances);
+        distances[0][0] = 0;
 
         reachablePoints = initializeReachablePoints();
         reachablePoints.offer(new Point(0, 0));
@@ -40,6 +41,7 @@ public class Finder {
             tryNeighbor(currentPoint.x, currentPoint.y - 1, currentPointDistance);
             tryNeighbor(currentPoint.x, currentPoint.y + 1, currentPointDistance);
 
+            calculated[currentPoint.x][currentPoint.y] = true;
         }
 
 
@@ -74,7 +76,7 @@ public class Finder {
 
             // put to reachable points if necessary
             Point neighbor = new Point(i, j);
-            if (reachablePoints.contains(neighbor)) {
+            if (!reachablePoints.contains(neighbor)) {
                 reachablePoints.offer(neighbor);
             }
 
@@ -84,24 +86,22 @@ public class Finder {
 
     private static int[][] initializeDistances(String[] lines) {
 
-        int[][] result = new int[n][n];
+        int[][] distances = new int[n][n];
 
         for (int i = 0; i < lines.length; i++) {
             char[] chars = lines[i].toCharArray();
 
             for (int j = 0; j < chars.length; j++) {
                 if (isRoad(chars[j])) {
-                    result[i][j] = Integer.MAX_VALUE;
+                    distances[i][j] = Integer.MAX_VALUE;
                 } else {
-                    result[i][j] = -1;
+                    distances[i][j] = -1;
                 }
             }
 
         }
 
-        result[0][0] = 0;
-
-        return result;
+        return distances;
     }
 
     private static boolean[][] initializeCalculateds(int[][] distances) {
