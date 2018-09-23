@@ -10,7 +10,7 @@ public class SolutionTest {
     @Test public void sampleTests() {
 
         String a = ".W.\n"+
-                ".W.\n"+
+                "WWW\n"+
                 "...",
 
                 b = ".W.\n"+
@@ -31,7 +31,7 @@ public class SolutionTest {
                         ".....W\n"+
                         "....W.";
 
-        assertEquals(true,  Finder.pathFinder(a));
+        assertEquals(false,  Finder.pathFinder(a));
         assertEquals(false, Finder.pathFinder(b));
         assertEquals(true,  Finder.pathFinder(c));
         assertEquals(false, Finder.pathFinder(d));

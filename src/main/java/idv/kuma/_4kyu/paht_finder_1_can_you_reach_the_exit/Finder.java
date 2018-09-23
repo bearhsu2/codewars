@@ -6,10 +6,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Finder {
 
-    static int[][] distances;
-    static boolean[][] calculated;
+    static int[][] reachables;
+
     static int n;
-    static Queue<Point> reachablePoints;
+    static Queue<Point> waitingPoints;
 
     public static boolean pathFinder(String maze) {
         System.out.println("===============================================");
@@ -24,93 +24,72 @@ public class Finder {
             return false;
         }
 
-        distances = initializeDistances(lines);
-        calculated = initializeCalculateds(distances);
-        distances[0][0] = 0;
+        reachables = initializeReachables(lines);
 
-        reachablePoints = initializeReachablePoints();
-        reachablePoints.offer(new Point(0, 0));
+        waitingPoints = initializeWaitingPoints();
 
-        while (!reachablePoints.isEmpty()) {
 
-            Point currentPoint = reachablePoints.poll();
-            int currentPointDistance = distances[currentPoint.x][currentPoint.y];
+        while (!waitingPoints.isEmpty()) {
 
-            tryNeighbor(currentPoint.x - 1, currentPoint.y, currentPointDistance);
-            tryNeighbor(currentPoint.x + 1, currentPoint.y, currentPointDistance);
-            tryNeighbor(currentPoint.x, currentPoint.y - 1, currentPointDistance);
-            tryNeighbor(currentPoint.x, currentPoint.y + 1, currentPointDistance);
+            Point currentPoint = waitingPoints.poll();
+            int currentPointReachable = reachables[currentPoint.x][currentPoint.y];
 
-            calculated[currentPoint.x][currentPoint.y] = true;
+            tryNeighbor(currentPoint.x - 1, currentPoint.y);
+            tryNeighbor(currentPoint.x + 1, currentPoint.y);
+            tryNeighbor(currentPoint.x, currentPoint.y - 1);
+            tryNeighbor(currentPoint.x, currentPoint.y + 1);
+
+            reachables[currentPoint.x][currentPoint.y] = 1;
         }
 
+        boolean reachable = reachables[n - 1][n - 1] == 1;
 
-        // if n,n is less than MAX, then return that number
-        // otherwise, return -1;
-        int destinationDistance = distances[n - 1][n - 1];
-
-        return destinationDistance < Integer.MAX_VALUE ? true : false;
+        System.out.println("reachable = " + (reachable));
+        return reachable;
 
     }
 
-    static LinkedBlockingQueue<Point> initializeReachablePoints() {
-        return new LinkedBlockingQueue<>();
+
+    static Queue<Point> initializeWaitingPoints() {
+        Queue<Point> waitingPoints = new LinkedBlockingQueue<>();
+        waitingPoints.offer(new Point(0, 0));
+        return waitingPoints;
     }
 
-    private static void tryNeighbor(int i, int j, int currentPointDistance) {
+    private static void tryNeighbor(int i, int j) {
         // Check point exists
         if (i < 0 || i >= n || j < 0 || j >= n) return;
 
         // Check point not calculated (all walls were calculated at beginning)
-        if (calculated[i][j]) return;
+        if (reachables[i][j] == 1 || reachables[i][j] == -1) return;
 
-        // Check point distance can be reduced
-        int newDistance = currentPointDistance + 1;
-        if (newDistance < distances[i][j]) {
-            // reduce point distance
-            distances[i][j] = newDistance;
-
-            // put to reachable points if necessary
-            Point neighbor = new Point(i, j);
-            if (!reachablePoints.contains(neighbor)) {
-                reachablePoints.offer(neighbor);
-            }
-
+        // put to reachable points if necessary
+        Point neighbor = new Point(i, j);
+        if (!waitingPoints.contains(neighbor)) {
+            waitingPoints.offer(neighbor);
         }
+
 
     }
 
-    private static int[][] initializeDistances(String[] lines) {
+    private static int[][] initializeReachables(String[] lines) {
 
-        int[][] distances = new int[n][n];
+        int[][] reachables = new int[n][n];
 
         for (int i = 0; i < lines.length; i++) {
             char[] chars = lines[i].toCharArray();
-
             for (int j = 0; j < chars.length; j++) {
-                distances[i][j] = isRoad(chars[j]) ? Integer.MAX_VALUE : -1;
-            }
-
-        }
-
-        return distances;
-    }
-
-    private static boolean[][] initializeCalculateds(int[][] distances) {
-
-        boolean[][] calculated = new boolean[n][n];
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                calculated[i][j] = distances[i][j] > 0 ? false : true;
+                reachables[i][j] = isRoad(chars[j]) ? 0 : -1;
             }
         }
+        reachables[0][0] = 1;
 
-        return calculated;
+        return reachables;
     }
 
-    private static boolean isRoad(int j) {
-        return j == '.';
+
+    private static boolean isRoad(char c) {
+        return c == '.';
     }
 
 
