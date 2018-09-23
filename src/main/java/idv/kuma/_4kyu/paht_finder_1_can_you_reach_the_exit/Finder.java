@@ -12,13 +12,9 @@ public class Finder {
     static Queue<Point> waitingPoints;
 
     public static boolean pathFinder(String maze) {
-        System.out.println("===============================================");
 
         String[] lines = maze.split("\\r?\\n");
         n = lines.length;
-        System.out.println("maze: \n" + maze);
-        System.out.println("n = " + n);
-
 
         if (lines[n - 1].charAt(n - 1) == 'W') {
             return false;
@@ -44,7 +40,6 @@ public class Finder {
 
         boolean reachable = reachables[n - 1][n - 1] == 1;
 
-        System.out.println("reachable = " + (reachable));
         return reachable;
 
     }
