@@ -1,11 +1,19 @@
 package idv.kuma._2kyu.integer_square_root;
 
 
+import java.util.Map;
+
 //https://www.codewars.com/kata/challenge-fun-number-10-integer-square-root/train/java
 public class Kata {
 
-    public static String integerSquareRoot(String n) {
+    public static String integerSquareRoot(String nStr) {
 
-        return "1";
+        int n = Integer.valueOf(nStr);
+
+        double sqrt = Math.floor(Math.sqrt(n));
+
+        int cutted = (int) sqrt;
+
+        return "" + cutted;
     }
 }
