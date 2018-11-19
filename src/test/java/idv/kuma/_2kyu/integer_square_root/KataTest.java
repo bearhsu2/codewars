@@ -1,5 +1,6 @@
 package idv.kuma._2kyu.integer_square_root;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -7,6 +8,14 @@ import static org.junit.Assert.*;
 
 public class KataTest {
 
+    @Test
+    public void one_one() throws Exception {
+        assertEquals("1", Kata.integerSquareRoot("1"));
+
+
+    }
+
+    @Ignore
     @Test
     public void basicTests() {
 
