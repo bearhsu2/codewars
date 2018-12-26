@@ -1,16 +1,59 @@
 package idv.kuma._4kyu.strings_mix;
 
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({Mixing.class})
 public class MixingTest {
 
     @Test
+    public void MockedTest_When_ccccddddd_aabbb_2ddddd_2cccc_1bbb_1aa() throws Exception {
+
+        Mixing.FrequencyMaker mockedFrequencyMaker = mock(Mixing.FrequencyMaker.class);
+        when(mockedFrequencyMaker.makeStatics("ccccddddd", "1")).thenReturn(
+                new ArrayList<>(
+                        Arrays.asList(
+                                new Mixing.CharStat('d', 5, "1"),
+                                new Mixing.CharStat('c', 4, "2")
+                        )));
+        when(mockedFrequencyMaker.makeStatics("aabbb", "2")).thenReturn(
+                new ArrayList<>(
+                        Arrays.asList(
+                                new Mixing.CharStat('b', 3, "2"),
+                                new Mixing.CharStat('a', 2, "2")
+
+                        )));
+
+        PowerMockito.whenNew(Mixing.FrequencyMaker.class).withNoArguments().thenReturn(mockedFrequencyMaker);
+
+
+        Assert.assertEquals("2:ddddd/2:cccc/1:bbb/1:aa", Mixing.mix("ccccddddd", "aabbb"));
+
+    }
+
+    @Test
     public void When_aaa_bb_Then_1_aaa_2_bb() throws Exception {
-        assertEquals("1:aaa/2:bb", Mixing.mix("aaa","bbb"));
+        assertEquals("1:aaa/2:bb", Mixing.mix("aaa", "bb"));
+    }
+
+    @Ignore
+    @Test
+    public void When_bb_aa_Then_1_aa_2_bb() throws Exception {
+        assertEquals("1:aa/2:bb", Mixing.mix("bb", "aa"));
     }
 
     @Ignore
