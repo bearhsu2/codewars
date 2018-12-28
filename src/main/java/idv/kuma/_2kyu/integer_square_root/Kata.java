@@ -22,10 +22,6 @@ public class Kata {
             return nStr;
         }
 
-        if (nStr.equals("")){
-            return "";
-        }
-
         List<Long> n = Separator.separate(nStr);
 
         return Operator.LongsToString(findSquareRoot(n));
