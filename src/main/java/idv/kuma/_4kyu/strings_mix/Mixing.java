@@ -29,6 +29,10 @@ public class Mixing {
             } else if (cs1 == null || (cs2 != null && cs1.frequency < cs2.frequency)) {
                 result.add(cs2);
                 j++;
+            } else if (cs1 != null && cs2 != null && cs1.frequency == cs2.frequency) {
+                result.add(makeEqCharSet(cs1));
+                i++;
+                j++;
             } else {
                 System.out.println("SHIT!!!!");
             }
@@ -37,6 +41,10 @@ public class Mixing {
 
 
         return makeResultString(result);
+    }
+
+    private static CharStat makeEqCharSet(CharStat cs1) {
+        return new CharStat(cs1.charactor, cs1.frequency, "=");
     }
 
     private static String makeResultString(List<CharStat> charStats) {

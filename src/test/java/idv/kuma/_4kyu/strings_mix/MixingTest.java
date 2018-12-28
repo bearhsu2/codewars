@@ -71,6 +71,27 @@ public class MixingTest {
 
     }
 
+    @Test
+    public void MockedTest_When_ccccaa_aabbbddddd_Then_2ddddd_1cccc_2bbb_Eaa() throws Exception {
+
+        replaceFrequencyMakerWithMock();
+
+        String s1 = "ccccaa";
+        String s2 = "aadddddbbb";
+
+        prepareMockedFrequencyMaker(s1, "1",
+                new CharStat('c', 4, "1"),
+                new CharStat('a', 2, "1"));
+
+        prepareMockedFrequencyMaker(s2, "2",
+                new CharStat('d', 5, "2"),
+                new CharStat('b', 3, "2"),
+                new CharStat('a', 2, "2"));
+
+        runAndCheck("2:ddddd/1:cccc/2:bbb/=:aa", s1, s2);
+
+    }
+
 
     void runAndCheck(String expected, String s1, String s2) {
         Assert.assertEquals(expected, mix(s1, s2));
