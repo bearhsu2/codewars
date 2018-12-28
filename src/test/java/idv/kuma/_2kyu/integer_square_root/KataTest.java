@@ -11,6 +11,11 @@ public class KataTest {
 
 
     @Test
+    public void _0_0() throws Exception {
+        runAndCheck("0", "0");
+    }
+
+    @Test
     public void _1_1() throws Exception {
         runAndCheck("1", "1");
     }

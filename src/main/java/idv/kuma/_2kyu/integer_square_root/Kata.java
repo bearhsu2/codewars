@@ -34,6 +34,8 @@ public class Kata {
         while (Operator.compare(result, n) <= 0) {
             oldI = i;
             i = Operator.add(i, one);
+
+
             result = Operator.square(i);
         }
 
