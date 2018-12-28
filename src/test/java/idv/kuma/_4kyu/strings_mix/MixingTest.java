@@ -10,10 +10,11 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
-import static idv.kuma._4kyu.strings_mix.Mixing.*;
+import static idv.kuma._4kyu.strings_mix.Mixing.FrequencyMaker;
+import static idv.kuma._4kyu.strings_mix.Mixing.mix;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -23,30 +24,46 @@ import static org.mockito.Mockito.when;
 public class MixingTest {
 
 
-    private FrequencyMaker mockedFrequencyMaker= mock(FrequencyMaker.class);;
+    private FrequencyMaker mockedFrequencyMaker = mock(FrequencyMaker.class);
+
 
     @Test
     public void MockedTest_When_ccccddddd_aabbb_2ddddd_2cccc_1bbb_1aa() throws Exception {
 
-        when(mockedFrequencyMaker.makeStatics("ccccddddd", "1")).thenReturn(
-                new ArrayList<>(
-                        Arrays.asList(
-                                new CharStat('d', 5, "1"),
-                                new CharStat('c', 4, "1")
-                        )));
-        when(mockedFrequencyMaker.makeStatics("aabbb", "2")).thenReturn(
-                new ArrayList<>(
-                        Arrays.asList(
-                                new CharStat('b', 3, "2"),
-                                new CharStat('a', 2, "2")
+        replaceFrequencyMakerWithMock();
 
-                        )));
+        prepareMockedFrequencyMaker("ccccddddd", "1",
+                new CharStat('d', 5, "1"),
+                new CharStat('c', 4, "1"));
 
+        prepareMockedFrequencyMaker("aabbb", "2",
+                new CharStat('b', 3, "2"),
+                new CharStat('a', 2, "2"));
+
+
+        runAndCheck("1:ddddd/1:cccc/2:bbb/2:aa", "ccccddddd", "aabbb");
+
+    }
+
+    void runAndCheck(String expected, String s1, String s2) {
+        Assert.assertEquals(expected, mix(s1, s2));
+    }
+
+    void replaceFrequencyMakerWithMock() throws Exception {
         PowerMockito.whenNew(FrequencyMaker.class).withNoArguments().thenReturn(mockedFrequencyMaker);
+    }
 
+    void prepareMockedFrequencyMaker(String str, String strName, CharStat... charStats) {
 
-        Assert.assertEquals("1:ddddd/1:cccc/2:bbb/2:aa", mix("ccccddddd", "aabbb"));
-
+        when(mockedFrequencyMaker.makeStatics(str, strName)).thenReturn(
+                Arrays.stream(charStats).collect(Collectors.toList())
+        );
+//        when(mockedFrequencyMaker.makeStatics(str, strName)).thenReturn(
+//                new ArrayList<>(
+//                        Arrays.asList(
+//                                new CharStat('d', 5, "1"),
+//                                new CharStat('c', 4, "1")
+//                        )));
     }
 
     @Test
