@@ -2,7 +2,6 @@ package idv.kuma._2kyu.integer_square_root;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -87,7 +86,20 @@ public class Kata {
             return sb.toString();
         }
 
-        public static int compare(List<Long> result, List<Long> number) {
+        public static int compare(List<Long> a, List<Long> b) {
+            int aSize = a.size();
+            int bSize = b.size();
+            if (aSize != bSize) return aSize < bSize ? -1 : 1;
+
+            for (int i = a.size() - 1; i >= 0; i--) {
+                long aSection = a.get(i);
+                long bSection = b.get(i);
+
+                if (aSection != bSection) {
+                    return aSection < bSection ? -1 : 1;
+                }
+            }
+
             return 0;
         }
 

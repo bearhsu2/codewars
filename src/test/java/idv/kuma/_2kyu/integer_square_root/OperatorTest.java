@@ -30,6 +30,24 @@ public class OperatorTest {
         Assert.assertEquals("222111", actual);
     }
 
+    @Test
+    public void _222111_222111_compare_Is_0() throws Exception {
+        int actual = Kata.Operator.compare(Arrays.asList(111L, 222L), Arrays.asList(111L, 222L));
+        Assert.assertEquals(0, actual);
+    }
+
+    @Test
+    public void _222111_111222_compare_Is_1() throws Exception {
+        int actual = Kata.Operator.compare(Arrays.asList(111L, 222L), Arrays.asList(222L, 111L));
+        Assert.assertEquals(1, actual);
+    }
+
+    @Test
+    public void _222111_1111111_compare_Is_Neg_1() throws Exception {
+        int actual = Kata.Operator.compare(Arrays.asList(111L, 222L), Arrays.asList(111L, 111L, 1L));
+        Assert.assertEquals(-1, actual);
+    }
+
     private void runSquareAndCheck(String s, List<Long> expected) {
         List<Long> actual = Kata.Operator.square(Kata.Separator.separate(s));
         Assert.assertEquals(expected, actual);
