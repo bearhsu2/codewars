@@ -8,6 +8,8 @@ import static org.junit.Assert.assertEquals;
 
 public class KataTest {
 
+
+
     @Test
     public void _1_1() throws Exception {
         runAndCheck("1", "1");
