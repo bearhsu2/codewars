@@ -1,8 +1,10 @@
 package idv.kuma._4kyu.strings_mix;
 
 
+import javax.xml.datatype.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Mixing {
 
@@ -13,11 +15,21 @@ public class Mixing {
         List<CharStat> stats1 = frequencyMaker.makeStatics(s1, "1");
         List<CharStat> stats2 = frequencyMaker.makeStatics(s2, "2");
 
-
         stats1.addAll(stats2);
 
+        List<CharStat> result = stats1;
 
-        return stats1.toString();
+
+
+
+        return makeResultString(result);
+    }
+
+    private static String makeResultString(List<CharStat> charStats) {
+
+        return charStats.stream().map(x -> x.toString()).collect(Collectors.joining("/"));
+
+
     }
 
 

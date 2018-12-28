@@ -1,6 +1,7 @@
 package idv.kuma._4kyu.strings_mix;
 
 
+import idv.kuma._4kyu.strings_mix.Mixing.CharStat;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -27,21 +28,21 @@ public class MixingTest {
         when(mockedFrequencyMaker.makeStatics("ccccddddd", "1")).thenReturn(
                 new ArrayList<>(
                         Arrays.asList(
-                                new Mixing.CharStat('d', 5, "1"),
-                                new Mixing.CharStat('c', 4, "2")
+                                new CharStat('d', 5, "1"),
+                                new CharStat('c', 4, "1")
                         )));
         when(mockedFrequencyMaker.makeStatics("aabbb", "2")).thenReturn(
                 new ArrayList<>(
                         Arrays.asList(
-                                new Mixing.CharStat('b', 3, "2"),
-                                new Mixing.CharStat('a', 2, "2")
+                                new CharStat('b', 3, "2"),
+                                new CharStat('a', 2, "2")
 
                         )));
 
         PowerMockito.whenNew(Mixing.FrequencyMaker.class).withNoArguments().thenReturn(mockedFrequencyMaker);
 
 
-        Assert.assertEquals("2:ddddd/2:cccc/1:bbb/1:aa", Mixing.mix("ccccddddd", "aabbb"));
+        Assert.assertEquals("1:ddddd/1:cccc/2:bbb/2:aa", Mixing.mix("ccccddddd", "aabbb"));
 
     }
 
