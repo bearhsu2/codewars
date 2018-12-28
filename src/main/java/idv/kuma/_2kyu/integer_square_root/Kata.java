@@ -44,9 +44,11 @@ public class Kata {
             if (Operator.compare(square, n) < 0) {
                 floor = middle;
                 middle = Operator.findMiddle(floor, ceil);
+                System.out.println(middle);
             } else if (Operator.compare(square, n) > 0) {
                 ceil = middle;
                 middle = Operator.findMiddle(floor, ceil);
+                System.out.println(middle);
             } else {
                 break;
             }
@@ -80,8 +82,8 @@ public class Kata {
 
             List<Long> sections = new ArrayList<>();
 
-            for (int i = 0; i < nStr.length(); i += d) {
-                sections.add(0, Long.valueOf(nStr.substring(i, Math.min(i + d, nStr.length()))));
+            for (int i = nStr.length(); i >= 0; i -= d) {
+                sections.add(Long.valueOf(nStr.substring(Math.max(i - d, 0), i)));
             }
 
             return sections;
@@ -226,7 +228,7 @@ public class Kata {
                 long number = numbers.get(i);
 
                 long quotient = (number + nextRemainer * sectionMax) / 2L;
-                nextRemainer = number - quotient * 2L ;
+                nextRemainer = number + nextRemainer * sectionMax - quotient * 2L;
 
                 result.add(0, quotient);
             }
