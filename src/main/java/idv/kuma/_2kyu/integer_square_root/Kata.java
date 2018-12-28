@@ -12,10 +12,9 @@ public class Kata {
 
     public static String integerSquareRoot(String nStr) {
 
-        List<Long> number = separate(nStr);
+        List<Long> number = Separator.separate(nStr);
 
         return findSquareRoot(number);
-
 
 
     }
@@ -30,15 +29,30 @@ public class Kata {
         return "" + cutted;
     }
 
-    private static List<Long> separate(String nStr) {
+    public static class Separator{
 
-        List<Long> sections = new ArrayList<>();
+        public static List<Long> separate(String nStr) {
 
-        for (int i = 0; i < nStr.length(); i += d) {
-            sections.add(0, Long.valueOf(nStr.substring(i, Math.min(i + d, nStr.length()))));
+            List<Long> sections = new ArrayList<>();
+
+            for (int i = 0; i < nStr.length(); i += d) {
+                sections.add(0, Long.valueOf(nStr.substring(i, Math.min(i + d, nStr.length()))));
+
+            }
+
+            return sections;
+        }
+    }
+
+    public static class Operator{
+        public static List<Long> multiply(List<Long> a, List<Long> b){
+
+
+
+            List<Long> result = new ArrayList<>();
+            result.add(a.get(0) * b.get(0));
+            return result;
 
         }
-
-        return sections;
     }
 }
