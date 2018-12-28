@@ -63,6 +63,11 @@ public class KataTest {
         runAndCheck("12323309809809534545458098709854808654685688665486860956865654654654324238000980980980", "3510457208086937291253621317073222057793129");
 
     }
+    @Test
+    public void realCase() throws Exception {
+        runAndCheck("346397429185729221486777470231396322166462901", "18611755134476952963402");
+
+    }
 
     void runAndCheck(String number, String root) {
         assertEquals(root, Kata.integerSquareRoot(number));

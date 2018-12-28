@@ -16,8 +16,14 @@ public class Kata {
 
     public static String integerSquareRoot(String nStr) {
 
+        System.out.println("input = " + nStr);
+
         if (nStr.equals("0") || nStr.equals("1")) {
             return nStr;
+        }
+
+        if (nStr.equals("")){
+            return "";
         }
 
         List<Long> n = Separator.separate(nStr);
@@ -44,11 +50,11 @@ public class Kata {
             if (Operator.compare(square, n) < 0) {
                 floor = middle;
                 middle = Operator.findMiddle(floor, ceil);
-                System.out.println(middle);
+//                System.out.println(middle);
             } else if (Operator.compare(square, n) > 0) {
                 ceil = middle;
                 middle = Operator.findMiddle(floor, ceil);
-                System.out.println(middle);
+//                System.out.println(middle);
             } else {
                 break;
             }
@@ -57,23 +63,8 @@ public class Kata {
 
         return middle;
 
-//        // Returns floor of square root of x
-//        static int floorSqrt(int x)
-//        {
-//            // Base cases
-//            if (x == 0 || x == 1)
-//                return x;
-//
-//            // Staring from 1, try all numbers until
-//            // i*i is greater than or equal to x.
-//            int i = 1, result = 1;
-//
-//            while (result <= x) {
-//                i++;
-//                result = i * i;
-//            }
-//            return i - 1;
-//        }
+
+
     }
 
     public static class Separator {
@@ -82,7 +73,7 @@ public class Kata {
 
             List<Long> sections = new ArrayList<>();
 
-            for (int i = nStr.length(); i >= 0; i -= d) {
+            for (int i = nStr.length(); i > 0; i -= d) {
                 sections.add(Long.valueOf(nStr.substring(Math.max(i - d, 0), i)));
             }
 
