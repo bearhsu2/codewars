@@ -46,6 +46,11 @@ public class Kata {
     }
 
     public static class Operator {
+
+        public static List<Long> square(List<Long> a){
+            return multiply(a, a);
+        }
+
         public static List<Long> multiply(List<Long> a, List<Long> b) {
 
 
