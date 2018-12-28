@@ -12,10 +12,11 @@ public class Kata {
 
     public static int d = 9;
     public static long sectionMax = (long) Math.pow(10, 9);
+    public static String patternFormat = "%09d";
 
     public static String integerSquareRoot(String nStr) {
 
-        if (nStr.equals("0") || nStr.equals("1")){
+        if (nStr.equals("0") || nStr.equals("1")) {
             return nStr;
         }
 
@@ -30,20 +31,29 @@ public class Kata {
 
 
         List<Long> one = Collections.singletonList(1L);
-        List<Long> i = Collections.singletonList(1L);
-        List<Long> result = Collections.singletonList(1L);
 
+        List<Long> floor = Collections.singletonList(1L);
+        List<Long> ceil = n;
+        List<Long> middle = Operator.findMiddle(floor, ceil);
 
-        List<Long> oldI = Collections.singletonList(0L);
-        while (Operator.compare(result, n) <= 0) {
-            oldI = i;
-            i = Operator.add(i, one);
+        // repeat until middle + 1 = ceil
+        while (Operator.compare(Operator.square(middle), n) > 0 || Operator.compare(Operator.add(middle, one), ceil) < 0) {
 
+            List<Long> square = Operator.square(middle);
 
-            result = Operator.square(i);
+            if (Operator.compare(square, n) < 0) {
+                floor = middle;
+                middle = Operator.findMiddle(floor, ceil);
+            } else if (Operator.compare(square, n) > 0) {
+                ceil = middle;
+                middle = Operator.findMiddle(floor, ceil);
+            } else {
+                break;
+            }
+
         }
 
-        return oldI;
+        return middle;
 
 //        // Returns floor of square root of x
 //        static int floorSqrt(int x)
@@ -85,7 +95,13 @@ public class Kata {
 
 
             for (int i = longs.size() - 1; i >= 0; i--) {
-                sb.append(longs.get(i));
+                Long section = longs.get(i);
+
+                if (i == longs.size() - 1) {
+                    sb.append(section);
+                } else {
+                    sb.append(String.format(patternFormat, section));
+                }
             }
 
             return sb.toString();
@@ -130,7 +146,7 @@ public class Kata {
 
             }
 
-            if (nextCarry > 0L){
+            if (nextCarry > 0L) {
                 result.add(nextCarry);
             }
 
@@ -195,5 +211,26 @@ public class Kata {
         }
 
 
+        public static List<Long> findMiddle(List<Long> floor, List<Long> ceil) {
+            List<Long> sum = Operator.add(floor, ceil);
+
+            return Operator.cutHalf(sum);
+        }
+
+        private static List<Long> cutHalf(List<Long> numbers) {
+
+            List<Long> result = new ArrayList<>();
+
+            long nextRemainer = 0L;
+            for (int i = numbers.size() - 1; i >= 0; i--) {
+                long number = numbers.get(i);
+
+                long quotient = (number + nextRemainer * sectionMax) / 2L;
+                nextRemainer = number - quotient * 2L ;
+
+                result.add(0, quotient);
+            }
+            return result;
+        }
     }
 }

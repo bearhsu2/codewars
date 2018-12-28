@@ -1,13 +1,17 @@
 package idv.kuma._2kyu.integer_square_root;
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 
 public class KataTest {
-
 
 
     @Test
@@ -32,7 +36,7 @@ public class KataTest {
 
     @Test
     public void _101_10() throws Exception {
-        runAndCheck("3", "1");
+        runAndCheck("101", "10");
     }
 
 
@@ -45,6 +49,12 @@ public class KataTest {
         runAndCheck("100", "10");
         runAndCheck("1000", "31");
 
+    }
+
+    @Test
+    public void _1_222444666887_findMiddle_Is_aaa() {
+        List<Long> middle = Kata.Operator.findMiddle(Collections.singletonList(1L), Arrays.asList(444666887L, 222L));
+        Assert.assertEquals("111222333444", Kata.Operator.LongsToString(middle));
     }
 
     @Ignore
