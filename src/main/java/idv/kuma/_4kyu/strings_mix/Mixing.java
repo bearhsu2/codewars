@@ -23,12 +23,12 @@ public class Mixing {
             CharStat cs1 = i >= stats1.size() ? null : stats1.get(i);
             CharStat cs2 = j >= stats2.size() ? null : stats2.get(j);
 
-            if (cs1 == null) {
-                result.add(cs2);
-                j++;
-            } else if (cs2 == null) {
+            if (cs2 == null) {
                 result.add(cs1);
                 i++;
+            } else if (cs1 == null) {
+                result.add(cs2);
+                j++;
             } else if (cs1.frequency > cs2.frequency) {
                 result.add(cs1);
                 i++;
