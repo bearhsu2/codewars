@@ -15,6 +15,10 @@ public class Kata {
 
     public static String integerSquareRoot(String nStr) {
 
+        if (nStr.equals("0") || nStr.equals("1")){
+            return nStr;
+        }
+
         List<Long> n = Separator.separate(nStr);
 
         return Operator.LongsToString(findSquareRoot(n));
