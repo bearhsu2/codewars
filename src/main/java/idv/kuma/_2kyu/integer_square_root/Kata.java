@@ -2,10 +2,13 @@ package idv.kuma._2kyu.integer_square_root;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 //https://www.codewars.com/kata/challenge-fun-number-10-integer-square-root/train/java
 //http://www.nuprl.org/MathLibrary/integer_sqrt/
+//https://www.programcreek.com/2012/02/java-calculate-square-root-without-using-library-method/
 public class Kata {
 
     public static int d = 9;
@@ -15,19 +18,45 @@ public class Kata {
 
         List<Long> number = Separator.separate(nStr);
 
-        return findSquareRoot(number);
+        return Operator.LongsToString(findSquareRoot(number));
 
 
     }
 
-    private static String findSquareRoot(List<Long> number) {
-        long n = number.get(0);
+    private static List<Long> findSquareRoot(List<Long> number) {
 
-        double sqrt = Math.floor(Math.sqrt(n));
 
-        int cutted = (int) sqrt;
+        List<Long> one = Collections.singletonList(1L);
+        List<Long> i = Collections.singletonList(1L);
+        List<Long> result = Collections.singletonList(1L);
 
-        return "" + cutted;
+
+        List<Long> oldI = Collections.singletonList(0L);
+        while (Operator.compare(result, number) <= 0) {
+            oldI = i;
+            i = Operator.add(i, one);
+            result = Operator.multiply(result, one);
+        }
+
+        return oldI;
+
+//        // Returns floor of square root of x
+//        static int floorSqrt(int x)
+//        {
+//            // Base cases
+//            if (x == 0 || x == 1)
+//                return x;
+//
+//            // Staring from 1, try all numbers until
+//            // i*i is greater than or equal to x.
+//            int i = 1, result = 1;
+//
+//            while (result <= x) {
+//                i++;
+//                result = i * i;
+//            }
+//            return i - 1;
+//        }
     }
 
     public static class Separator {
@@ -46,6 +75,25 @@ public class Kata {
     }
 
     public static class Operator {
+
+        public static String LongsToString(List<Long> longs){
+            StringBuilder sb = new StringBuilder();
+
+
+            for (int i = longs.size() - 1; i >= 0; i--) {
+                sb.append(longs.get(i));
+            }
+
+            return sb.toString();
+        }
+
+        public static int compare(List<Long> result, List<Long> number) {
+            return 0;
+        }
+
+        public static List<Long> add(List<Long> i, List<Long> one) {
+            return null;
+        }
 
         public static List<Long> square(List<Long> a){
             return multiply(a, a);
@@ -96,5 +144,8 @@ public class Kata {
             return result;
 
         }
+
+
+
     }
 }

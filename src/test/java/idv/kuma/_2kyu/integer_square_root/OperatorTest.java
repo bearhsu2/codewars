@@ -24,6 +24,12 @@ public class OperatorTest {
         runSquareAndCheck("11", Collections.singletonList(121L));
     }
 
+    @Test
+    public void _111_222_ToString_Is_222111() throws Exception {
+        String actual = Kata.Operator.LongsToString(Arrays.asList(111L, 222L));
+        Assert.assertEquals("222111", actual);
+    }
+
     private void runSquareAndCheck(String s, List<Long> expected) {
         List<Long> actual = Kata.Operator.square(Kata.Separator.separate(s));
         Assert.assertEquals(expected, actual);
