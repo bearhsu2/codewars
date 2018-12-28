@@ -1,8 +1,7 @@
 package idv.kuma._4kyu.strings_mix;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Mixing {
@@ -18,10 +17,14 @@ public class Mixing {
 
         List<CharStat> result = stats1;
 
+        // 1st pass
         result.sort(CharStat::compareTo);
 
+        // 2nd pass
         result = determineEq(result);
 
+        // 3rd pass
+        result = determineDuplicatedCharButDifferentFreq(result);
 
         String resultString = makeResultString(result);
 
@@ -29,6 +32,20 @@ public class Mixing {
         System.out.println(resultString);
 
         return resultString;
+    }
+
+    private static List<CharStat> determineDuplicatedCharButDifferentFreq(List<CharStat> original) {
+        List<CharStat> result = new ArrayList<>();
+        Set<Character> processedChars = new HashSet<>();
+
+        original.forEach(charStat -> {
+           if (!processedChars.contains(charStat.charactor)){
+               result.add(charStat);
+               processedChars.add(charStat.charactor);
+           }
+        });
+
+        return result;
     }
 
     private static List<CharStat> determineEq(List<CharStat> original) {
@@ -72,7 +89,29 @@ public class Mixing {
         public List<CharStat> makeStatics(String str, String stringName) {
             List<CharStat> statics = new ArrayList<>();
 
-            // TODO: fill this part
+            char[] charArray = str.toCharArray();
+            Map<Character, Integer> charToCount = new HashMap<>();
+
+            for (char c : charArray) {
+
+                if (c < 'a' || c > 'z') continue;
+
+                Integer count = charToCount.get(c);
+
+                if (count == null){
+                    charToCount.put(c, 1);
+                } else {
+                    charToCount.put(c, count + 1);
+                }
+            }
+
+
+            charToCount.entrySet().forEach( entry -> {
+                if (entry.getValue() > 1) {
+                    statics.add(new CharStat(entry.getKey(), entry.getValue(), stringName));
+                }
+            });
+
 
             return statics;
         }
@@ -125,6 +164,26 @@ public class Mixing {
             if (this.charactor < another.charactor) return -1;
             if (this.charactor > another.charactor) return 1;
             return 0;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            CharStat charStat = (CharStat) o;
+
+            if (charactor != charStat.charactor) return false;
+            if (frequency != charStat.frequency) return false;
+            return originalString != null ? originalString.equals(charStat.originalString) : charStat.originalString == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = (int) charactor;
+            result = 31 * result + frequency;
+            result = 31 * result + (originalString != null ? originalString.hashCode() : 0);
+            return result;
         }
     }
 }
