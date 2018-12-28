@@ -9,6 +9,7 @@ import java.util.List;
 public class Kata {
 
     public static int d = 9;
+    public static long sectionMax = (long) Math.pow(10, 9);
 
     public static String integerSquareRoot(String nStr) {
 
@@ -29,7 +30,7 @@ public class Kata {
         return "" + cutted;
     }
 
-    public static class Separator{
+    public static class Separator {
 
         public static List<Long> separate(String nStr) {
 
@@ -44,13 +45,49 @@ public class Kata {
         }
     }
 
-    public static class Operator{
-        public static List<Long> multiply(List<Long> a, List<Long> b){
+    public static class Operator {
+        public static List<Long> multiply(List<Long> a, List<Long> b) {
 
+
+            List<List<Long>> temp = new ArrayList<>();
+
+            for (int i = 0; i < a.size() + b.size(); i++) {
+                temp.add(new ArrayList<>());
+            }
+
+            for (int j = 0; j < b.size(); j++) {
+                temp.add(new ArrayList<>());
+                for (int i = 0; i < a.size(); i++) {
+                    long element = a.get(i) * b.get(j);
+                    int digit = i + j;
+
+                    temp.get(digit).add(element);
+
+                }
+            }
 
 
             List<Long> result = new ArrayList<>();
-            result.add(a.get(0) * b.get(0));
+            long nextCarry = 0;
+            for (int i = 0; i < temp.size(); i++) {
+                long sum = temp.get(i).stream().mapToLong(Long::longValue).sum() + nextCarry;
+
+                nextCarry = 0;
+                if (sum >= sectionMax) {
+                    nextCarry = sum / sectionMax;
+                    sum -= sectionMax;
+                }
+
+                result.add(sum);
+            }
+
+
+            for (int i = result.size() - 1; i >= 0; i--) {
+                if (result.get(i) > 0) {
+                    break;
+                }
+                result.remove(i);
+            }
             return result;
 
         }
