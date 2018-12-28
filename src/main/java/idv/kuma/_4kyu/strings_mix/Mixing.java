@@ -14,44 +14,45 @@ public class Mixing {
         List<CharStat> stats1 = frequencyMaker.makeStatics(s1, "1");
         List<CharStat> stats2 = frequencyMaker.makeStatics(s2, "2");
 
+        stats1.addAll(stats2);
 
-        List<CharStat> result = new ArrayList<>();
+        List<CharStat> result = stats1;
 
-        int i = 0, j = 0;
+        result.sort(CharStat::compareTo);
 
-        while (i < stats1.size() || j < stats2.size()) {
-            CharStat cs1 = i >= stats1.size() ? null : stats1.get(i);
-            CharStat cs2 = j >= stats2.size() ? null : stats2.get(j);
-
-            if (cs2 == null || (cs1 != null && cs1.frequency > cs2.frequency)) {
-                result.add(cs1);
-                i++;
-            } else if (cs1 == null || (cs2 != null && cs1.frequency < cs2.frequency)) {
-                result.add(cs2);
-                j++;
-            } else if (cs1 != null && cs2 != null && cs1.frequency == cs2.frequency) {
-                if (cs1.charactor < cs2.charactor){
-                    result.add(cs1);
-                    i++;
-                } else if (cs1.charactor > cs2.charactor){
-                    result.add(cs2);
-                    j++;
-                } else {
-                    result.add(makeEqCharSet(cs1));
-                    i++;
-                    j++;
-                }
-            } else {
-                System.out.println("SHIT!!!!");
-            }
-
-        }
+        result = determineEq(result);
 
 
         String resultString = makeResultString(result);
+
+
         System.out.println(resultString);
 
         return resultString;
+    }
+
+    private static List<CharStat> determineEq(List<CharStat> original) {
+        List<CharStat> result = new ArrayList<>();
+
+        for (int i = 0; i < original.size(); i++) {
+            CharStat current = original.get(i);
+
+            if (i == original.size() - 1){
+                result.add(current);
+                break;
+            }
+
+            CharStat next = original.get(i + 1);
+            if (current.charactor == next.charactor && current.frequency == next.frequency) {
+                result.add(makeEqCharSet(current));
+                i++;
+            } else {
+                result.add(current);
+            }
+        }
+
+        return result;
+
     }
 
     private static CharStat makeEqCharSet(CharStat cs1) {
@@ -77,7 +78,7 @@ public class Mixing {
         }
     }
 
-    public static class CharStat {
+    public static class CharStat implements Comparable {
         private char charactor;
         private int frequency;
         private String originalString;
@@ -88,6 +89,18 @@ public class Mixing {
             this.originalString = originalString;
         }
 
+
+        public char getCharactor() {
+            return charactor;
+        }
+
+        public int getFrequency() {
+            return frequency;
+        }
+
+        public String getOriginalString() {
+            return originalString;
+        }
 
         @Override
         public String toString() {
@@ -102,5 +115,16 @@ public class Mixing {
             return sb.toString();
         }
 
+        @Override
+        public int compareTo(Object o) {
+            CharStat another = (CharStat) o;
+
+            if (this.frequency > another.frequency) return -1;
+            if (this.frequency < another.frequency) return 1;
+
+            if (this.charactor < another.charactor) return -1;
+            if (this.charactor > another.charactor) return 1;
+            return 0;
+        }
     }
 }
