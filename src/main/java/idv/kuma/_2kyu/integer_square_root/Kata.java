@@ -15,14 +15,14 @@ public class Kata {
 
     public static String integerSquareRoot(String nStr) {
 
-        List<Long> number = Separator.separate(nStr);
+        List<Long> n = Separator.separate(nStr);
 
-        return Operator.LongsToString(findSquareRoot(number));
+        return Operator.LongsToString(findSquareRoot(n));
 
 
     }
 
-    private static List<Long> findSquareRoot(List<Long> number) {
+    private static List<Long> findSquareRoot(List<Long> n) {
 
 
         List<Long> one = Collections.singletonList(1L);
@@ -31,7 +31,7 @@ public class Kata {
 
 
         List<Long> oldI = Collections.singletonList(0L);
-        while (Operator.compare(result, number) <= 0) {
+        while (Operator.compare(result, n) <= 0) {
             oldI = i;
             i = Operator.add(i, one);
             result = Operator.square(i);
@@ -66,7 +66,6 @@ public class Kata {
 
             for (int i = 0; i < nStr.length(); i += d) {
                 sections.add(0, Long.valueOf(nStr.substring(i, Math.min(i + d, nStr.length()))));
-
             }
 
             return sections;
@@ -75,7 +74,7 @@ public class Kata {
 
     public static class Operator {
 
-        public static String LongsToString(List<Long> longs){
+        public static String LongsToString(List<Long> longs) {
             StringBuilder sb = new StringBuilder();
 
 
@@ -104,10 +103,42 @@ public class Kata {
         }
 
         public static List<Long> add(List<Long> a, List<Long> b) {
-            return null;
+
+            int maxLength = Math.max(a.size(), b.size()) + 1;
+            List<Long> result = new ArrayList<>();
+
+            long nextCarry = 0L;
+            for (int i = 0; i < maxLength; i++) {
+                long aValue = i > a.size() - 1 ? 0L : a.get(i);
+                long bValue = i > b.size() - 1 ? 0L : b.get(i);
+
+                long sum = aValue + bValue + nextCarry;
+
+                nextCarry = 0L;
+                if (sum >= sectionMax) {
+                    nextCarry = sum / sectionMax;
+                    sum %= sectionMax;
+                }
+
+                result.add(sum);
+
+            }
+
+            if (nextCarry > 0L){
+                result.add(nextCarry);
+            }
+
+            for (int i = result.size() - 1; i >= 0; i--) {
+                if (result.get(i) > 0) {
+                    break;
+                }
+                result.remove(i);
+            }
+
+            return result;
         }
 
-        public static List<Long> square(List<Long> a){
+        public static List<Long> square(List<Long> a) {
             return multiply(a, a);
         }
 
@@ -156,7 +187,6 @@ public class Kata {
             return result;
 
         }
-
 
 
     }
