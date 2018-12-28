@@ -28,22 +28,28 @@ public class MixingTest {
 
 
     @Test
-    public void MockedTest_When_ccccddddd_aabbb_2ddddd_2cccc_1bbb_1aa() throws Exception {
+    public void MockedTest_When_ccccddddd_aabbb_1ddddd_1cccc_2bbb_2aa() throws Exception {
 
         replaceFrequencyMakerWithMock();
 
-        prepareMockedFrequencyMaker("ccccddddd", "1",
+        String s1 = "ccccddddd";
+        String s2 = "aabbb";
+
+        prepareMockedFrequencyMaker(s1, "1",
                 new CharStat('d', 5, "1"),
                 new CharStat('c', 4, "1"));
 
-        prepareMockedFrequencyMaker("aabbb", "2",
+        prepareMockedFrequencyMaker(s2, "2",
                 new CharStat('b', 3, "2"),
                 new CharStat('a', 2, "2"));
 
 
-        runAndCheck("1:ddddd/1:cccc/2:bbb/2:aa", "ccccddddd", "aabbb");
+        runAndCheck("1:ddddd/1:cccc/2:bbb/2:aa", s1, s2);
 
     }
+
+
+  
 
     void runAndCheck(String expected, String s1, String s2) {
         Assert.assertEquals(expected, mix(s1, s2));
