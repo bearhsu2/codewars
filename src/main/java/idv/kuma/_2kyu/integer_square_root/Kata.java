@@ -34,7 +34,7 @@ public class Kata {
         while (Operator.compare(result, number) <= 0) {
             oldI = i;
             i = Operator.add(i, one);
-            result = Operator.multiply(result, one);
+            result = Operator.square(i);
         }
 
         return oldI;
@@ -103,7 +103,7 @@ public class Kata {
             return 0;
         }
 
-        public static List<Long> add(List<Long> i, List<Long> one) {
+        public static List<Long> add(List<Long> a, List<Long> b) {
             return null;
         }
 
