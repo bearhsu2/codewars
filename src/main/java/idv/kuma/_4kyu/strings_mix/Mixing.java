@@ -26,6 +26,10 @@ public class Mixing {
         // 3rd pass
         result = determineDuplicatedCharButDifferentFreq(result);
 
+        // 4th pass
+        result.sort(CharStat::compareToConsideringEq);
+
+
         String resultString = makeResultString(result);
 
 
@@ -39,10 +43,10 @@ public class Mixing {
         Set<Character> processedChars = new HashSet<>();
 
         original.forEach(charStat -> {
-           if (!processedChars.contains(charStat.charactor)){
-               result.add(charStat);
-               processedChars.add(charStat.charactor);
-           }
+            if (!processedChars.contains(charStat.charactor)) {
+                result.add(charStat);
+                processedChars.add(charStat.charactor);
+            }
         });
 
         return result;
@@ -54,7 +58,7 @@ public class Mixing {
         for (int i = 0; i < original.size(); i++) {
             CharStat current = original.get(i);
 
-            if (i == original.size() - 1){
+            if (i == original.size() - 1) {
                 result.add(current);
                 break;
             }
@@ -98,7 +102,7 @@ public class Mixing {
 
                 Integer count = charToCount.get(c);
 
-                if (count == null){
+                if (count == null) {
                     charToCount.put(c, 1);
                 } else {
                     charToCount.put(c, count + 1);
@@ -106,7 +110,7 @@ public class Mixing {
             }
 
 
-            charToCount.entrySet().forEach( entry -> {
+            charToCount.entrySet().forEach(entry -> {
                 if (entry.getValue() > 1) {
                     statics.add(new CharStat(entry.getKey(), entry.getValue(), stringName));
                 }
@@ -166,6 +170,8 @@ public class Mixing {
             return 0;
         }
 
+
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -184,6 +190,13 @@ public class Mixing {
             result = 31 * result + frequency;
             result = 31 * result + (originalString != null ? originalString.hashCode() : 0);
             return result;
+        }
+
+        public int compareToConsideringEq(CharStat another) {
+            if (this.frequency > another.frequency) return -1;
+            if (this.frequency < another.frequency) return 1;
+
+            return this.toString().compareTo(another.toString());
         }
     }
 }
