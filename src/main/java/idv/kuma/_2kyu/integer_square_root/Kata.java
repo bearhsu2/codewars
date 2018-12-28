@@ -75,7 +75,7 @@ public class Kata {
                 nextCarry = 0;
                 if (sum >= sectionMax) {
                     nextCarry = sum / sectionMax;
-                    sum -= sectionMax;
+                    sum %= sectionMax;
                 }
 
                 result.add(sum);
