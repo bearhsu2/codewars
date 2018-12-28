@@ -22,9 +22,7 @@ public class Kata {
             return nStr;
         }
 
-        List<Long> n = Separator.separate(nStr);
-
-        return Operator.LongsToString(findSquareRoot(n));
+        return Operator.LongsToString(findSquareRoot(Separator.separate(nStr)));
 
 
     }
@@ -46,11 +44,9 @@ public class Kata {
             if (Operator.compare(square, n) < 0) {
                 floor = middle;
                 middle = Operator.findMiddle(floor, ceil);
-//                System.out.println(middle);
             } else if (Operator.compare(square, n) > 0) {
                 ceil = middle;
                 middle = Operator.findMiddle(floor, ceil);
-//                System.out.println(middle);
             } else {
                 break;
             }
@@ -58,9 +54,7 @@ public class Kata {
         }
 
         return middle;
-
-
-
+        
     }
 
     public static class Separator {
