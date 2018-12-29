@@ -6,24 +6,39 @@ public class Matrix {
 
     public Matrix(double[][] elements) {
 
-        if (null == elements || elements.length == 0) throw new IllegalArgumentException();
+        checkNotNull(elements);
+        checkPositive(elements.length);
 
-        int rowLength = -1;
+        int knownRowLength = -1;
         this.elements = new double[elements.length][];
 
         for (int i = 0; i < elements.length; i++) {
             double[] row = elements[i];
 
             int nextRowLength = row.length;
-            if (null == row
-                    || nextRowLength == 0
-                    || (nextRowLength != rowLength && rowLength >= 0)) throw new IllegalArgumentException();
-            rowLength = nextRowLength;
+            
+            checkNotNull(row);
+            checkPositive(nextRowLength);
+            checkConsistency(knownRowLength, nextRowLength);
+
+            knownRowLength = nextRowLength;
 
             this.elements[i] = elements[i];
         }
 
         this.elements = elements;
+    }
+
+    void checkConsistency(int knownLength, int nextLength) {
+        if (nextLength != knownLength && knownLength >= 0) throw new IllegalArgumentException();
+    }
+
+    void checkPositive(int length) {
+        if (length == 0) throw new IllegalArgumentException();
+    }
+
+    void checkNotNull(Object o) {
+        if (null == o) throw new IllegalArgumentException();
     }
 
     public Matrix(int rows, int cols, double... elements) {
