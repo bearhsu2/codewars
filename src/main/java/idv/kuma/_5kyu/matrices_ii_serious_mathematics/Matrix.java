@@ -31,6 +31,11 @@ public class Matrix {
 
     public Matrix(int rows, int cols, double... elements) {
 
+        checkPositive(rows);
+        checkPositive(cols);
+
+        checkNotNull(elements);
+        checkNumber(rows * cols, elements);
 
         this.elements = new double[rows][cols];
         for (int i = 0; i < rows; i++) {
@@ -38,6 +43,10 @@ public class Matrix {
                 this.elements[i][j] = elements[i * cols + j];
             }
         }
+    }
+
+    private void checkNumber(int i, double[] elements) {
+        if (i != elements.length) throw new IllegalArgumentException();
     }
 
     void checkConsistency(int knownLength, int nextLength) {

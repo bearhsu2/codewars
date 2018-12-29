@@ -6,6 +6,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.fail;
 
 public class MatrixTest {
 
@@ -71,7 +72,7 @@ public class MatrixTest {
                     new double[]{5, -3, 2.5, 999},
                     new double[]{-42.117, 69},
             });
-            throw new Exception("IllegalArgumentException expected.");
+            fail("IllegalArgumentException expected.");
         } catch (Exception e) {
             Assert.assertTrue("Wrong error type thrown", e instanceof IllegalArgumentException);
         }
@@ -85,6 +86,41 @@ public class MatrixTest {
                 new double[]{514.5, 88, -144.15},
                 new double[]{499.51, -343.176, 1214.2}
         }, m2.toArray());
+    }
+
+    @Test
+    public void Specify_RowAndCol_Constructor_When_Bad_Inputs_Should_Throw_Exception() throws Exception {
+
+        try {
+            new Matrix(3, 3,
+                    -4.25, 58.667, 24.3,
+                    514.5, 88, -144.15,
+                    499.51, -343.176
+            );
+            fail("IllegalArgumentException expected.");
+        } catch (Exception e) {
+            Assert.assertTrue("Wrong error type thrown", e instanceof IllegalArgumentException);
+        }
+
+        try {
+            new Matrix(-1, 3,
+                    -4.25, 58.667, 24.3,
+                    514.5, 88, -144.15,
+                    499.51, -343.176
+            );
+            fail("IllegalArgumentException expected.");
+        } catch (Exception e) {
+            Assert.assertTrue("Wrong error type thrown", e instanceof IllegalArgumentException);
+        }
+
+        try {
+            new Matrix(-3, 3);
+            fail("IllegalArgumentException expected.");
+        } catch (Exception e) {
+            Assert.assertTrue("Wrong error type thrown", e instanceof IllegalArgumentException);
+        }
+
+
     }
 
 
