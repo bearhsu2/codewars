@@ -96,7 +96,7 @@ public class Matrix {
             }
         }
 
-        return elements;
+        return temp;
     }
 
     public Matrix transpose() {
