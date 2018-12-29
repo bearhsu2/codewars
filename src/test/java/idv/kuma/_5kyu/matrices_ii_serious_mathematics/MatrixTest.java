@@ -2,7 +2,6 @@ package idv.kuma._5kyu.matrices_ii_serious_mathematics;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;

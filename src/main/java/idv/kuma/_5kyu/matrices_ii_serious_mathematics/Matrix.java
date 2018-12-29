@@ -1,7 +1,6 @@
 package idv.kuma._5kyu.matrices_ii_serious_mathematics;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Matrix {
@@ -54,7 +53,7 @@ public class Matrix {
     }
 
     void checkEquals(int myCols, int anotherRows) {
-        if (myCols != anotherRows){
+        if (myCols != anotherRows) {
             throw new IllegalArgumentException();
         }
     }
@@ -162,8 +161,7 @@ public class Matrix {
     }
 
 
-
-    private double getProduct(double[] a, double[] b){
+    private double getProduct(double[] a, double[] b) {
         double product = 0D;
         for (int i = 0; i < a.length; i++) {
             product += a[i] * b[i];
@@ -171,8 +169,6 @@ public class Matrix {
 
         return product;
     }
-
-
 
 
 }
