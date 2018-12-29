@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Matrix {
 
-    private double[][] elements;
+    private final double[][] elements;
 
     public Matrix(double[][] elements) {
 
@@ -14,7 +14,7 @@ public class Matrix {
         checkPositive(elements.length);
 
         int knownRowLength = -1;
-        this.elements = new double[elements.length][];
+        double[][] temp = new double[elements.length][];
 
         for (int i = 0; i < elements.length; i++) {
             double[] row = elements[i];
@@ -27,19 +27,15 @@ public class Matrix {
 
             knownRowLength = nextRowLength;
 
-            this.elements[i] = elements[i];
+            temp[i] = new double[row.length];
+            for (int j = 0; j < row.length; j++) {
+                temp[i][j] = row[j];
+            }
         }
 
         System.out.println(this);
 
-        this.elements = elements;
-    }
-
-    @Override
-    public String toString() {
-        return "Matrix{" +
-                "elements=" + Arrays.deepToString(elements) +
-                '}';
+        this.elements = temp;
     }
 
     public Matrix(int rows, int cols, double... elements) {
@@ -56,6 +52,13 @@ public class Matrix {
                 this.elements[i][j] = elements[i * cols + j];
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Matrix{" +
+                "elements=" + Arrays.deepToString(elements) +
+                '}';
     }
 
     private void checkNumber(int i, double[] elements) {
@@ -81,6 +84,18 @@ public class Matrix {
     }
 
     public double[][] toArray() {
+
+        int rows = elements.length;
+        int cols = elements[0].length;
+
+        double[][] temp = new double[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                temp[i][j] = elements[i][j];
+            }
+        }
+
         return elements;
     }
 
@@ -110,7 +125,6 @@ public class Matrix {
 
         checkEquals(thisRows, another.elements.length);
         checkEquals(thisCols, another.elements[0].length);
-
 
 
         double[][] result = new double[thisRows][thisCols];
