@@ -163,7 +163,6 @@ public class MatrixTest {
 
     }
 
-    @Ignore
     @Test
     public void Multiply_by_Matrix() throws Exception {
 
