@@ -49,15 +49,15 @@ public class Matrix {
         if (i != elements.length) throw new IllegalArgumentException();
     }
 
-    void checkConsistency(int knownLength, int nextLength) {
+    private void checkConsistency(int knownLength, int nextLength) {
         if (nextLength != knownLength && knownLength >= 0) throw new IllegalArgumentException();
     }
 
-    void checkPositive(int length) {
+    private void checkPositive(int length) {
         if (length == 0) throw new IllegalArgumentException();
     }
 
-    void checkNotNull(Object o) {
+    private void checkNotNull(Object o) {
         if (null == o) throw new IllegalArgumentException();
     }
 
