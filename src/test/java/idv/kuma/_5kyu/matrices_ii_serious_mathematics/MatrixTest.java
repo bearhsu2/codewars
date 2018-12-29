@@ -142,7 +142,7 @@ public class MatrixTest {
 
     }
 
-    @Ignore
+
     @Test
     public void Add() throws Exception {
         assertArrayEquals(new double[][]{
@@ -153,14 +153,19 @@ public class MatrixTest {
 
     }
 
-    @Ignore
     @Test
-    public void Multiply() throws Exception {
+    public void Multiply_By_Double() throws Exception {
 
         assertArrayEquals(new double[][]{
                 new double[]{2, 4, 6},
                 new double[]{-8, 6, 2}
         }, m3.multiply(2).toArray());
+
+    }
+
+    @Ignore
+    @Test
+    public void Multiply_by_Matrix() throws Exception {
 
         assertArrayEquals(new double[][]{
                 new double[]{-9, 1},

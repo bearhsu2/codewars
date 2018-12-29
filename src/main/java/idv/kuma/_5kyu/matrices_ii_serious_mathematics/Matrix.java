@@ -81,12 +81,36 @@ public class Matrix {
         return new Matrix(result);
     }
 
-    public Matrix add(Matrix m2) {
-        return null;
+    public Matrix add(Matrix another) {
+
+        int rows = elements.length;
+        int cols = elements[0].length;
+
+        double[][] result = new double[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                result[i][j] = elements[i][j] + another.elements[i][j];
+            }
+        }
+
+        return new Matrix(result);
+
     }
 
-    public Matrix multiply(int i) {
-        return null;
+    public Matrix multiply(int multiplier) {
+        int rows = elements.length;
+        int cols = elements[0].length;
+
+        double[][] result = new double[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                result[i][j] = elements[i][j] * multiplier;
+            }
+        }
+
+        return new Matrix(result);
     }
 
     public Matrix multiply(Matrix m4) {
@@ -94,6 +118,6 @@ public class Matrix {
         return null;
     }
 
-    // TODO: Add transpose, add, mutliply(double), multiply(Matrix)
+    
 
 }
