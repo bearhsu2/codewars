@@ -153,6 +153,17 @@ public class MatrixTest {
     }
 
     @Test
+    public void AddS_When_Size_Differs_Should_Throw_Exception() throws Exception {
+
+        try {
+            m1.add(m3);
+            fail("IllegalArgumentException expected.");
+        } catch (Exception e) {
+            Assert.assertTrue("Wrong error type thrown", e instanceof IllegalArgumentException);
+        }
+    }
+
+    @Test
     public void Multiply_By_Double() throws Exception {
 
         assertArrayEquals(new double[][]{

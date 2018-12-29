@@ -1,6 +1,7 @@
 package idv.kuma._5kyu.matrices_ii_serious_mathematics;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Matrix {
@@ -29,7 +30,16 @@ public class Matrix {
             this.elements[i] = elements[i];
         }
 
+        System.out.println(this);
+
         this.elements = elements;
+    }
+
+    @Override
+    public String toString() {
+        return "Matrix{" +
+                "elements=" + Arrays.deepToString(elements) +
+                '}';
     }
 
     public Matrix(int rows, int cols, double... elements) {
@@ -92,13 +102,21 @@ public class Matrix {
 
     public Matrix add(Matrix another) {
 
-        int rows = elements.length;
-        int cols = elements[0].length;
+        System.out.println("this = " + this.toString());
+        System.out.println("another = " + another.toString());
 
-        double[][] result = new double[rows][cols];
+        int thisRows = elements.length;
+        int thisCols = elements[0].length;
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        checkEquals(thisRows, another.elements.length);
+        checkEquals(thisCols, another.elements[0].length);
+
+
+
+        double[][] result = new double[thisRows][thisCols];
+
+        for (int i = 0; i < thisRows; i++) {
+            for (int j = 0; j < thisCols; j++) {
                 result[i][j] = elements[i][j] + another.elements[i][j];
             }
         }
