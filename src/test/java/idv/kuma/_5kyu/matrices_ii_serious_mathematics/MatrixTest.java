@@ -124,7 +124,6 @@ public class MatrixTest {
     }
 
 
-    @Ignore
     @Test
     public void Transpose() {
 

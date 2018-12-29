@@ -61,16 +61,24 @@ public class Matrix {
         if (null == o) throw new IllegalArgumentException();
     }
 
-    public double getElement(int r, int c) {
-        return this.elements[r][c];
-    }
-
     public double[][] toArray() {
         return elements;
     }
 
     public Matrix transpose() {
-        return null;
+
+        int rows = elements.length;
+        int cols = elements[0].length;
+
+        double[][] result = new double[cols][rows];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                result[j][i] = elements[i][j];
+            }
+        }
+
+        return new Matrix(result);
     }
 
     public Matrix add(Matrix m2) {
