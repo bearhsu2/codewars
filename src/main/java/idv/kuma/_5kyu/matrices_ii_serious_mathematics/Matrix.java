@@ -107,7 +107,7 @@ public class Matrix {
 
     }
 
-    public Matrix multiply(int multiplier) {
+    public Matrix multiply(double multiplier) {
         int rows = elements.length;
         int cols = elements[0].length;
 
