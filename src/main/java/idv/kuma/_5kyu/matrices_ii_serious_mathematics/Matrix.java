@@ -15,9 +15,9 @@ public class Matrix {
         for (int i = 0; i < elements.length; i++) {
             double[] row = elements[i];
 
-            int nextRowLength = row.length;
-            
             checkNotNull(row);
+            int nextRowLength = row.length;
+
             checkPositive(nextRowLength);
             checkConsistency(knownRowLength, nextRowLength);
 
@@ -27,6 +27,17 @@ public class Matrix {
         }
 
         this.elements = elements;
+    }
+
+    public Matrix(int rows, int cols, double... elements) {
+
+
+        this.elements = new double[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                this.elements[i][j] = elements[i * cols + j];
+            }
+        }
     }
 
     void checkConsistency(int knownLength, int nextLength) {
@@ -39,17 +50,6 @@ public class Matrix {
 
     void checkNotNull(Object o) {
         if (null == o) throw new IllegalArgumentException();
-    }
-
-    public Matrix(int rows, int cols, double... elements) {
-
-
-        this.elements = new double[rows][cols];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                this.elements[i][j] = elements[i * cols + j];
-            }
-        }
     }
 
     public double getElement(int r, int c) {
