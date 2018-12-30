@@ -7,13 +7,19 @@ import java.util.List;
 
 public class Snail {
 
+    private static final String RIGHT = "Right";
+    private static final String DOWN = "Down";
+    private static final String LEFT = "Left";
+    private static final String UP = "Up";
+
     private static Map<String, Point> directionToMovement = new HashMap<>();
 
+
     static {
-        directionToMovement.put("Right", new Point(0, 1));
-        directionToMovement.put("Down", new Point(1, 0));
-        directionToMovement.put("Left", new Point(0, -1));
-        directionToMovement.put("Up", new Point(-1, 0));
+        directionToMovement.put(RIGHT, new Point(0, 1));
+        directionToMovement.put(DOWN, new Point(1, 0));
+        directionToMovement.put(LEFT, new Point(0, -1));
+        directionToMovement.put(UP, new Point(-1, 0));
     }
 
     private static String currentDirection;
@@ -33,7 +39,7 @@ public class Snail {
 
 
         // point (0,0) is stepped at beginning
-        updateStatus("Right", new Point(0, 0), "Initial ");
+        updateStatus(RIGHT, new Point(0, 0));
 
         while (!allPointsAreStepped(steppedPoints, numPoints)) {
 
@@ -46,7 +52,7 @@ public class Snail {
 
                 if (goodToGo(trialPoint, n, steppedPoints)) {
 
-                    updateStatus(direction, trialPoint, "Moved ");
+                    updateStatus(direction, trialPoint);
 
                     break;
                 }
@@ -60,11 +66,11 @@ public class Snail {
         return makeResult(array, steppedPoints);
     }
 
-    static void updateStatus(String direction, Point newPoint, String messageInit) {
+    static void updateStatus(String direction, Point newPoint) {
         currentDirection = direction;
         currentPoint = newPoint;
         steppedPoints.add(currentPoint);
-        System.out.println(messageInit + currentDirection + " -> " + currentPoint);
+        System.out.println(currentDirection + " -> " + currentPoint);
     }
 
     private static int[] makeResult(int[][] array, List<Point> steppedPoints) {
@@ -86,11 +92,11 @@ public class Snail {
     }
 
     private static List<String> getDirections(String currentDirection) {
-        if ("Right".equals(currentDirection)) return Arrays.asList("Right", "Down", "Left", "Up");
-        if ("Down".equals(currentDirection)) return Arrays.asList("Down", "Left", "Up", "Right");
-        if ("Left".equals(currentDirection)) return Arrays.asList("Left", "Up", "Right", "Down");
+        if (RIGHT.equals(currentDirection)) return Arrays.asList(RIGHT, DOWN, LEFT, UP);
+        if (DOWN.equals(currentDirection)) return Arrays.asList(DOWN, LEFT, UP, RIGHT);
+        if (LEFT.equals(currentDirection)) return Arrays.asList(LEFT, UP, RIGHT, DOWN);
         /*("Up".equals(currentDirection))*/
-        return Arrays.asList("Up", "Right", "Down", "Left");
+        return Arrays.asList(UP, RIGHT, DOWN, LEFT);
     }
 
 }
