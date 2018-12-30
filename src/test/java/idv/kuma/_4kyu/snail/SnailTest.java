@@ -15,19 +15,35 @@ public class SnailTest {
                 = {{1, 2, 3},
                 {4, 5, 6},
                 {7, 8, 9}};
-        int[] r = {1, 2, 3, 6, 9, 8, 7, 4, 5};
-        test(array, r);
+
+        int[] expected = {1, 2, 3, 6, 9, 8, 7, 4, 5};
+        test(array, expected);
     }
+
+    @Test
+    public void SnailTest2() {
+        int[][] array
+                = {{1, 3, 2},
+                {4, 5, 6},
+                {7, 8, 9}};
+
+        int[] expected = {1, 3, 2, 6, 9, 8, 7, 4, 5};
+        test(array, expected);
+    }
+
+    public void test(int[][] originalArray, int[] expecteds) {
+        String text = "input:\n" + int2dToString(originalArray) + "\n\nexpected: \n" + Arrays.toString(expecteds);
+        System.out.println(text);
+
+        int[] actuals = Snail.snail(originalArray);
+        System.out.println("\nactual: \n" + Arrays.toString(actuals));
+        System.out.println("===========================================");
+        Assert.assertArrayEquals(expecteds, actuals);
+    }
+
 
     public String int2dToString(int[][] a) {
         return Arrays.stream(a).map(row -> Arrays.toString(row)).collect(joining("\n"));
     }
-
-    public void test(int[][] array, int[] result) {
-        String text = int2dToString(array) + " should be sorted to " + Arrays.toString(result);
-        System.out.println(text);
-        Assert.assertArrayEquals(result, Snail.snail(array));
-    }
-
 
 }
