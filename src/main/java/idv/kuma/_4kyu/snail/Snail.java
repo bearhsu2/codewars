@@ -16,6 +16,10 @@ public class Snail {
         directionToMovement.put("Up", new Point(-1, 0));
     }
 
+    private static String currentDirection;
+    private static Point currentPoint;
+    private static List<Point> steppedPoints;
+
 
     public static int[] snail(int[][] array) {
 
@@ -25,14 +29,11 @@ public class Snail {
 
         int numPoints = n * n;
 
-        List<Point> steppedPoints = new ArrayList();
+        steppedPoints = new ArrayList();
 
 
         // point (0,0) is stepped at beginning
-        String currentDirection = "Right";
-        Point currentPoint = new Point(0, 0);
-        steppedPoints.add(currentPoint);
-        System.out.println("Initial " + currentDirection + " -> " + currentPoint);
+        updateStatus("Right", new Point(0, 0), "Initial ");
 
         while (!allPointsAreStepped(steppedPoints, numPoints)) {
 
@@ -45,10 +46,7 @@ public class Snail {
 
                 if (goodToGo(trialPoint, n, steppedPoints)) {
 
-                    currentDirection = direction;
-                    currentPoint = trialPoint;
-                    steppedPoints.add(currentPoint);
-                    System.out.println("Moved " + currentDirection + " -> " + currentPoint);
+                    updateStatus(direction, trialPoint, "Moved ");
 
                     break;
                 }
@@ -60,6 +58,13 @@ public class Snail {
 
         // enjoy
         return makeResult(array, steppedPoints);
+    }
+
+    static void updateStatus(String direction, Point newPoint, String messageInit) {
+        currentDirection = direction;
+        currentPoint = newPoint;
+        steppedPoints.add(currentPoint);
+        System.out.println(messageInit + currentDirection + " -> " + currentPoint);
     }
 
     private static int[] makeResult(int[][] array, List<Point> steppedPoints) {
