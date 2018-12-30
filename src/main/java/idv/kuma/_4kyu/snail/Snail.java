@@ -20,6 +20,9 @@ public class Snail {
     public static int[] snail(int[][] array) {
 
         int n = array.length;
+        if (n == 0 || array[0].length == 0) return new int[0];
+
+
         int numPoints = n * n;
 
         List<Point> steppedPoints = new ArrayList();
@@ -84,5 +87,5 @@ public class Snail {
         /*("Up".equals(currentDirection))*/
         return Arrays.asList("Up", "Right", "Down", "Left");
     }
-//
+
 }
