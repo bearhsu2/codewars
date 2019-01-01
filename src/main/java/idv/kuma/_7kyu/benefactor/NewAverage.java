@@ -5,20 +5,15 @@ import java.util.Arrays;
 public class NewAverage {
     public static long newAvg(double[] arr, double navg) {
         // your code
-        int n = arr.length;
 
         double sum = Arrays.stream(arr).sum();
 
-        double newSum = navg * (n + 1);
+        double newSum = navg * (arr.length + 1);
 
+        double result = newSum - sum;
 
-        if (newSum <= sum) throw new IllegalArgumentException();
+        if (result <= 0) throw new IllegalArgumentException();
 
-        double diff = newSum - sum;
-
-        long result = (long) Math.ceil(diff);
-
-
-        return result;
+        return (long) Math.ceil(result);
     }
 }
