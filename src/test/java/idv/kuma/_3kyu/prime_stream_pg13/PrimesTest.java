@@ -1,8 +1,7 @@
 package idv.kuma._3kyu.prime_stream_pg13;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+
 import static org.junit.Assert.assertArrayEquals;
 
 public class PrimesTest {
