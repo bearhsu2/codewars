@@ -25,23 +25,27 @@ public class ObservedPin {
 
         resetResult();
 
+        List<List<Integer>> possiblesList = generatePossiblesList(entered);
+
+        fillPossiblePins("", possiblesList);
+
+        return possiblePins;
+    }
+
+    static List<List<Integer>> generatePossiblesList(String entered) {
         List<List<Integer>> possiblesList = new ArrayList<>();
 
         for (char observedChar : entered.toCharArray()) {
             possiblesList.add(observedToPossibles.get(observedChar));
         }
-
-        generatePossiblePins("", possiblesList);
-
-
-        return possiblePins;
+        return possiblesList;
     }
 
     static void resetResult() {
         possiblePins = new ArrayList<>();
     }
 
-    private static void generatePossiblePins(String prefix, List<List<Integer>> possiblesList) {
+    private static void fillPossiblePins(String prefix, List<List<Integer>> possiblesList) {
         if (possiblesList.size() == 1){
             possiblesList.get(0).forEach( i -> possiblePins.add(prefix + i));
 
@@ -49,7 +53,7 @@ public class ObservedPin {
 
             List<Integer> appends = possiblesList.get(0);
             for (int i : appends) {
-                generatePossiblePins(prefix + i, possiblesList.subList(1, possiblesList.size()));
+                fillPossiblePins(prefix + i, possiblesList.subList(1, possiblesList.size()));
             }
 
         }
