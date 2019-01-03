@@ -1,10 +1,8 @@
 package idv.kuma._4kyu.bagels;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
-import org.junit.runners.JUnit4;
 
 public class BagelTest {
 
