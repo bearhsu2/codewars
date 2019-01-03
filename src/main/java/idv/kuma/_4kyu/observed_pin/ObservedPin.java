@@ -31,8 +31,7 @@ public class ObservedPin {
             possiblesList.add(observedToPossibles.get(observedChar));
         }
 
-        String prefix = "";
-        generatePossiblePins(prefix, possiblesList);
+        generatePossiblePins("", possiblesList);
 
 
         return possiblePins;
