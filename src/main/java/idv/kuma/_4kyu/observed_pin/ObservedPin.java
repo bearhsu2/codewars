@@ -1,15 +1,13 @@
 package idv.kuma._4kyu.observed_pin;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ObservedPin {
 
 
-    private static Map<Character, List<Integer>> observedToPossibles;
+    private static Map<Character, List<Integer>> observedToPossibles = new HashMap<>();
 
+    private static List<String> possiblePins;
     static {
         observedToPossibles.put('1', Arrays.asList(1, 2, 4));
         observedToPossibles.put('2', Arrays.asList(1, 2, 3, 5));
@@ -25,6 +23,8 @@ public class ObservedPin {
 
     public static List<String> getPINs(String entered) {
 
+        possiblePins = new ArrayList<>();
+
         char[] observedChars = entered.toCharArray();
 
         List<List<Integer>> possiblesList = new ArrayList<>();
@@ -33,17 +33,24 @@ public class ObservedPin {
             possiblesList.add(observedToPossibles.get(observedChar));
         }
 
-        generatePossiblePins(possiblesList);
+        String prefix = "";
+        generatePossiblePins(prefix, possiblesList);
 
 
-        return null;
+        return possiblePins;
     }
 
-    private static void generatePossiblePins(List<List<Integer>> possiblesList) {
+    private static void generatePossiblePins(String prefix, List<List<Integer>> possiblesList) {
         if (possiblesList.size() == 1){
+            possiblesList.get(0).forEach( i -> possiblePins.add(prefix + i));
 
         } else {
-            // recursive
+
+            List<Integer> appends = possiblesList.get(0);
+            for (int i : appends) {
+                generatePossiblePins(prefix + i, possiblesList.subList(1, possiblesList.size()));
+            }
+
         }
     }
 }
