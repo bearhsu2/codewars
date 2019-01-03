@@ -23,13 +23,11 @@ public class ObservedPin {
 
     public static List<String> getPINs(String entered) {
 
-        possiblePins = new ArrayList<>();
-
-        char[] observedChars = entered.toCharArray();
+        resetResult();
 
         List<List<Integer>> possiblesList = new ArrayList<>();
 
-        for (char observedChar : observedChars) {
+        for (char observedChar : entered.toCharArray()) {
             possiblesList.add(observedToPossibles.get(observedChar));
         }
 
@@ -38,6 +36,10 @@ public class ObservedPin {
 
 
         return possiblePins;
+    }
+
+    static void resetResult() {
+        possiblePins = new ArrayList<>();
     }
 
     private static void generatePossiblePins(String prefix, List<List<Integer>> possiblesList) {
