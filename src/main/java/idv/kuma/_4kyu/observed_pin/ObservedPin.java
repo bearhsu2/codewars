@@ -25,9 +25,7 @@ public class ObservedPin {
 
         resetResult();
 
-        List<List<Integer>> possiblesList = generatePossiblesList(entered);
-
-        fillPossiblePins("", possiblesList);
+        fillPossiblePins("", generatePossiblesList(entered));
 
         return possiblePins;
     }
