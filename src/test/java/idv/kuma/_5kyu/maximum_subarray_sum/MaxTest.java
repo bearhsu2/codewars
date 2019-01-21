@@ -9,8 +9,14 @@ public class MaxTest {
 
 
     @Test
-    public void testEmptyArray() throws Exception {
+    public void When_0_Should_Return_0() throws Exception {
         runAndCheck(0);
+    }
+
+
+    @Test
+    public void When_1_2_3_n1_Should_Return_6() throws Exception {
+        runAndCheck(6, 1,2,3,-1);
     }
 
 
