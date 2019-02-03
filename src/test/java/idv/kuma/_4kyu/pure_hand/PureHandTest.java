@@ -23,6 +23,13 @@ public class PureHandTest {
     }
 
 
+    @Test
+    public void sampleTest3() {
+        assertEquals("58", PureHand.solution("1111223346788"));
+    }
+
+
+
 
 
     @Test

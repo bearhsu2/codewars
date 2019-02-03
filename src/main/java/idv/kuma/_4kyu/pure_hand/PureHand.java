@@ -15,9 +15,13 @@ public class PureHand {
 
         StringBuilder sb = new StringBuilder();
 
+        System.out.println(originalHand);
+
         for (int i = 1; i <= 9; i++) {
 
             List<Integer> tiles = toIntegerList(originalHand + i);
+
+            if (Collections.frequency(tiles, i) > 4) continue;
 
             if (isWinning(tiles)) {
                 sb.append(String.valueOf(i));
@@ -57,15 +61,6 @@ public class PureHand {
                 .mapToInt(v -> v)
                 .min().getAsInt();
 
-        if (allTiles.contains(min + 1) && allTiles.contains(min + 2)) {
-
-            List<Integer> subList = makeClone(allTiles);
-            subList.remove(Integer.valueOf(min));
-            subList.remove(Integer.valueOf(min + 1));
-            subList.remove(Integer.valueOf(min + 2));
-
-            return isAllMeld(subList);
-        }
         if (Collections.frequency(allTiles, min) >= 3) {
 
             List<Integer> subList = makeClone(allTiles);
@@ -75,6 +70,17 @@ public class PureHand {
 
             return isAllMeld(subList);
         }
+
+        if (allTiles.contains(min + 1) && allTiles.contains(min + 2)) {
+
+            List<Integer> subList = makeClone(allTiles);
+            subList.remove(Integer.valueOf(min));
+            subList.remove(Integer.valueOf(min + 1));
+            subList.remove(Integer.valueOf(min + 2));
+
+            return isAllMeld(subList);
+        }
+
 
         return false;
     }
