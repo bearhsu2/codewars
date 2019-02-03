@@ -3,6 +3,7 @@ package idv.kuma._4kyu.pure_hand;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.ref.PhantomReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -74,5 +75,19 @@ public class PureHandTest {
         Assert.assertEquals(remains, hand.getRemains());
     }
 
+    @Test
+    public void When_99_123_Then_IsRemainingsAllMelds_True() throws Exception {
 
+        PureHand.Hand hand = new PureHand.Hand(Integer.valueOf(9), new ArrayList<>(Arrays.asList(9, 9, 1, 2, 3)));
+
+        Assert.assertTrue(PureHand.isRemainingsAllMelds(hand));
+    }
+
+    @Test
+    public void When_99_112233_Then_IsRemainingsAllMelds_True() throws Exception {
+
+        PureHand.Hand hand = new PureHand.Hand(Integer.valueOf(9), new ArrayList<>(Arrays.asList(9, 9, 1, 1, 2, 2, 3, 3)));
+
+        Assert.assertTrue(PureHand.isRemainingsAllMelds(hand));
+    }
 }
