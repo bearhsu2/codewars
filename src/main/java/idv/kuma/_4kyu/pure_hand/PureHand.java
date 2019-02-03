@@ -57,11 +57,9 @@ public class PureHand {
 
         if (allTiles.size() <= 0) return true;
 
-        int min = allTiles.stream()
-                .mapToInt(v -> v)
-                .min().getAsInt();
+        int min = getMin(allTiles);
 
-        if (Collections.frequency(allTiles, min) >= 3) {
+        if (isKe(allTiles, min)) {
 
             List<Integer> subList = makeClone(allTiles);
             for (int i = 0; i < 3; i++) {
@@ -71,7 +69,7 @@ public class PureHand {
             return isAllMeld(subList);
         }
 
-        if (allTiles.contains(min + 1) && allTiles.contains(min + 2)) {
+        if (isShun(allTiles, min)) {
 
             List<Integer> subList = makeClone(allTiles);
             subList.remove(Integer.valueOf(min));
@@ -83,6 +81,20 @@ public class PureHand {
 
 
         return false;
+    }
+
+    private static int getMin(List<Integer> allTiles) {
+        return allTiles.stream()
+                .mapToInt(v -> v)
+                .min().getAsInt();
+    }
+
+    private static boolean isKe(List<Integer> allTiles, int min) {
+        return Collections.frequency(allTiles, min) >= 3;
+    }
+
+    private static boolean isShun(List<Integer> allTiles, int min) {
+        return allTiles.contains(min + 1) && allTiles.contains(min + 2);
     }
 
     static List<Hand> findCandidateHands(final List<Integer> tiles) {
