@@ -42,25 +42,38 @@ public class PureHand {
 
     static boolean isRemainingsAllMelds(Hand hand) {
 
-        List<Integer> remains = hand.getRemainsCopy();
+        List<Integer> remains = hand.getRemains();
 
-        if (remains.size() == 3 && isMeld(remains)) {
-            return true;
-        }
+        return isAllMeld(remains);
 
-        return false;
 
     }
 
-    private static boolean isMeld(List<Integer> threeTiles) {
+    private static boolean isAllMeld(List<Integer> allTiles) {
 
-        threeTiles.sort(Integer::compareTo);
+        if (allTiles.size() <= 0) return true;
 
-        if(threeTiles.get(1) == threeTiles.get(0) + 1 && threeTiles.get(2) == threeTiles.get(0) + 2){
-            return true;
+        int min = allTiles.stream()
+                .mapToInt(v -> v)
+                .min().getAsInt();
+
+        if (allTiles.contains(min + 1) && allTiles.contains(min + 2)) {
+
+            List<Integer> subList = makeClone(allTiles);
+            subList.remove(Integer.valueOf(min));
+            subList.remove(Integer.valueOf(min + 1));
+            subList.remove(Integer.valueOf(min + 2));
+
+            return isAllMeld(subList);
         }
-        if(threeTiles.get(1) == threeTiles.get(0) && threeTiles.get(2) == threeTiles.get(0)){
-            return true;
+        if (Collections.frequency(allTiles, min) >= 3) {
+
+            List<Integer> subList = makeClone(allTiles);
+            for (int i = 0; i < 3; i++) {
+                subList.remove(Integer.valueOf(min));
+            }
+
+            return isAllMeld(subList);
         }
 
         return false;
@@ -88,6 +101,9 @@ public class PureHand {
         return result;
     }
 
+    static List makeClone(List tiles) {
+        return (List) ((ArrayList) tiles).clone();
+    }
 
     static class Hand {
         Integer eye;
@@ -96,7 +112,7 @@ public class PureHand {
         public Hand(Integer eye, List<Integer> tiles) {
             this.eye = eye;
 
-            this.remains = ((List) ((ArrayList) tiles).clone());
+            this.remains = makeClone(tiles);
 
             for (int i = 0; i < 2; i++) {
                 this.remains.remove(eye);
@@ -108,10 +124,9 @@ public class PureHand {
         public Integer getEye() {
             return eye;
         }
-        
 
-        public List<Integer> getRemainsCopy(){
-            return ((List) ((ArrayList) remains).clone());
+        public List<Integer> getRemains() {
+            return remains;
         }
     }
 }
