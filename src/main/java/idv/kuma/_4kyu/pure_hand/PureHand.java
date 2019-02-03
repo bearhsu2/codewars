@@ -108,10 +108,7 @@ public class PureHand {
         public Integer getEye() {
             return eye;
         }
-
-        public List<Integer> getRemains() {
-            return remains;
-        }
+        
 
         public List<Integer> getRemainsCopy(){
             return ((List) ((ArrayList) remains).clone());
