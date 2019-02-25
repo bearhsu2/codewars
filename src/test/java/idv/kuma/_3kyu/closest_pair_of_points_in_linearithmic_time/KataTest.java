@@ -14,23 +14,8 @@ import java.util.List;
 public class KataTest {
 
 
-
     @Test
-    public void When_1_Point_Then_Same_Point() {
-
-        List<Point> points = Arrays.asList(
-                new Point(2, 2)
-        );
-
-        List<Point> result = Kata.closestPair(points);
-
-        List<Point> expected = Arrays.asList(new Point(2, 2), new Point(2, 2));
-        verify(expected, result);
-    }
-
-
-    @Test
-    public void When_2_Points_Then_Original_Point() {
+    public void When_2_Points_Then_Original_Points() {
 
         List<Point> points = Arrays.asList(
                 new Point(2, 2),
@@ -40,6 +25,21 @@ public class KataTest {
         List<Point> result = Kata.closestPair(points);
 
         List<Point> expected = Arrays.asList(new Point(6, 3), new Point(2, 2));
+        verify(expected, result);
+    }
+
+    @Test
+    public void When_3_Points() {
+
+        List<Point> points = Arrays.asList(
+                new Point(2, 2),
+                new Point(6, 3),
+                new Point(2, 3)
+        );
+
+        List<Point> result = Kata.closestPair(points);
+
+        List<Point> expected = Arrays.asList(new Point(2, 2), new Point(2, 3));
         verify(expected, result);
     }
 
