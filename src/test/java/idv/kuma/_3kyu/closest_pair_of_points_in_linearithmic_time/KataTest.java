@@ -16,7 +16,7 @@ public class KataTest {
 
 
     @Test
-    public void When_One_Point_Then_Same_Point() {
+    public void When_1_Point_Then_Same_Point() {
 
         List<Point> points = Arrays.asList(
                 new Point(2, 2)
@@ -29,9 +29,8 @@ public class KataTest {
     }
 
 
-    @Ignore
     @Test
-    public void test02_TwoPoints() {
+    public void When_2_Points_Then_Original_Point() {
 
         List<Point> points = Arrays.asList(
                 new Point(2, 2),

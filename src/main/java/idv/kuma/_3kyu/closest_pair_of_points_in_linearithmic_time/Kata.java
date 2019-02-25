@@ -9,7 +9,8 @@ public class Kata {
     public static List<Point> closestPair(List<Point> points) {
 
         if (points.size() == 1) return Arrays.asList(points.get(0), points.get(0));
+        
 
-        return Arrays.asList();
+        return Arrays.asList(points.get(0), points.get(1));
     }
 }
