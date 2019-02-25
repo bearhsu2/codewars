@@ -20,54 +20,54 @@ public class KataTest {
     @Test
     public void When_2_Points_Then_Original_Points() {
         makePoints(
-                new Point(2, 2),
-                new Point(6, 3));
+                makePoint(2, 2),
+                makePoint(6, 3));
         run();
-        verify(new Point(2, 2), new Point(6, 3));
+        verify(makePoint(2, 2), makePoint(6, 3));
     }
 
 
     @Test
     public void When_3_Points() {
         makePoints(
-                new Point(2, 2),
-                new Point(6, 3),
-                new Point(2, 3));
+                makePoint(2, 2),
+                makePoint(6, 3),
+                makePoint(2, 3));
         run();
-        verify(new Point(2, 2), new Point(2, 3));
+        verify(makePoint(2, 2), makePoint(2, 3));
     }
 
 
     @Test
     public void test01_Example() {
         makePoints(
-                new Point(2, 2), //A
-                new Point(2, 8), //B
-                new Point(5, 5), //C
-                new Point(6, 3), //D
-                new Point(6, 7), //E
-                new Point(7, 4), //F
-                new Point(7, 9));  //G
+                makePoint(2, 2), //A
+                makePoint(2, 8), //B
+                makePoint(5, 5), //C
+                makePoint(6, 3), //D
+                makePoint(6, 7), //E
+                makePoint(7, 4), //F
+                makePoint(7, 9));  //G
         run();
-        verify(new Point(6, 3), new Point(7, 4));
+        verify(makePoint(6, 3), makePoint(7, 4));
     }
 
     @Test
     public void test03_DuplicatedPoint() {
 
         List<Point> points = Arrays.asList(
-                new Point(2, 2), //A
-                new Point(2, 8), //B
-                new Point(5, 5), //C
-                new Point(5, 5), //C
-                new Point(6, 3), //D
-                new Point(6, 7), //E
-                new Point(7, 4), //F
-                new Point(7, 9)  //G
+                makePoint(2, 2), //A
+                makePoint(2, 8), //B
+                makePoint(5, 5), //C
+                makePoint(5, 5), //C
+                makePoint(6, 3), //D
+                makePoint(6, 7), //E
+                makePoint(7, 4), //F
+                makePoint(7, 9)  //G
         );
 
         List<Point> result = Kata.closestPair(points);
-        List<Point> expected = Arrays.asList(new Point(5, 5), new Point(5, 5));
+        List<Point> expected = Arrays.asList(makePoint(5, 5), makePoint(5, 5));
         verify(expected, result);
     }
 
@@ -97,5 +97,9 @@ public class KataTest {
         boolean eq = expected.get(0).x == actual.get(0).x && expected.get(0).y == actual.get(0).y
                 && expected.get(1).x == actual.get(1).x && expected.get(1).y == actual.get(1).y;
         Assert.assertTrue(String.format("Expected: %s, Actual: %s", expected.toString(), actual.toString()), eq);
+    }
+
+    Point makePoint(int x, int y) {
+        return new Point(x, y);
     }
 }
