@@ -2,6 +2,7 @@ package idv.kuma._3kyu.closest_pair_of_points_in_linearithmic_time;
 
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -12,6 +13,38 @@ import java.util.List;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class KataTest {
 
+
+
+    @Test
+    public void When_One_Point_Then_Same_Point() {
+
+        List<Point> points = Arrays.asList(
+                new Point(2, 2)
+        );
+
+        List<Point> result = Kata.closestPair(points);
+
+        List<Point> expected = Arrays.asList(new Point(2, 2), new Point(2, 2));
+        verify(expected, result);
+    }
+
+
+    @Ignore
+    @Test
+    public void test02_TwoPoints() {
+
+        List<Point> points = Arrays.asList(
+                new Point(2, 2),
+                new Point(6, 3)
+        );
+
+        List<Point> result = Kata.closestPair(points);
+
+        List<Point> expected = Arrays.asList(new Point(6, 3), new Point(2, 2));
+        verify(expected, result);
+    }
+
+    @Ignore
     @Test
     public void test01_Example() {
 
@@ -30,19 +63,7 @@ public class KataTest {
         verify(expected, result);
     }
 
-    @Test
-    public void test02_TwoPoints() {
-
-        List<Point> points = Arrays.asList(
-                new Point(2, 2),
-                new Point(6, 3)
-        );
-
-        List<Point> result = Kata.closestPair(points);
-        List<Point> expected = Arrays.asList(new Point(6, 3), new Point(2, 2));
-        verify(expected, result);
-    }
-
+    @Ignore
     @Test
     public void test03_DuplicatedPoint() {
 
