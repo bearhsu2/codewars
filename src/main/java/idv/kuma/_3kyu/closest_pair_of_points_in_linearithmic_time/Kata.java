@@ -11,12 +11,32 @@ public class Kata {
         if (points.size() == 2) return Arrays.asList(points.get(0), points.get(1));
 
 
+        double longestDistance = Double.MAX_VALUE;
+        Point a = null;
+        Point b = null;
 
-        for (Point point : points) {
+        for (int i = 0; i < points.size(); i++) {
+            for (int j = i + 1; j < points.size(); j++) {
 
+                Point newA = points.get(i);
+                Point newB = points.get(j);
+
+                double newDistance = distance(newA, newB);
+
+                if (newDistance < longestDistance) {
+                    if (newDistance < longestDistance) {
+                        longestDistance = newDistance;
+                        a = newA;
+                        b = newB;
+                    }
+                }
+            }
 
         }
+        return Arrays.asList(a, b);
+    }
 
-        return Arrays.asList(points.get(0), points.get(1));
+    private static double distance(Point a, Point b) {
+        return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
     }
 }

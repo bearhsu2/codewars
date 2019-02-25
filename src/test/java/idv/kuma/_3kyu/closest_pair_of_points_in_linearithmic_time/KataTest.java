@@ -28,7 +28,6 @@ public class KataTest {
     }
 
 
-    @Ignore
     @Test
     public void When_3_Points() {
         makePoints(
