@@ -14,6 +14,7 @@ public class Kata {
 
         for (Point point : points) {
 
+
         }
 
         return Arrays.asList(points.get(0), points.get(1));

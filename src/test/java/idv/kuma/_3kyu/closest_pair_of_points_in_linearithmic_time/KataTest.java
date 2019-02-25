@@ -14,40 +14,45 @@ import java.util.List;
 public class KataTest {
 
 
+    private List<Point> points;
+    private List<Point> actual;
+    private List<Point> expected;
+
     @Test
     public void When_2_Points_Then_Original_Points() {
-
-        List<Point> points = Arrays.asList(
-                new Point(2, 2),
-                new Point(6, 3)
-        );
-
-        List<Point> result = Kata.closestPair(points);
-
-        List<Point> expected = Arrays.asList(new Point(6, 3), new Point(2, 2));
-        verify(expected, result);
+        makePoints(new Point(2, 2), new Point(6, 3));
+        run();
+        verify(new Point(2, 2), new Point(6, 3));
     }
 
+    void verify(Point... expectedPoints) {
+        expected = Arrays.asList(expectedPoints);
+        verify(expected, actual);
+    }
+
+    void run() {
+        actual = Kata.closestPair(points);
+    }
+
+    void makePoints(Point... inputPoints) {
+
+        points = Arrays.asList(inputPoints);
+    }
+
+    @Ignore
     @Test
     public void When_3_Points() {
-
-        List<Point> points = Arrays.asList(
-                new Point(2, 2),
+        makePoints(new Point(2, 2),
                 new Point(6, 3),
-                new Point(2, 3)
-        );
-
-        List<Point> result = Kata.closestPair(points);
-
-        List<Point> expected = Arrays.asList(new Point(2, 2), new Point(2, 3));
-        verify(expected, result);
+                new Point(2, 3));
+        run();
+        verify(new Point(2, 2), new Point(2, 3));
     }
 
     @Ignore
     @Test
     public void test01_Example() {
-
-        List<Point> points = Arrays.asList(
+        makePoints(
                 new Point(2, 2), //A
                 new Point(2, 8), //B
                 new Point(5, 5), //C
@@ -56,10 +61,8 @@ public class KataTest {
                 new Point(7, 4), //F
                 new Point(7, 9)  //G
         );
-
-        List<Point> result = Kata.closestPair(points);
-        List<Point> expected = Arrays.asList(new Point(6, 3), new Point(7, 4));
-        verify(expected, result);
+        run();
+        verify(new Point(6, 3), new Point(7, 4));
     }
 
     @Ignore
