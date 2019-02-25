@@ -39,7 +39,7 @@ public class KataTest {
 
 
     @Test
-    public void test01_Example() {
+    public void When_7_Points() {
         makePoints(
                 makePoint(2, 2), //A
                 makePoint(2, 8), //B
@@ -53,7 +53,7 @@ public class KataTest {
     }
 
     @Test
-    public void test03_DuplicatedPoint() {
+    public void When_Duplicated_Points() {
 
         List<Point> points = Arrays.asList(
                 makePoint(2, 2), //A
