@@ -20,29 +20,19 @@ public class KataTest {
 
     @Test
     public void When_2_Points_Then_Original_Points() {
-        makePoints(new Point(2, 2), new Point(6, 3));
+        makePoints(
+                new Point(2, 2),
+                new Point(6, 3));
         run();
         verify(new Point(2, 2), new Point(6, 3));
     }
 
-    void verify(Point... expectedPoints) {
-        expected = Arrays.asList(expectedPoints);
-        verify(expected, actual);
-    }
-
-    void run() {
-        actual = Kata.closestPair(points);
-    }
-
-    void makePoints(Point... inputPoints) {
-
-        points = Arrays.asList(inputPoints);
-    }
 
     @Ignore
     @Test
     public void When_3_Points() {
-        makePoints(new Point(2, 2),
+        makePoints(
+                new Point(2, 2),
                 new Point(6, 3),
                 new Point(2, 3));
         run();
@@ -59,8 +49,7 @@ public class KataTest {
                 new Point(6, 3), //D
                 new Point(6, 7), //E
                 new Point(7, 4), //F
-                new Point(7, 9)  //G
-        );
+                new Point(7, 9));  //G
         run();
         verify(new Point(6, 3), new Point(7, 4));
     }
@@ -83,6 +72,20 @@ public class KataTest {
         List<Point> result = Kata.closestPair(points);
         List<Point> expected = Arrays.asList(new Point(5, 5), new Point(5, 5));
         verify(expected, result);
+    }
+
+    void verify(Point... expectedPoints) {
+        expected = Arrays.asList(expectedPoints);
+        verify(expected, actual);
+    }
+
+    void run() {
+        actual = Kata.closestPair(points);
+    }
+
+    void makePoints(Point... inputPoints) {
+
+        points = Arrays.asList(inputPoints);
     }
 
     private void verify(List<Point> expected, List<Point> actual) {
