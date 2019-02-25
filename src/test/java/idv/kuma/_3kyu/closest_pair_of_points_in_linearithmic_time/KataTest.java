@@ -2,7 +2,6 @@ package idv.kuma._3kyu.closest_pair_of_points_in_linearithmic_time;
 
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -38,7 +37,7 @@ public class KataTest {
         verify(new Point(2, 2), new Point(2, 3));
     }
 
-    @Ignore
+
     @Test
     public void test01_Example() {
         makePoints(
@@ -53,7 +52,6 @@ public class KataTest {
         verify(new Point(6, 3), new Point(7, 4));
     }
 
-    @Ignore
     @Test
     public void test03_DuplicatedPoint() {
 
