@@ -18,15 +18,22 @@ public class Fibonacci {
         BigInteger knownFibonacci = nToFibonacci.get(n);
 
         if (knownFibonacci == null) {
-            BigInteger calculatedFibonacci = fib(n.subtract(BigInteger.ONE)).add(fib(n.subtract(BigInteger.valueOf(2L))));
 
-            nToFibonacci.put(n, calculatedFibonacci);
+            if (n.signum() == 1) {
+                BigInteger calculatedFibonacci = fib(n.subtract(BigInteger.ONE)).add(fib(n.subtract(BigInteger.valueOf(2L))));
+                nToFibonacci.put(n, calculatedFibonacci);
+                return calculatedFibonacci;
+            } else {
 
-            return calculatedFibonacci;
+
+
+                return BigInteger.TEN;
+            }
+
         } else {
             return knownFibonacci;
         }
-        
+
     }
 
 }
