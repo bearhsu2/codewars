@@ -25,20 +25,20 @@ public class FibonacciTest {
         testFib(1, 2);
     }
 
-//    @Test
-//    public void testFib3() {
-//        testFib(2, 3);
-//    }
-//
-//    @Test
-//    public void testFib4() {
-//        testFib(3, 4);
-//    }
-//
-//    @Test
-//    public void testFib5() {
-//        testFib(5, 5);
-//    }
+    @Test
+    public void testFib3() {
+        testFib(2, 3);
+    }
+
+    @Test
+    public void testFib4() {
+        testFib(3, 4);
+    }
+
+    @Test
+    public void testFib5() {
+        testFib(5, 5);
+    }
 
     private static void testFib(long expected, long input) {
         BigInteger found;
