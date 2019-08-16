@@ -10,10 +10,10 @@ import static org.junit.Assert.assertEquals;
 
 public class FibonacciTest {
 
-//    @Test
-//    public void testFib0() {
-//        testFib(0, 0);
-//    }
+    @Test
+    public void testFib0() {
+        testFib(0, 0);
+    }
 
     @Test
     public void testFib1() {

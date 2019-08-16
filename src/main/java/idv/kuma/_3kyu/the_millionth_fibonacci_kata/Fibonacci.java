@@ -25,9 +25,11 @@ public class Fibonacci {
                 return calculatedFibonacci;
             } else {
 
+                // signum() = 0 or -1
 
-
-                return BigInteger.TEN;
+                BigInteger calculatedFibonacci = fib(n.add(BigInteger.valueOf(2L))).subtract(fib(n.add(BigInteger.ONE)));
+                nToFibonacci.put(n, calculatedFibonacci);
+                return calculatedFibonacci;
             }
 
         } else {
