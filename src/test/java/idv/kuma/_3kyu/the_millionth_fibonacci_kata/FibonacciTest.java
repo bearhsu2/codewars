@@ -59,4 +59,8 @@ public class FibonacciTest {
         assertEquals(BigInteger.valueOf(expected), found);
     }
 
+    @Test
+    public void sss() {
+        Fibonacci.mathWay(BigInteger.valueOf(100));
+    }
 }
