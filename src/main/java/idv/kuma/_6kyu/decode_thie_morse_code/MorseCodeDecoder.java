@@ -10,10 +10,8 @@ public class MorseCodeDecoder {
 
         print(encodedFull, "Full");
 
-        String[] encodedWords = encodedFull.split("   ");
-
         StringBuilder sb = new StringBuilder();
-        for (String encodedWord : encodedWords) {
+        for (String encodedWord : encodedFull.split("   ")) {
 
             print(encodedWord, "word");
 
