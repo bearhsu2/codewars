@@ -7,8 +7,12 @@ import org.junit.Test;
 public class MorseCodeDecoderTest {
     @Test
     public void testExampleFromDescription() {
-        runAndCheck("HEY JUDE", ".... . -.--   .--- ..- -.. .");
+        runAndCheck("AAA AAAA", ".... . -.--   .--- ..- -.. .");
+
+        runAndCheck("A", " . ");
     }
+
+
 
     void runAndCheck(String expected, String encoded) {
         Assert.assertEquals(expected,
