@@ -10,6 +10,7 @@ public class Fibonacci {
     private static Map<BigInteger, BigInteger> nToFibonacci = new HashMap<>();
 
     static {
+        nToFibonacci.put(BigInteger.ZERO, BigInteger.ZERO);
         nToFibonacci.put(BigInteger.ONE, BigInteger.ONE);
         nToFibonacci.put(BigInteger.valueOf(2L), BigInteger.ONE);
     }
@@ -21,7 +22,10 @@ public class Fibonacci {
         if (knownFibonacci == null) {
 
             if (n.signum() == 1) {
-                return mathWay(n);
+                BigInteger calculatedFibonacci = fib(n.subtract(BigInteger.ONE)).add(fib(n.subtract(BigInteger.valueOf(2L))));
+                nToFibonacci.put(n, calculatedFibonacci);
+                return calculatedFibonacci;
+
             } else {
 
                 // signum() = 0 or -1
@@ -40,10 +44,10 @@ public class Fibonacci {
     public static BigInteger mathWay(BigInteger bigN) {
 
         // https://www.math.hmc.edu/funfacts/ffiles/10002.4-5.shtml
+        // http://fusharblog.com/solving-linear-recurrence-for-programming-contest/
         int n = bigN.intValue();
 
         BigDecimal sqrtFive = BigDecimal.valueOf(Math.sqrt(5));
-
 
 
         BigDecimal bigPhy = BigDecimal.ONE.add(sqrtFive).divide(BigDecimal.valueOf(2));
