@@ -1,4 +1,4 @@
-package idv.kuma.vi_value;
+package idv.kuma.bi_value;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 public class Solution {
 
+//    public static Set<>
 
 
     public int solution(int[] inputArray) {
@@ -15,7 +16,6 @@ public class Solution {
 
         int totalLength = inputArray.length;
         for (int i = 0; i < totalLength; i++) {
-
             for (int j = i + longestLength + 1; j <= totalLength; j++) {
 
                 List<Integer> currentSubList = rawList.subList(i, j);
@@ -31,8 +31,10 @@ public class Solution {
 
                     }
 
+                } else {
+                    // When a Non-BiValue appears, the rest will be all Non-BiValues
+                    break;
                 }
-
 
             }
         }
@@ -41,6 +43,7 @@ public class Solution {
     }
 
     private boolean isBiValued(List<Integer> list) {
+
         return new HashSet<>(list).size() <= 2;
     }
 

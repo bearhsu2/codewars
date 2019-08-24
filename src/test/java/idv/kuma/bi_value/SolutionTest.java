@@ -1,8 +1,8 @@
-package idv.kuma.vi_value;
+package idv.kuma.bi_value;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertEquals;
@@ -37,16 +37,21 @@ public class SolutionTest {
     }
 
 
-    @Ignore
     @Test
     public void long_array() {
+
 
         int[] longArray = IntStream
                 .rangeClosed(1, 1_000_000)
                 .boxed()
-                .mapToInt(value -> value.intValue())
+                .mapToInt(Integer::intValue)
                 .toArray();
 
         assertEquals(2, new Solution().solution(longArray));
+    }
+
+    @Test
+    public void name() {
+        System.out.println(Arrays.asList(1, 2, 3).equals(Arrays.asList(1, 2, 3)));
     }
 }
