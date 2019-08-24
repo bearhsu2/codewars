@@ -7,9 +7,6 @@ import java.util.stream.Collectors;
 
 public class Solution {
 
-//    public static Set<>
-
-
     public int solution(int[] inputArray) {
         List<Integer> rawList = Arrays.stream(inputArray).boxed().collect(Collectors.toList());
         int longestLength = 0;
