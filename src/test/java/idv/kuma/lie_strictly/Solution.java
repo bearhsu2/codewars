@@ -9,7 +9,9 @@ import java.util.stream.IntStream;
 
 public class Solution {
     public int solution(int[] A) {
-        // write your code in Java SE 8
+        if (isEmptyOrSingleton(A)) {
+            return -1;
+        }
 
         List<Pair> pairs = findAdjacentPairs(A);
 
@@ -19,6 +21,10 @@ public class Solution {
                 .max()
                 .orElse(-1);
 
+    }
+
+    boolean isEmptyOrSingleton(int[] A) {
+        return A.length <= 1;
     }
 
     private List<Pair> findAdjacentPairs(int[] array) {
