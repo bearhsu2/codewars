@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Solution {
     public int solution(int[] A) {
@@ -13,13 +12,7 @@ public class Solution {
             return -1;
         }
 
-        List<Pair> pairs = findAdjacentPairs(A);
-
-        return pairs
-                .stream()
-                .mapToInt(Pair::getIndexDiff)
-                .max()
-                .orElse(-1);
+        return findFarestAdjacentDist(A);
 
     }
 
@@ -27,7 +20,7 @@ public class Solution {
         return A.length <= 1;
     }
 
-    private List<Pair> findAdjacentPairs(int[] array) {
+    private int findFarestAdjacentDist(int[] array) {
 
         Set<Integer> valueSet = Arrays
                 .stream(array)
@@ -38,15 +31,24 @@ public class Solution {
 
         int length = array.length;
 
-        IntStream.range(0, length)
-                .filter(i -> i != length - 1)
-                .forEach(i -> IntStream.range(i + 1, length)
-                        .filter(j -> i != j && isAdjacent(array[i], array[j], valueSet))
-                        .forEach(j -> pairs.add(new Pair(i, j)))
-                );
 
-        return pairs;
+        for (int i = 0; i < length; i++) {
+
+            for (int j = length - 1; j > i; j--) {
+
+                if (isAdjacent(array[i], array[j], valueSet)) {
+                    pairs.add(new Pair(i, j));
+
+                    return j - i;
+
+                }
+            }
+
+        }
+        return -1;
+
     }
+
 
     private boolean isAdjacent(int value1, int value2, Set<Integer> valueSet) {
 

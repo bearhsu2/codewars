@@ -1,7 +1,12 @@
 package idv.kuma.lie_strictly;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.stream.IntStream;
+
+import static org.junit.Assert.assertEquals;
 
 public class SolutionTest {
 
@@ -26,6 +31,13 @@ public class SolutionTest {
 
 
     @Test
+    public void all_adjacents() {
+        Assert.assertEquals(1,
+                new Solution().solution(new int[]{1, 2, 3, 4, 5}));
+    }
+
+
+    @Test
     public void empty() {
         Assert.assertEquals(-1,
                 new Solution().solution(new int[]{}));
@@ -35,6 +47,21 @@ public class SolutionTest {
     public void single() {
         Assert.assertEquals(-1,
                 new Solution().solution(new int[]{100}));
+    }
+
+
+    @Test
+    public void long_array() {
+
+
+        int[] longArray = IntStream
+                .rangeClosed(1, 1_000)
+                .boxed()
+                .mapToInt(Integer::intValue)
+                .toArray();
+
+        assertEquals(1, new Solution().solution(longArray));
+
     }
 
 }
