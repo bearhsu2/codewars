@@ -3,8 +3,6 @@ package idv.kuma;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class SolutionTest {
@@ -36,8 +34,6 @@ public class SolutionTest {
                 .boxed()
                 .mapToInt(value -> value.intValue())
                 .toArray();
-
-
 
 
         Assert.assertEquals(1_000_001,
