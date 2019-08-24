@@ -55,7 +55,7 @@ public class SolutionTest {
 
 
         int[] longArray = IntStream
-                .rangeClosed(1, 1_000)
+                .rangeClosed(1, 1_000_000)
                 .boxed()
                 .mapToInt(Integer::intValue)
                 .toArray();
