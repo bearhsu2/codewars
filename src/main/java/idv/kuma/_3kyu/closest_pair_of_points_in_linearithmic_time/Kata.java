@@ -7,6 +7,7 @@ public class Kata {
 
     public static List<Point> closestPair(List<Point> points) {
 
+//        https://www.codewars.com/kata/closest-pair-of-points-in-linearithmic-time/java
 
         if (points.size() == 2) return Arrays.asList(points.get(0), points.get(1));
 
