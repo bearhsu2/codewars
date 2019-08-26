@@ -13,6 +13,8 @@ public class Kata {
 //        https://www.codewars.com/kata/closest-pair-of-points-in-linearithmic-time/java
 //        https://www.cs.ubc.ca/~liorma/cpsc320/files/closest-points.pdf
 
+        System.out.println(points);
+
         points.sort(Comparator.comparing(point -> point.y));
 
         SearchResult searchResult = doFindClosestPair(points);
