@@ -53,6 +53,22 @@ public class KataTest {
     }
 
     @Test
+    public void When_8_Points() {
+        makePoints(
+                makePoint(2, 2), //A
+                makePoint(2, 8), //B
+                makePoint(5, 5), //C
+                makePoint(6, 3), //D
+                makePoint(6, 7), //E
+                makePoint(7, 4), //F
+                makePoint(7, 9),  //G
+                makePoint(77, 99));  //G
+
+        run();
+        verify(makePoint(6, 3), makePoint(7, 4));
+    }
+
+    @Test
     public void When_Duplicated_Points() {
 
         List<Point> points = Arrays.asList(
