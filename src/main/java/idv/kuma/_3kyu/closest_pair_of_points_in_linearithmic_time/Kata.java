@@ -15,7 +15,6 @@ public class Kata {
 
         System.out.println(points.size());
 
-        points.sort(Comparator.comparing(point -> point.y));
 
         SearchResult searchResult = doFindClosestPair(points);
         return searchResult.getPoints();
@@ -50,7 +49,8 @@ public class Kata {
         // find right points in x-band
         List<Point> rightPointsInXBand = rightPoints.stream().filter(
                 rightPoint -> rightPoint.x <= median.x + oneSideDistance
-        ).collect(Collectors.toList());
+        ).sorted(Comparator.comparing(point -> point.y))
+                .collect(Collectors.toList());
 
 
         // find cross-side result

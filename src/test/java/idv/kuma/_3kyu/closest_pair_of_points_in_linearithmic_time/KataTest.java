@@ -5,9 +5,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class KataTest {
@@ -88,18 +86,25 @@ public class KataTest {
     }
 
 
-//    @Test
-//    public void When_Many_Points() {
-//
-//
-//        int size = 40001;
-//
-//
-//
-//        List<Point> result = Kata.closestPair(points);
-//        List<Point> expected = Arrays.asList(makePoint(5, 5), makePoint(5, 5));
-//        verify(expected, result);
-//    }
+
+    @Test
+    public void When_Many_Points() {
+
+
+        int size = 40001;
+
+
+        Random random = new Random();
+        List<Point> points = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            points.add(makePoint(random.nextDouble() * 30000, random.nextDouble() * 30000));
+        }
+
+        List<Point> result = Kata.closestPair(points);
+
+        System.out.println(result);
+
+    }
 
     void verify(Point... expectedPoints) {
         expected = Arrays.asList(expectedPoints);
@@ -129,7 +134,7 @@ public class KataTest {
         Assert.assertTrue(String.format("Expected: %s, Actual: %s", expected.toString(), actual.toString()), eq);
     }
 
-    Point makePoint(int x, int y) {
+    Point makePoint(double x, double y) {
         return new Point(x, y);
     }
 }
