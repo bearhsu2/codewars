@@ -13,7 +13,7 @@ public class Kata {
 //        https://www.codewars.com/kata/closest-pair-of-points-in-linearithmic-time/java
 //        https://www.cs.ubc.ca/~liorma/cpsc320/files/closest-points.pdf
 
-        System.out.println(points);
+        System.out.println(points.size());
 
         points.sort(Comparator.comparing(point -> point.y));
 
@@ -29,7 +29,7 @@ public class Kata {
 
         List<Point> duplicate = new ArrayList<>(points);
 
-       duplicate.sort(Comparator.comparing(point -> point.x));
+        duplicate.sort(Comparator.comparing(point -> point.x));
 
         Point median = duplicate.get(points.size() / 2);
 
@@ -47,6 +47,10 @@ public class Kata {
 
         double oneSideDistance = oneSideResult.getDistance();
 
+        // find right points in x-band
+        List<Point> rightPointsInXBand = rightPoints.stream().filter(
+                rightPoint -> rightPoint.x <= median.x + oneSideDistance
+        ).collect(Collectors.toList());
 
 
         // find cross-side result
@@ -54,20 +58,43 @@ public class Kata {
         SearchResult crossSideResult = null;
 
         for (Point leftPoint : leftPoints) {
-            List<Point> rightPointsInInterest = rightPoints.stream().filter(
-                    rightPoint ->
-                            rightPoint.x <= median.x + oneSideDistance &&
-                                    rightPoint.y >= leftPoint.y - oneSideDistance &&
-                                    rightPoint.y <= leftPoint.y + oneSideDistance
-            ).collect(Collectors.toList());
 
-            for (Point rightPoint : rightPointsInInterest) {
-                double distance = distance(rightPoint, leftPoint);
-                if (distance < currentMinDistance) {
-                    currentMinDistance = distance;
-                    crossSideResult = new SearchResult(distance, Arrays.asList(leftPoint, rightPoint));
+            // find 1st right point in interest
+            int firstRightPointInInterestIndex = -1;
+
+            for (int i = 0; i < rightPointsInXBand.size(); i++) {
+
+                Point right = rightPointsInXBand.get(i);
+
+                if (right.y >= leftPoint.y - oneSideDistance &&
+                        right.y <= leftPoint.y + oneSideDistance) {
+                    firstRightPointInInterestIndex = i;
+                    break;
+                }
+
+                // skip all points lower than interest zone
+                if (right.y > leftPoint.y + oneSideDistance) {
+                    break;
                 }
             }
+
+            // check distance from all right points in interest, if exist
+            if (firstRightPointInInterestIndex >= 0) {
+
+                for (int i = firstRightPointInInterestIndex; i < rightPointsInXBand.size(); i++) {
+
+                    Point right = rightPointsInXBand.get(i);
+
+                    double distance = distance(right, leftPoint);
+
+                    if (distance < currentMinDistance) {
+                        currentMinDistance = distance;
+                        crossSideResult = new SearchResult(distance, Arrays.asList(leftPoint, right));
+                    }
+                }
+
+            }
+
         }
 
         return crossSideResult == null

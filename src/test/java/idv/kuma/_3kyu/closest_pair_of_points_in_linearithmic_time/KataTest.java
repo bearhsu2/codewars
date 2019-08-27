@@ -87,6 +87,20 @@ public class KataTest {
         verify(expected, result);
     }
 
+
+//    @Test
+//    public void When_Many_Points() {
+//
+//
+//        int size = 40001;
+//
+//
+//
+//        List<Point> result = Kata.closestPair(points);
+//        List<Point> expected = Arrays.asList(makePoint(5, 5), makePoint(5, 5));
+//        verify(expected, result);
+//    }
+
     void verify(Point... expectedPoints) {
         expected = Arrays.asList(expectedPoints);
         verify(expected, actual);
