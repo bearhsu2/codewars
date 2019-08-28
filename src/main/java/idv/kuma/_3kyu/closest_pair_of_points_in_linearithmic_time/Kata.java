@@ -1,9 +1,6 @@
 package idv.kuma._3kyu.closest_pair_of_points_in_linearithmic_time;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Kata {
@@ -13,8 +10,10 @@ public class Kata {
 //        https://www.codewars.com/kata/closest-pair-of-points-in-linearithmic-time/java
 //        https://www.cs.ubc.ca/~liorma/cpsc320/files/closest-points.pdf
 
+
 //        System.out.println(points.size());
 
+        points.sort(Comparator.comparing(point -> point.y));
 
         SearchResult searchResult = doFindClosestPair(points);
         return searchResult.getPoints();
@@ -48,8 +47,7 @@ public class Kata {
 
         // find right points in x-band
         List<Point> rightPointsInXBand = rightPoints.stream().filter(
-                rightPoint -> rightPoint.x <= median.x + oneSideDistance
-        ).sorted(Comparator.comparing(point -> point.y))
+                rightPoint -> rightPoint.x <= median.x + oneSideDistance)
                 .collect(Collectors.toList());
 
 
@@ -66,17 +64,15 @@ public class Kata {
                     leftPoint);
 
             // check distance from all right points in interest, if exist
-            double lowestYInterest = leftPoint.y + oneSideDistance;
+            double maxYValueInInterest = leftPoint.y + oneSideDistance;
             if (firstRightPointInInterestIndex >= 0) {
 
-                for (int i = firstRightPointInInterestIndex;
-                     i < rightPointsInXBand.size();
-                     i++) {
+                for (int i = firstRightPointInInterestIndex; i < rightPointsInXBand.size(); i++) {
 
                     Point right = rightPointsInXBand.get(i);
 
                     // skip all points lower than interest zone
-                    if (right.y > lowestYInterest) {
+                    if (right.y > maxYValueInInterest) {
                         break;
                     }
 
@@ -99,25 +95,22 @@ public class Kata {
 
     }
 
+    private static double pointToY(Point point) {
+        return point.y;
+    }
+
     private static int getFirstRightPointInInterestIndex(double oneSideDistance, List<Point> rightPointsInXBand, Point leftPoint) {
-        int firstRightPointInInterestIndex = -1;
 
-        for (int i = 0; i < rightPointsInXBand.size(); i++) {
+        Point target = new Point();
+        target.y = leftPoint.y - oneSideDistance;
 
-            Point right = rightPointsInXBand.get(i);
+        int i = Collections.binarySearch(rightPointsInXBand, target, Comparator.comparingDouble(Kata::pointToY));
 
-            if (right.y >= leftPoint.y - oneSideDistance &&
-                    right.y <= leftPoint.y + oneSideDistance) {
-                firstRightPointInInterestIndex = i;
-                break;
-            }
+        return i >= 0
+                ? i
+                : -i - 1;
 
-            // skip all points lower than interest zone
-            if (right.y > leftPoint.y + oneSideDistance) {
-                break;
-            }
-        }
-        return firstRightPointInInterestIndex;
+
     }
 
     private static SearchResult tryAllPairs(List<Point> points) {

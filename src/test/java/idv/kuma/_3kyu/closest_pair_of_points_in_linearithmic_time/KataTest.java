@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class KataTest {
@@ -24,6 +25,12 @@ public class KataTest {
         verify(makePoint(2, 2), makePoint(6, 3));
     }
 
+
+    @Test
+    public void aaa() {
+        int i = Collections.binarySearch(Arrays.asList(1D, 3D, 5D, 11D, 13D, 15D), 0.5);
+        System.out.println(i);
+    }
 
     @Test
     public void When_3_Points() {
