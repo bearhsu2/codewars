@@ -19,7 +19,7 @@ public class Kata {
 
     private static SearchResult doFindClosestPair(List<Point> points) {
 
-        if (points.size() <= 3) return tryAllPairs(points);
+        if (points.size() <= 3) return bruteForce(points);
 
         Point median = findMedian(points);
 
@@ -29,21 +29,31 @@ public class Kata {
         SearchResult leftResult = doFindClosestPair(leftPoints);
         SearchResult rightResult = doFindClosestPair(rightPoints);
 
-
+        // find result where both points are at the same side
         SearchResult oneSideResult = leftResult.getDistance() < rightResult.getDistance()
                 ? leftResult
                 : rightResult;
-
-
         double oneSideDistance = oneSideResult.getDistance();
 
         // find right points in x-band
-        List<Point> rightPointsInXBand = rightPoints.stream().filter(
-                rightPoint -> rightPoint.x <= median.x + oneSideDistance)
-                .collect(Collectors.toList());
-
+        List<Point> rightPointsInXBand = findRightPointsInXBand(median, rightPoints, oneSideDistance);
 
         // find cross-side result
+        SearchResult crossSideResult = crossSideResult(leftPoints, rightPointsInXBand, oneSideDistance);
+
+        return crossSideResult == null
+                ? oneSideResult
+                : crossSideResult;
+
+    }
+
+    private static List<Point> findRightPointsInXBand(Point median, List<Point> rightPoints, double oneSideDistance) {
+        return rightPoints.stream().filter(
+                    rightPoint -> rightPoint.x <= median.x + oneSideDistance)
+                    .collect(Collectors.toList());
+    }
+
+    private static SearchResult crossSideResult(List<Point> leftPoints, List<Point> rightPointsInXBand, double oneSideDistance) {
         double currentMinDistance = oneSideDistance;
         SearchResult crossSideResult = null;
 
@@ -80,11 +90,7 @@ public class Kata {
             }
 
         }
-
-        return crossSideResult == null
-                ? oneSideResult
-                : crossSideResult;
-
+        return crossSideResult;
     }
 
     private static Point findMedian(List<Point> points) {
@@ -111,7 +117,7 @@ public class Kata {
 
     }
 
-    private static SearchResult tryAllPairs(List<Point> points) {
+    private static SearchResult bruteForce(List<Point> points) {
 
         double shortestDistance = Double.MAX_VALUE;
         Point a = null;
