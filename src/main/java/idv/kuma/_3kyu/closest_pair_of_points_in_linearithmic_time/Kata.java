@@ -13,7 +13,7 @@ public class Kata {
 //        https://www.codewars.com/kata/closest-pair-of-points-in-linearithmic-time/java
 //        https://www.cs.ubc.ca/~liorma/cpsc320/files/closest-points.pdf
 
-        System.out.println(points.size());
+//        System.out.println(points.size());
 
 
         SearchResult searchResult = doFindClosestPair(points);
@@ -60,30 +60,25 @@ public class Kata {
         for (Point leftPoint : leftPoints) {
 
             // find 1st right point in interest
-            int firstRightPointInInterestIndex = -1;
-
-            for (int i = 0; i < rightPointsInXBand.size(); i++) {
-
-                Point right = rightPointsInXBand.get(i);
-
-                if (right.y >= leftPoint.y - oneSideDistance &&
-                        right.y <= leftPoint.y + oneSideDistance) {
-                    firstRightPointInInterestIndex = i;
-                    break;
-                }
-
-                // skip all points lower than interest zone
-                if (right.y > leftPoint.y + oneSideDistance) {
-                    break;
-                }
-            }
+            int firstRightPointInInterestIndex = getFirstRightPointInInterestIndex(
+                    oneSideDistance,
+                    rightPointsInXBand,
+                    leftPoint);
 
             // check distance from all right points in interest, if exist
+            double lowestYInterest = leftPoint.y + oneSideDistance;
             if (firstRightPointInInterestIndex >= 0) {
 
-                for (int i = firstRightPointInInterestIndex; i < rightPointsInXBand.size(); i++) {
+                for (int i = firstRightPointInInterestIndex;
+                     i < rightPointsInXBand.size();
+                     i++) {
 
                     Point right = rightPointsInXBand.get(i);
+
+                    // skip all points lower than interest zone
+                    if (right.y > lowestYInterest) {
+                        break;
+                    }
 
                     double distance = distance(right, leftPoint);
 
@@ -91,6 +86,7 @@ public class Kata {
                         currentMinDistance = distance;
                         crossSideResult = new SearchResult(distance, Arrays.asList(leftPoint, right));
                     }
+
                 }
 
             }
@@ -101,6 +97,27 @@ public class Kata {
                 ? oneSideResult
                 : crossSideResult;
 
+    }
+
+    private static int getFirstRightPointInInterestIndex(double oneSideDistance, List<Point> rightPointsInXBand, Point leftPoint) {
+        int firstRightPointInInterestIndex = -1;
+
+        for (int i = 0; i < rightPointsInXBand.size(); i++) {
+
+            Point right = rightPointsInXBand.get(i);
+
+            if (right.y >= leftPoint.y - oneSideDistance &&
+                    right.y <= leftPoint.y + oneSideDistance) {
+                firstRightPointInInterestIndex = i;
+                break;
+            }
+
+            // skip all points lower than interest zone
+            if (right.y > leftPoint.y + oneSideDistance) {
+                break;
+            }
+        }
+        return firstRightPointInInterestIndex;
     }
 
     private static SearchResult tryAllPairs(List<Point> points) {
