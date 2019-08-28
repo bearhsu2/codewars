@@ -39,21 +39,18 @@ public class Kata {
         List<Point> rightPointsInXBand = findRightPointsInXBand(median, rightPoints, oneSideDistance);
 
         // find cross-side result
-        SearchResult crossSideResult = crossSideResult(leftPoints, rightPointsInXBand, oneSideDistance);
-
-        return crossSideResult == null
-                ? oneSideResult
-                : crossSideResult;
+        return crossSideResult(leftPoints, rightPointsInXBand, oneSideDistance)
+                .orElse(oneSideResult);
 
     }
 
     private static List<Point> findRightPointsInXBand(Point median, List<Point> rightPoints, double oneSideDistance) {
         return rightPoints.stream().filter(
-                    rightPoint -> rightPoint.x <= median.x + oneSideDistance)
-                    .collect(Collectors.toList());
+                rightPoint -> rightPoint.x <= median.x + oneSideDistance)
+                .collect(Collectors.toList());
     }
 
-    private static SearchResult crossSideResult(List<Point> leftPoints, List<Point> rightPointsInXBand, double oneSideDistance) {
+    private static Optional<SearchResult> crossSideResult(List<Point> leftPoints, List<Point> rightPointsInXBand, double oneSideDistance) {
         double currentMinDistance = oneSideDistance;
         SearchResult crossSideResult = null;
 
@@ -90,7 +87,7 @@ public class Kata {
             }
 
         }
-        return crossSideResult;
+        return Optional.ofNullable(crossSideResult);
     }
 
     private static Point findMedian(List<Point> points) {
