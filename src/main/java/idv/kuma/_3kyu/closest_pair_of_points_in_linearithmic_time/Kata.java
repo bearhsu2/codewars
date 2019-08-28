@@ -10,9 +10,6 @@ public class Kata {
 //        https://www.codewars.com/kata/closest-pair-of-points-in-linearithmic-time/java
 //        https://www.cs.ubc.ca/~liorma/cpsc320/files/closest-points.pdf
 
-
-//        System.out.println(points.size());
-
         points.sort(Comparator.comparing(point -> point.y));
 
         SearchResult searchResult = doFindClosestPair(points);
@@ -24,12 +21,7 @@ public class Kata {
 
         if (points.size() <= 3) return tryAllPairs(points);
 
-
-        List<Point> duplicate = new ArrayList<>(points);
-
-        duplicate.sort(Comparator.comparing(point -> point.x));
-
-        Point median = duplicate.get(points.size() / 2);
+        Point median = findMedian(points);
 
         List<Point> leftPoints = points.stream().filter(point -> point.x < median.x).collect(Collectors.toList());
         List<Point> rightPoints = points.stream().filter(point -> point.x >= median.x).collect(Collectors.toList());
@@ -93,6 +85,12 @@ public class Kata {
                 ? oneSideResult
                 : crossSideResult;
 
+    }
+
+    private static Point findMedian(List<Point> points) {
+        List<Point> pointsSortedByX = new ArrayList<>(points);
+        pointsSortedByX.sort(Comparator.comparing(point -> point.x));
+        return pointsSortedByX.get(points.size() / 2);
     }
 
     private static double pointToY(Point point) {
