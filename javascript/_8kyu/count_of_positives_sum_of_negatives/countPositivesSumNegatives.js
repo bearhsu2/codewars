@@ -1,24 +1,9 @@
 function countPositivesSumNegatives(input) {
-    if (input == null || input.length === 0) {
-        return [];
-    }
 
-    let count = 0;
-    let sum = 0;
+    return input && input.length
+        ? [input.filter(x => x > 0).length, input.filter(x => x < 0).reduce((x, y) => x + y, 0)]
+        : [];
 
-    for (let i = 0; i < input.length; i++) {
-
-        const number = input[i];
-
-        if (number > 0) {
-            count++;
-        } else if (number < 0) {
-            sum += number;
-        }
-
-    }
-
-    return [count, sum];
 }
 
 module.exports = countPositivesSumNegatives;
