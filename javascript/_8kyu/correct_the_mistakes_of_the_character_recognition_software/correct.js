@@ -5,6 +5,13 @@ function checkAndReplace(char) {
         return 'O';
     }
 
+    if (char == '5') {
+        return 'S';
+    }
+    if (char == '1') {
+        return 'I';
+    }
+
     return char;
 }
 
