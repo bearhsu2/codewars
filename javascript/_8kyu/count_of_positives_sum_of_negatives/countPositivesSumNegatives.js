@@ -1,5 +1,5 @@
 function countPositivesSumNegatives(input) {
-    if (input.length === 0) {
+    if (input == null || input.length === 0) {
         return [];
     }
 
@@ -12,7 +12,7 @@ function countPositivesSumNegatives(input) {
 
         if (number > 0) {
             count++;
-        } else if (number < 0){
+        } else if (number < 0) {
             sum += number;
         }
 
