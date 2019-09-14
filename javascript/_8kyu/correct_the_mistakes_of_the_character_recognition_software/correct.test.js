@@ -1,6 +1,9 @@
 const correct = require('./correct');
 
 test('0 -> O', () => {
+    expect(correct(0)).toBe('O');
+});
+test('L0 -> LO', () => {
     expect(correct('L0ND0N')).toBe('LONDON');
 });
 test('5 -> S', () => {

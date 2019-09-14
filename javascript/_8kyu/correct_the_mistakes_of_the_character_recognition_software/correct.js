@@ -1,5 +1,7 @@
-function correct(string) {
+function correct(input) {
     let result = '';
+
+    const string = input.toString();
     for (let i = 0; i < string.length; i++) {
         result += checkAndReplace(string.charAt(i));
     }
