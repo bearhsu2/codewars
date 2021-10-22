@@ -56,6 +56,7 @@ public class FinderTest {
         assertEquals(0, Finder.pathFinder(f));
         assertEquals(4, Finder.pathFinder(g));
     }
+
     @Test
     public void name1() {
         String a =
@@ -72,22 +73,36 @@ public class FinderTest {
         assertEquals(35, Finder.pathFinder(a));
 
     }
+
     @Test
     public void name2() {
         String a =
-                "970733179\n"+
-        "939997311\n"+
-        "938710000\n"+
-        "234712272\n"+
-        "229948422\n"+
-        "972498619\n"+
-        "657256054\n"+
-        "172725262\n"+
-        "058122526";
-
+                "970733179\n" +
+                        "939997311\n" +
+                        "938710000\n" +
+                        "234712272\n" +
+                        "229948422\n" +
+                        "972498619\n" +
+                        "657256054\n" +
+                        "172725262\n" +
+                        "058122526";
 
 
         assertEquals(31, Finder.pathFinder(a));
+
+    }
+
+    @Test
+    public void name3() {
+        String a = "707777\n" +
+                "707007\n" +
+                "707077\n" +
+                "707070\n" +
+                "707077\n" +
+                "777007";
+
+
+        assertEquals(0, Finder.pathFinder(a));
 
     }
 }
