@@ -110,11 +110,10 @@ public class Finder {
 
             shortestRounds[i][j] = newRound;
 
+        }
 
-            if (!queue.contains(to)) {
-                queue.add(to);
-            }
-
+        if (!queue.contains(to)) {
+            queue.add(to);
         }
     }
 

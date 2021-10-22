@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 public class FinderTest {
 
 
-
     @Test
     public void sampleTests() {
 
@@ -56,5 +55,39 @@ public class FinderTest {
         assertEquals(14, Finder.pathFinder(e));
         assertEquals(0, Finder.pathFinder(f));
         assertEquals(4, Finder.pathFinder(g));
+    }
+    @Test
+    public void name1() {
+        String a =
+                "604284093\n" +
+                        "067523852\n" +
+                        "594228857\n" +
+                        "501187929\n" +
+                        "485415877\n" +
+                        "545025629\n" +
+                        "813397488\n" +
+                        "743709264\n" +
+                        "410558289";
+
+        assertEquals(35, Finder.pathFinder(a));
+
+    }
+    @Test
+    public void name2() {
+        String a =
+                "970733179\n"+
+        "939997311\n"+
+        "938710000\n"+
+        "234712272\n"+
+        "229948422\n"+
+        "972498619\n"+
+        "657256054\n"+
+        "172725262\n"+
+        "058122526";
+
+
+
+        assertEquals(31, Finder.pathFinder(a));
+
     }
 }
