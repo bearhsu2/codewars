@@ -16,6 +16,8 @@ public class Finder {
     // BFS
     static int pathFinder(String maze) {
 
+        System.out.println(maze);
+
         String[] lines = maze.split("\n");
         int n = lines.length;
 
