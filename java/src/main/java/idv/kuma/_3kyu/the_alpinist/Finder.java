@@ -19,19 +19,6 @@ public class Finder {
 
 //        System.out.println(maze);
 
-        initializeVariables(maze);
-
-        while (!queue.isEmpty()) {
-
-            Point point = findShortest();
-            doDijkstraFor(point);
-
-        }
-
-        return shortestRounds[n - 1][n - 1];
-    }
-
-    private static void initializeVariables(String maze) {
         String[] lines = maze.split("\n");
         n = lines.length;
 
@@ -42,6 +29,15 @@ public class Finder {
         queue = new ArrayList<>();
         queue.add(new Point(0, 0));
         shortestRounds[0][0] = 0; // start from (0, 0), its round should be 0.
+
+        while (!queue.isEmpty()) {
+
+            Point point = findShortest();
+            doDijkstraFor(point);
+
+        }
+
+        return shortestRounds[n - 1][n - 1];
     }
 
     private static Point findShortest() {
