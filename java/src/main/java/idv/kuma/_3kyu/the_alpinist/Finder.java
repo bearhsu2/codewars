@@ -35,17 +35,15 @@ public class Finder {
             Point point = findShortest();
             queue.remove(point);
 
-            updateValueFor(n, point, new Point(point.x, point.y - 1));
-            updateValueFor(n, point, new Point(point.x, point.y + 1));
-            updateValueFor(n, point, new Point(point.x - 1, point.y));
-            updateValueFor(n, point, new Point(point.x + 1, point.y));
+            updateValueFor(point, new Point(point.x, point.y - 1));
+            updateValueFor(point, new Point(point.x, point.y + 1));
+            updateValueFor(point, new Point(point.x - 1, point.y));
+            updateValueFor(point, new Point(point.x + 1, point.y));
 
             calculated[point.x][point.y] = true;
 
         }
 
-
-        // Your code here!!
         return shortestRounds[n - 1][n - 1];
     }
 
@@ -106,7 +104,7 @@ public class Finder {
                 ).get();
     }
 
-    static void updateValueFor(int n, Point from, Point to) {
+    static void updateValueFor(Point from, Point to) {
 
         int i = to.x;
         int j = to.y;
