@@ -12,6 +12,7 @@ public class Finder {
     private static int[][] shortestRounds;
     private static int[][] heights;
     private static List<Point> queue;
+    private static int n;
 
     // BFS
     static int pathFinder(String maze) {
@@ -19,15 +20,13 @@ public class Finder {
 //        System.out.println(maze);
 
         String[] lines = maze.split("\n");
-        int n = lines.length;
+        n = lines.length;
+
+        heights = makeMountains(lines);
+        shortestRounds = makeRounds();
+        calculated = makeAllFalseArrays();
 
         queue = new ArrayList<>();
-
-        heights = makeMountains(lines, n);
-        shortestRounds = makeRounds(n);
-        calculated = makeAllFalseArrays(n);
-
-
         queue.add(new Point(0, 0));
         shortestRounds[0][0] = 0; // start from (0, 0), its round should be 0.
 
@@ -50,7 +49,7 @@ public class Finder {
         return shortestRounds[n - 1][n - 1];
     }
 
-    private static int[][] makeMountains(String[] lines, int n) {
+    private static int[][] makeMountains(String[] lines) {
 
 
         int[][] mountains = new int[n][n];
@@ -71,7 +70,7 @@ public class Finder {
         return mountains;
     }
 
-    private static int[][] makeRounds(int n) {
+    private static int[][] makeRounds() {
         int[][] result = new int[n][n];
 
         for (int i = 0; i < n; i++) {
@@ -88,7 +87,7 @@ public class Finder {
 
     }
 
-    private static boolean[][] makeAllFalseArrays(int n) {
+    private static boolean[][] makeAllFalseArrays() {
         boolean[][] booleans = new boolean[n][n];
         for (int i = 0; i < n; i++) {
             booleans[i] = new boolean[n];
