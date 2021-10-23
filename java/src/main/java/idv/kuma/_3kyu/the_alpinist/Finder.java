@@ -19,6 +19,19 @@ public class Finder {
 
 //        System.out.println(maze);
 
+        initializeVariables(maze);
+
+        while (!queue.isEmpty()) {
+
+            Point point = findShortest();
+            doDijkstraFor(point);
+
+        }
+
+        return shortestRounds[n - 1][n - 1];
+    }
+
+    private static void initializeVariables(String maze) {
         String[] lines = maze.split("\n");
         n = lines.length;
 
@@ -29,22 +42,28 @@ public class Finder {
         queue = new ArrayList<>();
         queue.add(new Point(0, 0));
         shortestRounds[0][0] = 0; // start from (0, 0), its round should be 0.
+    }
 
-        while (!queue.isEmpty()) {
+    private static Point findShortest() {
 
-            Point point = findShortest();
-            queue.remove(point);
 
-            updateValueFor(point, new Point(point.x, point.y - 1));
-            updateValueFor(point, new Point(point.x, point.y + 1));
-            updateValueFor(point, new Point(point.x - 1, point.y));
-            updateValueFor(point, new Point(point.x + 1, point.y));
+        return queue.stream()
+                .reduce((a, b) ->
+                        shortestRounds[a.x][a.y] < shortestRounds[b.x][b.y]
+                                ? a
+                                : b
+                ).get();
+    }
 
-            calculated[point.x][point.y] = true;
+    private static void doDijkstraFor(Point point) {
+        queue.remove(point);
 
-        }
+        updateValueFor(point, new Point(point.x, point.y - 1));
+        updateValueFor(point, new Point(point.x, point.y + 1));
+        updateValueFor(point, new Point(point.x - 1, point.y));
+        updateValueFor(point, new Point(point.x + 1, point.y));
 
-        return shortestRounds[n - 1][n - 1];
+        calculated[point.x][point.y] = true;
     }
 
     private static int[][] makeMountains(String[] lines) {
@@ -91,17 +110,6 @@ public class Finder {
             booleans[i] = new boolean[n];
         }
         return booleans;
-    }
-
-    private static Point findShortest() {
-
-
-        return queue.stream()
-                .reduce((a, b) ->
-                        shortestRounds[a.x][a.y] < shortestRounds[b.x][b.y]
-                                ? a
-                                : b
-                ).get();
     }
 
     static void updateValueFor(Point from, Point to) {
