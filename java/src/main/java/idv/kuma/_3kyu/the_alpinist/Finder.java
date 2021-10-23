@@ -2,8 +2,8 @@ package idv.kuma._3kyu.the_alpinist;
 
 
 import java.awt.*;
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Finder {
 
@@ -11,17 +11,17 @@ public class Finder {
     private static boolean[][] calculated;
     private static int[][] shortestRounds;
     private static int[][] heights;
-    private static Deque<Point> queue;
+    private static List<Point> queue;
 
     // BFS
     static int pathFinder(String maze) {
 
-        System.out.println(maze);
+//        System.out.println(maze);
 
         String[] lines = maze.split("\n");
         int n = lines.length;
 
-        queue = new ArrayDeque<>();
+        queue = new ArrayList<>();
 
         heights = makeMountains(lines, n);
         shortestRounds = makeRounds(n);
@@ -33,13 +33,13 @@ public class Finder {
 
         while (!queue.isEmpty()) {
 
-            Point point = queue.poll();
+            Point point = findShortest();
+            queue.remove(point);
 
-
-            tryNeighbor(n, point, new Point(point.x, point.y - 1));
-            tryNeighbor(n, point, new Point(point.x, point.y + 1));
-            tryNeighbor(n, point, new Point(point.x - 1, point.y));
-            tryNeighbor(n, point, new Point(point.x + 1, point.y));
+            updateValueFor(n, point, new Point(point.x, point.y - 1));
+            updateValueFor(n, point, new Point(point.x, point.y + 1));
+            updateValueFor(n, point, new Point(point.x - 1, point.y));
+            updateValueFor(n, point, new Point(point.x + 1, point.y));
 
             calculated[point.x][point.y] = true;
 
@@ -96,7 +96,21 @@ public class Finder {
         return two_d_booleans;
     }
 
-    static void tryNeighbor(int n, Point from, Point to) {
+    private static Point findShortest() {
+
+
+        Point point = queue.stream()
+                .reduce((a, b) ->
+                        shortestRounds[a.x][a.y] < shortestRounds[b.x][b.y]
+                                ? a
+                                : b
+                ).get();
+
+
+        return point;
+    }
+
+    static void updateValueFor(int n, Point from, Point to) {
 
         int i = to.x;
         int j = to.y;
