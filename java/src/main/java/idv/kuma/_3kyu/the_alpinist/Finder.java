@@ -89,25 +89,22 @@ public class Finder {
     }
 
     private static boolean[][] makeAllFalseArrays(int n) {
-        boolean[][] two_d_booleans = new boolean[n][n];
+        boolean[][] booleans = new boolean[n][n];
         for (int i = 0; i < n; i++) {
-            two_d_booleans[i] = new boolean[n];
+            booleans[i] = new boolean[n];
         }
-        return two_d_booleans;
+        return booleans;
     }
 
     private static Point findShortest() {
 
 
-        Point point = queue.stream()
+        return queue.stream()
                 .reduce((a, b) ->
                         shortestRounds[a.x][a.y] < shortestRounds[b.x][b.y]
                                 ? a
                                 : b
                 ).get();
-
-
-        return point;
     }
 
     static void updateValueFor(int n, Point from, Point to) {
