@@ -1,4 +1,4 @@
-package idv.kuma._4kyu.paht_finder_1_can_you_reach_the_exit;
+package idv.kuma._4kyu.path_finder_1_can_you_reach_the_exit;
 
 import java.awt.*;
 import java.util.Queue;
