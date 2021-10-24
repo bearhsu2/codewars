@@ -13,9 +13,8 @@ public class RailFenceCipher {
 
         int index = 0;
         int direction = 1;
-        for (int i = 0; i < chars.length; i++) {
+        for (char aChar : chars) {
 
-            char aChar = chars[i];
             shards[index] += aChar;
 
             index += direction;
