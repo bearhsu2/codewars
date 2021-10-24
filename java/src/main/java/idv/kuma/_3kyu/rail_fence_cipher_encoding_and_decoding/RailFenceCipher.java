@@ -35,7 +35,7 @@ public class RailFenceCipher {
         }
 
         // Your code here
-        return Arrays.stream(shards).collect(Collectors.joining());
+        return String.join("", shards);
     }
 
     static String decode(String s, int n) {
