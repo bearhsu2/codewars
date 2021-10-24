@@ -1,4 +1,4 @@
-package idv.kuma._3kyu.the_alpinist;
+package idv.kuma._3kyu.path_finder_3_the_alpinist;
 
 import org.junit.Test;
 
