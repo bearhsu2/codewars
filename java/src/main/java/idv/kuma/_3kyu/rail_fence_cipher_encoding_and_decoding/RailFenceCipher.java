@@ -1,7 +1,6 @@
 package idv.kuma._3kyu.rail_fence_cipher_encoding_and_decoding;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class RailFenceCipher {
 
@@ -41,6 +40,23 @@ public class RailFenceCipher {
     static String decode(String s, int n) {
         // Your code here
         char[] chars = s.toCharArray();
+        Map<Integer, Integer> encodedToOriginalIndex = doEncodedToOriginalIndexMapping(n, chars);
+
+        char[] decodesChars = doDecoding(s, chars, encodedToOriginalIndex);
+
+        return String.valueOf(decodesChars);
+    }
+
+    private static char[] doDecoding(String s, char[] chars, Map<Integer, Integer> encodedToOriginalIndex) {
+        char[] decodesChars = new char[chars.length];
+        for (int i = 0; i < chars.length; i++) {
+            int originalIndex = encodedToOriginalIndex.get(i);
+            decodesChars[originalIndex] = s.charAt(i);
+        }
+        return decodesChars;
+    }
+
+    private static Map<Integer, Integer> doEncodedToOriginalIndexMapping(int n, char[] chars) {
         List<Integer>[] originalIndicesArray = new List[n];
         for (int i = 0; i < n; i++) {
             originalIndicesArray[i] = new ArrayList<>();
@@ -75,15 +91,6 @@ public class RailFenceCipher {
                 encodedIndex++;
             }
         }
-
-        char[] decodesChars = new char[chars.length];
-        for (int i = 0; i < chars.length; i++) {
-            int originalIndex = encodedToOriginalIndex.get(i);
-            decodesChars[originalIndex] = s.charAt(i);
-        }
-
-
-
-        return String.valueOf(decodesChars);
+        return encodedToOriginalIndex;
     }
 }
